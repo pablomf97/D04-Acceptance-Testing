@@ -375,7 +375,7 @@
 		<property name="position" ref="position1c1" />
 		<property name="copyCurricula" ref="curricula1copy" />
 	</bean>
-	
+
 	<bean id="application2h1" class="domain.Application">
 		<property name="applicationMoment" value="08/12/2018 10:00" />
 		<property name="status" value="PENDING" />
@@ -383,7 +383,7 @@
 		<property name="hacker" ref="hacker1" />
 		<property name="position" ref="position2c1" />
 	</bean>
-	
+
 	<bean id="application3h1" class="domain.Application">
 		<property name="applicationMoment" value="08/12/2018 10:00" />
 		<property name="status" value="PENDING" />
@@ -391,7 +391,7 @@
 		<property name="hacker" ref="hacker1" />
 		<property name="position" ref="position1c2" />
 	</bean>
-	
+
 	<bean id="application4h1" class="domain.Application">
 		<property name="applicationMoment" value="12/10/2018 14:00" />
 		<property name="explanation" value="This is my application" />
@@ -483,7 +483,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="curricula7copy" class="domain.Curricula">
 		<property name="isCopy" value="true" />
 		<property name="hacker" ref="hacker1" />
@@ -676,7 +676,7 @@
 		<property name="startDate" value="05/01/2015 10:00" />
 		<property name="endDate" value="05/02/2015 10:00" />
 	</bean>
-	
+
 	<bean id="educationData7copy" class="domain.EducationData">
 		<property name="degree" value="Ing. Informatico de todo" />
 		<property name="institution" value="Udemy" />
@@ -758,7 +758,7 @@
 		<property name="statement" value="Statement of personalData 7" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
-	
+
 	<bean id="personalData7copy" class="domain.PersonalData">
 		<property name="githubProfile" value="https://github.com/" />
 		<property name="linkedIn" value="https://es.linkedin.com/" />
@@ -839,7 +839,7 @@
 		<property name="startDate" value="05/01/2015 10:00" />
 		<property name="endDate" value="05/02/2015 10:00" />
 	</bean>
-	
+
 	<bean id="positionData7copy" class="domain.PositionData">
 		<property name="title" value="Title of position data 7" />
 		<property name="description" value="Dia" />
@@ -958,7 +958,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="position4c1" class="domain.Position">
 		<property name="title" value="Position 4 of company 1" />
 		<property name="description" value="Your position" />
@@ -1021,10 +1021,11 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="position3c2" class="domain.Position">
 		<property name="title" value="Position 3 of company 2" />
-		<property name="description" value="The position position you'll never get out off" />
+		<property name="description"
+			value="The position position you'll never get out off" />
 		<property name="deadline" value="20/04/2020 19:48" />
 		<property name="profileRequired" value="Master in problems of Google" />
 		<property name="technologiesRequired" value="A++ in DT" />
@@ -1162,20 +1163,20 @@
 	<!-- SYSTEM CONFIGURATION -->
 
 	<bean id="sysConf" class="domain.SystemConfiguration">
-		<property name="systemName" value="Acme MadrugÃ¡" />
+		<property name="systemName" value="Acme Rookie" />
 		<property name="welcomeMessage">
 			<util:map id="utilmap0" map-class="java.util.HashMap"
 				key-type="java.lang.String" value-type="java.lang.String">
 				<entry key="Español"
-					value="Â¡Bienvenidos a Acme MadrugÃ¡! Tu sitio para organizar procesiones." />
+					value="¡Bienvenidos a Acme Rookie! ¡Somos el mercado de trabajo favorito de los profesionales de las TICs!" />
 				<entry key="English"
-					value="Welcome to Acme MadrugÃ¡, the site to organise your parades." />
+					value="Welcome to Acme Rookie! We're IT hacker’s favourite job marketplace!" />
 			</util:map>
 		</property>
 		<property name="breachNotification">
 			<util:map id="utilmap10" map-class="java.util.HashMap"
 				key-type="java.lang.String" value-type="java.lang.String">
-				<entry key="EspaÃ±ol" value="" />
+				<entry key="Español" value="" />
 				<entry key="English" value="" />
 			</util:map>
 		</property>

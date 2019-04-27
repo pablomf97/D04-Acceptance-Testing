@@ -15,7 +15,8 @@
 			<display:table class="displaytag" name="applications"
 				requestURI="application/listCompany.do" id="app">
 
-				<display:column titleKey="application.applicationMoment" sortable="true">
+				<display:column titleKey="application.applicationMoment"
+					sortable="true">
 					<jstl:out value="${app.applicationMoment}" />
 				</display:column>
 
@@ -27,7 +28,7 @@
 				<spring:message code="application.submitted" var="message2" />
 				<spring:message code="application.not.accepted" var="message3" />
 				<spring:message code="application.accepted" var="message4" />
-				
+
 				<display:column titleKey="application.status" sortable="true">
 					<jstl:choose>
 						<jstl:when test="${app.status == 'PENDING'}">
@@ -44,38 +45,50 @@
 						</jstl:otherwise>
 					</jstl:choose>
 				</display:column>
-				
+
 				<display:column>
-					<a href="problem/display.do?Id=${app.problem.id}"> <jstl:out value="${app.problem.title}" />
+					<a href="problem/display.do?Id=${app.problem.id}"> <jstl:out
+							value="${app.problem.title}" />
 					</a>
 				</display:column>
-				
+
+				<display:column titleKey="application.applicant">
+					<a href="hacker/display.do?id=${app.hacker.id}"> <jstl:out
+							value="${app.hacker.name}" /> <jstl:out
+							value="${app.hacker.surname}" />
+					</a>
+				</display:column>
+
 				<display:column titleKey="application.submitMoment">
 					<jstl:if test="${app.status != 'PENDING'}">
 						<jstl:out value="${app.submitMoment}" />
 					</jstl:if>
 				</display:column>
-				
+
 				<display:column>
 					<a href="application/display.do?applicationId=${app.id}"> <spring:message
 							code="application.display" />
 					</a>
 				</display:column>
-				
+
 				<display:column>
 					<jstl:if test="${app.status == 'SUBMITTED'}">
-						<a id="edit" href="application/company/action.do?action=accept&applicationId=${app.id}"> <spring:message
-								code="application.accept" /></a>
+						<a id="edit"
+							href="application/company/action.do?action=accept&applicationId=${app.id}">
+							<spring:message code="application.accept" />
+						</a>
 					</jstl:if>
 				</display:column>
-				
+
 				<display:column>
 					<jstl:if test="${app.status == 'SUBMITTED'}">
-						<a id="edit" href="application/company/action.do?action=reject&applicationId=${app.id}"> <spring:message
-								code="application.reject" /></a>
+						<a id="edit"
+							href="application/company/action.do?action=reject&applicationId=${app.id}">
+							<spring:message code="application.reject" />
+						</a>
 					</jstl:if>
 				</display:column>
-				
+
 			</display:table>
 		</jstl:when>
 		<jstl:otherwise>

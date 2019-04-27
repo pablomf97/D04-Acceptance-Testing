@@ -19,7 +19,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-
 <div>
 	<a href="#"><img src="${banner}" alt="Acme-Hacker-Rank Co., Inc."
 		style="margin-bottom: 0.5em;" /></a>
@@ -34,14 +33,6 @@
 				href="administrator/administrator/register.do"><spring:message
 						code="master.page.register.admin" /></a></li>
 
-			<li><a class="fNiv"><spring:message
-						code="master.page.administrator" /></a>
-				<ul>
-					<li class="arrow"></li>
-
-					<li><a href="administrator/action-2.do"><spring:message
-								code="master.page.administrator.action.2" /></a></li>
-				</ul></li>
 		</security:authorize>
 
 		<security:authorize access="isAnonymous()">
