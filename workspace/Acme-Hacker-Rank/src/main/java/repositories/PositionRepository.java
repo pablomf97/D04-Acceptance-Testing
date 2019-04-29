@@ -20,14 +20,14 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 	@Query("select AVG(p.salary) from Position p")
 	Double AVGSalaryPositions();
 
-	@Query("select STDDEV(p.salary) from Position p")
+	@Query("select STDDEV(p.salary) from Position p") 
 	Double STDDEVSalaryPositions();
-	@Query("select p.title from Position p where p.salary=( select max(p.salary) from Position p)")
+	@Query(nativeQuery=true,value="select p.title from Position p where p.salary=( select max(p.salary) from Position p)ORDER BY p.id  DESC LIMIT 1")
 	String bestPositionSalary();
-	@Query("select p.title from Position p where p.salary=( select min(p.salary) from Position p)")
+	@Query(nativeQuery=true,value="select p.title from Position p where p.salary=( select min(p.salary) from Position p)ORDER BY p.id  DESC LIMIT 1")
 	String worstPositionSalary();
 
-	@Query("select max(p.company.commercialName) from Position p")
+	@Query(nativeQuery=true,value="select max(p.company.commercialName) from Position p ORDER BY p.id  DESC LIMIT 1")
 	String companyWithMorePositions();
 
 	@Query("select max(1.0*(select count(p) from Position p where p.company.id = c.id)) from Company c")
