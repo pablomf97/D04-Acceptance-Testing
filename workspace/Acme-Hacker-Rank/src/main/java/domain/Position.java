@@ -1,4 +1,3 @@
-
 package domain;
 
 import java.util.Collection;
@@ -24,20 +23,20 @@ public class Position extends DomainEntity {
 
 	// Attributes
 
-	private String				title;
-	private String				description;
-	private Date				deadline;
-	private String				profileRequired;
-	private String				technologiesRequired;
-	private Double				salary;
-	private String				ticker;
-	private String				skillsRequired;
-	private Company				company;
-	private Boolean				isDraft;
-	private Boolean				isCancelled;
+	private String title;
+	private String description;
+	private Date deadline;
+	private String profileRequired;
+	private String technologiesRequired;
+	private Double salary;
+	private String ticker;
+	private String skillsRequired;
+	private Company company;
+	private Boolean isDraft;
+	private Boolean isCancelled;
+	private Sponsorship sponsorship;
 
-	private Collection<Problem>	problems;
-
+	private Collection<Problem> problems;
 
 	// Getters and setters
 
@@ -97,8 +96,7 @@ public class Position extends DomainEntity {
 		this.salary = salary;
 	}
 
-
-	//@Pattern(regexp = "\\[A-Z]{4}-d{4}")
+	// @Pattern(regexp = "\\[A-Z]{4}-d{4}")
 	public String getTicker() {
 		return this.ticker;
 	}
@@ -152,6 +150,16 @@ public class Position extends DomainEntity {
 
 	public void setProblems(final Collection<Problem> problems) {
 		this.problems = problems;
+	}
+
+	@Valid
+	@ManyToMany
+	public Sponsorship getSponsorship() {
+		return sponsorship;
+	}
+
+	public void setSponsorship(Sponsorship sponsorship) {
+		this.sponsorship = sponsorship;
 	}
 
 }
