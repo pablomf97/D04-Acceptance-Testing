@@ -38,9 +38,15 @@
 
 		<!-- Company messages -->
 		<value>/views/company/messages</value>
-		
+
 		<!-- Application messages -->
 		<value>/views/application/messages</value>
+
+		<!-- Providers messages -->
+		<value>/views/provider/messages</value>
+
+		<!-- Providers messages -->
+		<value>/views/auditor/messages</value>
 
 	</util:list>
 

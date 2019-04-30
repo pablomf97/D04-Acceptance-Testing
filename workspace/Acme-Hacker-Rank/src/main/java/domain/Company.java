@@ -5,18 +5,19 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Company extends Actor{
+public class Company extends Actor {
 
-	//Attributes
-	
+	// Attributes
+
 	private String commercialName;
+	private Double score;
 
-	
-	//Getters and setters
-	
+	// Getters and setters
+
 	@NotBlank
 	public String getCommercialName() {
 		return commercialName;
@@ -25,9 +26,14 @@ public class Company extends Actor{
 	public void setCommercialName(String commercialName) {
 		this.commercialName = commercialName;
 	}
-	
-	
-	
-	
-	
+
+	@Range(min = 0, max = 1)
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
+	}
+
 }

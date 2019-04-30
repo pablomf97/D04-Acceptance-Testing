@@ -24,7 +24,7 @@ public class Audit extends DomainEntity {
 	private Date moment;
 	private String text;
 	private Integer score;
-	private Auditors auditor;
+	private Auditor auditor;
 	private Position position;
 
 	/* Getters & Setters */
@@ -61,11 +61,11 @@ public class Audit extends DomainEntity {
 
 	@Valid
 	@ManyToOne(optional = true)
-	public Auditors getAuditor() {
+	public Auditor getAuditor() {
 		return auditor;
 	}
 
-	public void setAuditor(Auditors auditor) {
+	public void setAuditor(Auditor auditor) {
 		this.auditor = auditor;
 	}
 

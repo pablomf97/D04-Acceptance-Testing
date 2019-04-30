@@ -8,6 +8,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -34,7 +35,7 @@ public class Position extends DomainEntity {
 	private Company company;
 	private Boolean isDraft;
 	private Boolean isCancelled;
-	private Sponsorship sponsorship;
+	private Collection<Sponsorship> sponsorship;
 
 	private Collection<Problem> problems;
 
@@ -153,12 +154,12 @@ public class Position extends DomainEntity {
 	}
 
 	@Valid
-	@ManyToMany
-	public Sponsorship getSponsorship() {
+	@OneToMany
+	public Collection<Sponsorship> getSponsorship() {
 		return sponsorship;
 	}
 
-	public void setSponsorship(Sponsorship sponsorship) {
+	public void setSponsorship(Collection<Sponsorship> sponsorship) {
 		this.sponsorship = sponsorship;
 	}
 

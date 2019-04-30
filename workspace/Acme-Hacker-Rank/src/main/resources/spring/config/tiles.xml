@@ -39,9 +39,15 @@
 
 		<!-- Company views -->
 		<value>/views/company/tiles.xml</value>
-		
+
 		<!-- Applications views -->
 		<value>/views/application/tiles.xml</value>
+
+		<!-- Provider views -->
+		<value>/views/provider/tiles.xml</value>
+
+		<!-- Auditor views -->
+		<value>/views/auditor/tiles.xml</value>
 
 	</util:list>
 

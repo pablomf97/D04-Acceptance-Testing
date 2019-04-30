@@ -10,15 +10,15 @@ import org.hibernate.validator.constraints.NotBlank;
 @Access(AccessType.PROPERTY)
 public class Provider extends Actor {
 
-	private String make;
+	private String providerMake;
 
 	@NotBlank
-	public String getMake() {
-		return make;
+	public String getProviderMake() {
+		return providerMake;
 	}
 
-	public void setMake(String make) {
-		this.make = make;
+	public void setProviderMake(String providerMake) {
+		this.providerMake = providerMake;
 	}
 
 }

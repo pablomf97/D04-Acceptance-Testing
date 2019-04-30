@@ -55,6 +55,10 @@
 								code="master.page.register.company" /></a></li>
 					<li><a href="hacker/hacker/register.do"><spring:message
 								code="master.page.register.hacker" /></a></li>
+					<li><a href="auditor/auditor/register.do"><spring:message
+								code="master.page.register.auditor" /></a></li>
+					<li><a href="provider/provider/register.do"><spring:message
+								code="master.page.register.provider" /></a></li>
 				</ul></li>
 
 		</security:authorize>
@@ -182,6 +186,24 @@
 						<li><a href="hacker/display.do"><spring:message
 									code="actor.view" /></a></li>
 						<li><a href="hacker/hacker/edit.do"><spring:message
+									code="master.page.actor.edit" /></a></li>
+					</security:authorize>
+
+					<security:authorize access="hasRole('PROVIDER')">
+						<li><a href="provider/export.do"><spring:message
+									code="export" /></a></li>
+						<li><a href="provider/display.do"><spring:message
+									code="actor.view" /></a></li>
+						<li><a href="provider/provider/edit.do"><spring:message
+									code="master.page.actor.edit" /></a></li>
+					</security:authorize>
+
+					<security:authorize access="hasRole('AUDITOR')">
+						<li><a href="auditor/export.do"><spring:message
+									code="export" /></a></li>
+						<li><a href="auditor/display.do"><spring:message
+									code="actor.view" /></a></li>
+						<li><a href="auditor/auditor/edit.do"><spring:message
 									code="master.page.actor.edit" /></a></li>
 					</security:authorize>
 

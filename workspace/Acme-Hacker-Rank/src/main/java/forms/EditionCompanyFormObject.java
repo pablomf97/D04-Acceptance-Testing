@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
 import domain.Company;
+import domain.Provider;
 
 public class EditionCompanyFormObject {
 
@@ -61,6 +62,27 @@ public class EditionCompanyFormObject {
 		this.expirationMonth = company.getCreditCard().getExpirationMonth();
 		this.expirationYear = company.getCreditCard().getExpirationYear();
 		this.CVV = company.getCreditCard().getCVV();
+	}
+
+	public EditionCompanyFormObject(Provider provider) {
+		this.id = provider.getId();
+		this.version = provider.getVersion();
+		this.username = provider.getUserAccount().getUsername();
+		this.password = provider.getUserAccount().getPassword();
+		this.name = provider.getName();
+		this.surname = provider.getSurname();
+		this.VAT = provider.getVAT();
+		this.photo = provider.getPhoto();
+		this.email = provider.getEmail();
+		this.phoneNumber = provider.getPhoneNumber();
+		this.address = provider.getAddress();
+		this.commercialName = provider.getProviderMake();
+		this.holder = provider.getCreditCard().getHolder();
+		this.make = provider.getCreditCard().getMake();
+		this.number = provider.getCreditCard().getNumber();
+		this.expirationMonth = provider.getCreditCard().getExpirationMonth();
+		this.expirationYear = provider.getCreditCard().getExpirationYear();
+		this.CVV = provider.getCreditCard().getCVV();
 	}
 
 	public int getId() {

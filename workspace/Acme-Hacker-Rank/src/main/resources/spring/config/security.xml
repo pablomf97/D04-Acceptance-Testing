@@ -53,11 +53,6 @@
 		<security:intercept-url pattern="/sysconfig/administrator/**"
 			access="hasRole('ADMIN')" />
 
-		<security:intercept-url pattern="/customer/action-1.do"
-			access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/customer/action-2.do"
-			access="hasRole('CUSTOMER')" />
-
 		<security:intercept-url pattern="/problem/**"
 			access="hasRole('COMPANY')" />
 
@@ -80,7 +75,13 @@
 			access="isAnonymous()" />
 		<security:intercept-url pattern="/company/company/register.do"
 			access="isAnonymous()" />
-			
+		<security:intercept-url pattern="/provider/provider/register.do"
+			access="isAnonymous()" />
+		<security:intercept-url pattern="/auditor/auditor/register.do"
+			access="isAnonymous()" />
+		<security:intercept-url pattern="/auditor/auditor/edit.do"
+			access="hasRole('AUDITOR')" />
+
 		<security:intercept-url pattern="/application/edit.do"
 			access="hasRole('HACKER')" />
 		<security:intercept-url pattern="/application/create.do"
@@ -90,7 +91,7 @@
 		<security:intercept-url pattern="/application/listCompany.do"
 			access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/application/display.do"
-			access="hasAnyRole('HACKER','COMPANY')" />	
+			access="hasAnyRole('HACKER','COMPANY')" />
 
 		<security:intercept-url pattern="/position/display.do"
 			access="permitAll" />
