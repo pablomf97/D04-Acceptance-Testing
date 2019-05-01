@@ -35,7 +35,7 @@ public class Position extends DomainEntity {
 	private Company company;
 	private Boolean isDraft;
 	private Boolean isCancelled;
-	private Collection<Sponsorship> sponsorship;
+	private Collection<Sponsorship> sponsorships;
 
 	private Collection<Problem> problems;
 
@@ -155,12 +155,12 @@ public class Position extends DomainEntity {
 
 	@Valid
 	@OneToMany
-	public Collection<Sponsorship> getSponsorship() {
-		return sponsorship;
+	public Collection<Sponsorship> getSponsorships() {
+		return sponsorships;
 	}
 
-	public void setSponsorship(Collection<Sponsorship> sponsorship) {
-		this.sponsorship = sponsorship;
+	public void setSponsorships(Collection<Sponsorship> sponsorships) {
+		this.sponsorships = sponsorships;
 	}
 
 }

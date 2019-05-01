@@ -27,7 +27,8 @@ public class SystemConfiguration extends DomainEntity {
 	private int					timeResultsCached;
 	private int					maxResults;
 	private Map<String, String>	breachNotification;
-	
+	private Double				VATTax;
+	private Boolean 			alreadyRebranded;
 
 
 	/* Getters&Setters */
@@ -96,6 +97,22 @@ public class SystemConfiguration extends DomainEntity {
 
 	public void setMaxResults(final int maxResults) {
 		this.maxResults = maxResults;
+	}
+	//{Digits(3,2), Range(0,1)}
+	public Double getVATTax() {
+		return VATTax;
+	}
+
+	public void setVATTax(Double vATTax) {
+		VATTax = vATTax;
+	}
+
+	public Boolean getAlreadyRebranded() {
+		return alreadyRebranded;
+	}
+
+	public void setAlreadyRebranded(Boolean alreadyRebranded) {
+		this.alreadyRebranded = alreadyRebranded;
 	}
 
 
