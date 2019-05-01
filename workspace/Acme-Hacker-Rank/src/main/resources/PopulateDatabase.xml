@@ -424,6 +424,7 @@
 		<property name="address" value="C/ Debajo de tu cama, xd" />
 		<property name="creditCard" ref="creditCard8" />
 		<property name="commercialName" value="Gustavos S.A." />
+		<property name="score" value="0.2" />
 		<property name="userAccount" ref="userCompany1" />
 	</bean>
 
@@ -438,6 +439,7 @@
 		<property name="address" value="C/ AsunciÃ³n, 0" />
 		<property name="creditCard" ref="creditCard9" />
 		<property name="commercialName" value="Google" />
+		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userCompany2" />
 	</bean>
 	<bean id="company3" class="domain.Company">
@@ -450,6 +452,7 @@
 		<property name="phoneNumber" value="+34611987654" />
 		<property name="address" value="Los Ãngeles" />
 		<property name="creditCard" ref="creditCard10" />
+		<property name="score" value="1.0" />
 		<property name="commercialName" value="Disney" />
 		<property name="userAccount" ref="userCompany3" />
 	</bean>
