@@ -1,3 +1,4 @@
+
 package services;
 
 import java.security.SecureRandom;
@@ -34,30 +35,31 @@ public class ApplicationService {
 	// Managed repository ------------------------------------
 
 	@Autowired
-	private ApplicationRepository applicationRepository;
+	private ApplicationRepository		applicationRepository;
 
 	// Supporting services -----------------------------------
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService				actorService;
 
 	@Autowired
-	private CurriculaService curriculaService;
+	private CurriculaService			curriculaService;
 
 	@Autowired
-	private PersonalDataService personalDataService;
+	private PersonalDataService			personalDataService;
 
 	@Autowired
-	private EducationDataService educationDataService;
+	private EducationDataService		educationDataService;
 
 	@Autowired
-	private MiscellaneousDataService miscellaneousDataService;
+	private MiscellaneousDataService	miscellaneousDataService;
 
 	@Autowired
-	private PositionDataService positionDataService;
+	private PositionDataService			positionDataService;
 
 	@Autowired
-	private Validator validator;
+	private Validator					validator;
+
 
 	// Simple CRUD methods -----------------------------------
 
@@ -66,8 +68,7 @@ public class ApplicationService {
 		Application result;
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"),
-				"not.allowed");
+		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"), "not.allowed");
 
 		result = new Application();
 
@@ -106,107 +107,80 @@ public class ApplicationService {
 
 		if (this.actorService.checkAuthority(principal, "HACKER")) {
 
-			Assert.isTrue(application.getHacker().equals((Hacker) principal));
+			Assert.isTrue(application.getHacker().equals(principal));
 			Assert.isTrue(application.getStatus().equalsIgnoreCase("PENDING"));
 
 			if (application.getId() == 0) {
 
-				Collection<Application> alreadyApplied = this
-						.findApplicationsNotRejectedByHackerId(principal.getId());
-				for (Application app : alreadyApplied) {
-					Assert.isTrue(
-							!application.getPosition()
-									.equals(app.getPosition()),
-							"already.applied");
-				}
+				final Collection<Application> alreadyApplied = this.findApplicationsNotRejectedByHackerId(principal.getId());
+				for (final Application app : alreadyApplied)
+					Assert.isTrue(!application.getPosition().equals(app.getPosition()), "already.applied");
 
 			} else {
 
-				Assert.isTrue(!this.findOne(application.getId()).getStatus()
-						.equals("ACCEPTED"));
-				Assert.isTrue(!this.findOne(application.getId()).getStatus()
-						.equals("REJECTED"));
+				Assert.isTrue(!this.findOne(application.getId()).getStatus().equals("ACCEPTED"));
+				Assert.isTrue(!this.findOne(application.getId()).getStatus().equals("REJECTED"));
 				Assert.notNull(application.getExplanation());
 				Assert.notNull(application.getLinkCode());
 				Assert.notNull(application.getCopyCurricula());
 
-				application.setSubmitMoment(new Date(
-						System.currentTimeMillis() - 1));
+				application.setSubmitMoment(new Date(System.currentTimeMillis() - 1));
 				application.setStatus("SUBMITTED");
 
-				Assert.isTrue(application.getApplicationMoment().before(
-						application.getSubmitMoment()));
+				Assert.isTrue(application.getApplicationMoment().before(application.getSubmitMoment()));
 
 				Curricula curriculaCopy = this.curriculaService.createCopy();
 
 				try {
-					PersonalData personalDataCopy = this.personalDataService
-							.createCopy();
-					personalDataCopy = application.getCopyCurricula()
-							.getPersonalData().clone();
-					personalDataCopy = this.personalDataService
-							.saveCopy(personalDataCopy);
+					PersonalData personalDataCopy = this.personalDataService.createCopy();
+					personalDataCopy = application.getCopyCurricula().getPersonalData().clone();
+					personalDataCopy = this.personalDataService.saveCopy(personalDataCopy);
 
 					curriculaCopy.setPersonalData(personalDataCopy);
 
-					if (!application.getCopyCurricula().getEducationData()
-							.isEmpty()) {
+					if (!application.getCopyCurricula().getEducationData().isEmpty()) {
 
-						Collection<EducationData> auxEdCopy = new ArrayList<>(
-								application.getCopyCurricula()
-										.getEducationData());
-						Collection<EducationData> educationCopy = new ArrayList<EducationData>();
+						final Collection<EducationData> auxEdCopy = new ArrayList<>(application.getCopyCurricula().getEducationData());
+						final Collection<EducationData> educationCopy = new ArrayList<EducationData>();
 
-						for (EducationData edData : auxEdCopy) {
-							EducationData educationDataCopy = this.educationDataService
-									.createCopy();
+						for (final EducationData edData : auxEdCopy) {
+							EducationData educationDataCopy = this.educationDataService.createCopy();
 							educationDataCopy = edData.clone();
-							educationDataCopy = this.educationDataService
-									.saveCopy(educationDataCopy);
+							educationDataCopy = this.educationDataService.saveCopy(educationDataCopy);
 							educationCopy.add(educationDataCopy);
 						}
 						curriculaCopy.setEducationData(educationCopy);
 					}
 
-					if (!application.getCopyCurricula().getMiscellaneousData()
-							.isEmpty()) {
+					if (!application.getCopyCurricula().getMiscellaneousData().isEmpty()) {
 
-						Collection<MiscellaneousData> auxMiscCopy = new ArrayList<>(
-								application.getCopyCurricula()
-										.getMiscellaneousData());
-						Collection<MiscellaneousData> miscellaneousCopy = new ArrayList<MiscellaneousData>();
+						final Collection<MiscellaneousData> auxMiscCopy = new ArrayList<>(application.getCopyCurricula().getMiscellaneousData());
+						final Collection<MiscellaneousData> miscellaneousCopy = new ArrayList<MiscellaneousData>();
 
-						for (MiscellaneousData miscData : auxMiscCopy) {
-							MiscellaneousData miscellaneousDataCopy = this.miscellaneousDataService
-									.createCopy();
+						for (final MiscellaneousData miscData : auxMiscCopy) {
+							MiscellaneousData miscellaneousDataCopy = this.miscellaneousDataService.createCopy();
 							miscellaneousDataCopy = miscData.clone();
-							miscellaneousDataCopy = this.miscellaneousDataService
-									.saveCopy(miscellaneousDataCopy);
+							miscellaneousDataCopy = this.miscellaneousDataService.saveCopy(miscellaneousDataCopy);
 							miscellaneousCopy.add(miscellaneousDataCopy);
 						}
 						curriculaCopy.setMiscellaneousData(miscellaneousCopy);
 					}
 
-					if (!application.getCopyCurricula().getPositionData()
-							.isEmpty()) {
+					if (!application.getCopyCurricula().getPositionData().isEmpty()) {
 
-						Collection<PositionData> auxPosCopy = new ArrayList<>(
-								application.getCopyCurricula()
-										.getPositionData());
-						Collection<PositionData> positionCopy = new ArrayList<PositionData>();
+						final Collection<PositionData> auxPosCopy = new ArrayList<>(application.getCopyCurricula().getPositionData());
+						final Collection<PositionData> positionCopy = new ArrayList<PositionData>();
 
-						for (PositionData posData : auxPosCopy) {
-							PositionData positionDataCopy = this.positionDataService
-									.createCopy();
+						for (final PositionData posData : auxPosCopy) {
+							PositionData positionDataCopy = this.positionDataService.createCopy();
 							positionDataCopy = posData.clone();
-							positionDataCopy = this.positionDataService
-									.saveCopy(positionDataCopy);
+							positionDataCopy = this.positionDataService.saveCopy(positionDataCopy);
 							positionCopy.add(positionDataCopy);
 						}
 						curriculaCopy.setPositionData(positionCopy);
 					}
 
-				} catch (CloneNotSupportedException e) {
+				} catch (final CloneNotSupportedException e) {
 					e.printStackTrace();
 				}
 				curriculaCopy = this.curriculaService.save(curriculaCopy);
@@ -215,14 +189,11 @@ public class ApplicationService {
 			}
 
 		} else if (this.actorService.checkAuthority(principal, "COMPANY")) {
-			
-			Assert.isTrue(!application.getStatus()
-					.equals("PENDING"));
-			Assert.isTrue(!application.getStatus()
-					.equals("SUBMITTED"));
 
-			Assert.isTrue(application.getPosition().getCompany()
-					.equals((Company) principal));
+			Assert.isTrue(!application.getStatus().equals("PENDING"));
+			Assert.isTrue(!application.getStatus().equals("SUBMITTED"));
+
+			Assert.isTrue(application.getPosition().getCompany().equals(principal));
 
 			Assert.isTrue(application.getId() != 0);
 			Assert.notNull(application.getExplanation());
@@ -244,8 +215,7 @@ public class ApplicationService {
 		Assert.isTrue(application.getId() != 0, "wrong.id");
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"),
-				"not.allowed");
+		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"), "not.allowed");
 
 		Assert.isTrue(application.getHacker().equals(principal), "not.allowed");
 
@@ -255,8 +225,7 @@ public class ApplicationService {
 
 	// Other business methods -------------------------------
 
-	public Application reconstruct(final Application application,
-			final BindingResult binding) {
+	public Application reconstruct(final Application application, final BindingResult binding) {
 		Application result;
 
 		if (application.getId() == 0) {
@@ -268,22 +237,20 @@ public class ApplicationService {
 			result = this.findOne(application.getId());
 
 			try {
-				Assert.isTrue(!application.getExplanation().isEmpty(),
-						"explanation.needed");
-			} catch (Exception e) {
+				Assert.isTrue(!application.getExplanation().isEmpty(), "explanation.needed");
+			} catch (final Exception e) {
 				binding.rejectValue("explanation", "explanation.needed");
 			}
 
 			try {
-				Assert.isTrue(!application.getLinkCode().isEmpty(),
-						"link.needed");
-			} catch (Exception e) {
+				Assert.isTrue(!application.getLinkCode().isEmpty(), "link.needed");
+			} catch (final Exception e) {
 				binding.rejectValue("linkCode", "link.needed");
 			}
 
 			try {
 				Assert.notNull(application.getCopyCurricula());
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				binding.rejectValue("copyCurricula", "curricula.needed");
 			}
 
@@ -297,43 +264,38 @@ public class ApplicationService {
 		return result;
 	}
 
-	public Collection<Application> findApplicationsByHackerId(int hackerId) {
+	public Collection<Application> findApplicationsByHackerId(final int hackerId) {
 		Collection<Application> applications;
 
-		applications = this.applicationRepository
-				.findApplicationsByHackerId(hackerId);
+		applications = this.applicationRepository.findApplicationsByHackerId(hackerId);
 
 		return applications;
 	}
 
-	public Collection<Application> findApplicationsNotRejectedByHackerId(
-			int hackerId) {
+	public Collection<Application> findApplicationsNotRejectedByHackerId(final int hackerId) {
 		Collection<Application> applications;
 
-		applications = this.applicationRepository
-				.findApplicationsNotRejectedByHackerId(hackerId);
+		applications = this.applicationRepository.findApplicationsNotRejectedByHackerId(hackerId);
 
 		return applications;
 	}
 
-	public Collection<Application> findApplicationsByCompanyId(int companyId) {
+	public Collection<Application> findApplicationsByCompanyId(final int companyId) {
 		Collection<Application> applications;
 
-		applications = this.applicationRepository
-				.findApplicationsByCompanyId(companyId);
+		applications = this.applicationRepository.findApplicationsByCompanyId(companyId);
 
 		return applications;
 	}
 
-	public Problem selectProblem(Collection<Problem> problems) {
+	public Problem selectProblem(final Collection<Problem> problems) {
 		Problem result;
 		final SecureRandom rnd = new SecureRandom();
-		List<Problem> listProblems = new ArrayList<>(problems);
+		final List<Problem> listProblems = new ArrayList<>(problems);
 
 		Integer a = (rnd.nextInt() % 10);
-		while (a < 0 || a > (problems.size() - 1)) {
+		while (a < 0 || a > (problems.size() - 1))
 			a = (rnd.nextInt() % 10);
-		}
 
 		result = listProblems.get(a);
 
@@ -347,15 +309,13 @@ public class ApplicationService {
 
 	public Collection<Application> findByProblem(final Problem problem) {
 		Assert.notNull(problem);
-		final Collection<Application> res = this.applicationRepository
-				.findByProblem(problem.getId());
+		final Collection<Application> res = this.applicationRepository.findByProblem(problem.getId());
 		return res;
 	}
 
 	public Collection<Application> findByPosition(final Position position) {
 		Assert.notNull(position);
-		final Collection<Application> res = this.applicationRepository
-				.findByPosition(position.getId());
+		final Collection<Application> res = this.applicationRepository.findByPosition(position.getId());
 		return res;
 	}
 
@@ -381,15 +341,19 @@ public class ApplicationService {
 
 	protected void deleteApp(final Hacker hacker) {
 		Collection<Application> apps;
-		apps = this.applicationRepository.findApplicationPerHacker(hacker
-				.getId());
+		apps = this.applicationRepository.findApplicationPerHacker(hacker.getId());
 
 		this.applicationRepository.deleteInBatch(apps);
 
 	}
 
-	public void deleteAppPerPos(Application app) {
+	public void deleteAppPerPos(final Application app) {
 		this.applicationRepository.delete(app);
 	}
-
+	public void rejectedByCompany(final Company company) {
+		Assert.isTrue(this.actorService.findByPrincipal().equals(company));
+		final Collection<Application> applys = this.applicationRepository.findApplicationsNotRejectedByCompanyId(company.getId());
+		for (final Application a : applys)
+			a.setStatus("REJECTED");
+	}
 }

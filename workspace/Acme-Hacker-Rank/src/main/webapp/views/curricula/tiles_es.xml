@@ -18,5 +18,10 @@
 		<put-attribute name="title" value="Mostrar curriculum" />
 		<put-attribute name="body" value="/views/curricula/display.jsp" />
 	</definition>
+	
+	<definition name="curricula/edit" extends="master.page">
+		<put-attribute name="title" value="Guardar curriculum" />
+		<put-attribute name="body" value="/views/curricula/edit.jsp" />
+	</definition>
 
 </tiles-definitions>

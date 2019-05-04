@@ -61,8 +61,8 @@
 				</security:authorize>
 				<security:authorize access="hasRole('HACKER')">
 					<li class="arrow"></li>
-					<li><a href="finder/hacker/search.do"><spring:message
-								code="master.page.finder" /></a></li>
+					<li><a href="position/listAll.do"><spring:message
+								code="master.page.position.list.all" /></a></li>
 
 				</security:authorize>
 				<security:authorize access="hasRole('COMPANY')">
@@ -164,10 +164,11 @@
 									code="master.page.actor.edit" /></a></li>
 					</security:authorize>
 
-					<li><a href="finder/hacker/search.do"><spring:message
-								code="master.page.finder" /></a></li>
+
 
 					<security:authorize access="hasRole('HACKER')">
+						<li><a href="finder/hacker/search.do"><spring:message
+									code="master.page.finder" /></a></li>
 						<li><a href="hacker/export.do"><spring:message
 									code="export" /></a></li>
 						<li><a href="hacker/display.do"><spring:message

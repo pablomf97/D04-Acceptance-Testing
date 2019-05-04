@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import security.Authority;
 import security.UserAccount;
 import domain.Actor;
 import domain.CreditCard;
+import domain.Finder;
 import domain.Hacker;
 import forms.EditionFormObject;
 import forms.RegisterFormObject;
@@ -29,30 +31,31 @@ public class HackerService {
 	/* Working repository */
 
 	@Autowired
-	private HackerRepository hackerRepository;
+	private HackerRepository			hackerRepository;
 
 	/* Services */
 
 	@Autowired
-	private SystemConfigurationService systemConfigurationService;
+	private SystemConfigurationService	systemConfigurationService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService				actorService;
 
 	@Autowired
-	private CreditCardService creditCardService;
+	private CreditCardService			creditCardService;
 
 	@Autowired
-	private UtilityService utilityService;
+	private UtilityService				utilityService;
 
 	@Autowired
-	private FinderService finderService;
+	private FinderService				finderService;
 
 	@Autowired
-	private CurriculaService curriculaService;
+	private CurriculaService			curriculaService;
 
 	@Autowired
-	private ApplicationService applicationService;
+	private ApplicationService			applicationService;
+
 
 	/* Simple CRUD methods */
 
@@ -80,7 +83,7 @@ public class HackerService {
 		return res;
 	}
 
-	public Hacker findOne(Integer hackerId) {
+	public Hacker findOne(final Integer hackerId) {
 		Hacker res;
 
 		Assert.notNull(hackerId);
@@ -101,7 +104,7 @@ public class HackerService {
 	 * 
 	 * @return Hacker
 	 */
-	public Hacker save(Hacker hacker) {
+	public Hacker save(final Hacker hacker) {
 		Hacker res;
 		Hacker principal;
 
@@ -110,57 +113,50 @@ public class HackerService {
 		if (hacker.getId() == 0) {
 
 			/* Managing phone number */
-			char[] phoneArray = hacker.getPhoneNumber().toCharArray();
-			if ((!hacker.getPhoneNumber().equals(null) && !hacker
-					.getPhoneNumber().equals(""))) {
+			final char[] phoneArray = hacker.getPhoneNumber().toCharArray();
+			if ((!hacker.getPhoneNumber().equals(null) && !hacker.getPhoneNumber().equals("")))
 				if (phoneArray[0] != '+' && Character.isDigit(phoneArray[0])) {
-					String cc = this.systemConfigurationService
-							.findMySystemConfiguration().getCountryCode();
+					final String cc = this.systemConfigurationService.findMySystemConfiguration().getCountryCode();
 					hacker.setPhoneNumber(cc + " " + hacker.getPhoneNumber());
 				}
-			}
 
 			/* Managing email */
-			String email = hacker.getEmail();
-			Assert.isTrue(
-					this.actorService.checkEmail(email, hacker.getUserAccount()
-							.getAuthorities().iterator().next().toString()),
-					"actor.email.error");
+			final String email = hacker.getEmail();
+			Assert.isTrue(this.actorService.checkEmail(email, hacker.getUserAccount().getAuthorities().iterator().next().toString()), "actor.email.error");
 
 			/* Managing photo */
-			Assert.isTrue(ResourceUtils.isUrl(hacker.getPhoto()),
-					"actor.photo.error");
+			Assert.isTrue(ResourceUtils.isUrl(hacker.getPhoto()), "actor.photo.error");
+
 		} else {
 			principal = (Hacker) this.actorService.findByPrincipal();
 			Assert.isTrue(principal.getId() == hacker.getId(), "no.permission");
 
 			/* Managing email */
-			String email = hacker.getEmail();
-			Assert.isTrue(
-					this.actorService.checkEmail(email, hacker.getUserAccount()
-							.getAuthorities().iterator().next().toString()),
-					"actor.email.error");
+			final String email = hacker.getEmail();
+			Assert.isTrue(this.actorService.checkEmail(email, hacker.getUserAccount().getAuthorities().iterator().next().toString()), "actor.email.error");
 
 			/* Managing phone number */
-			char[] phoneArray = hacker.getPhoneNumber().toCharArray();
-			if ((!hacker.getPhoneNumber().equals(null) && !hacker
-					.getPhoneNumber().equals(""))) {
+			final char[] phoneArray = hacker.getPhoneNumber().toCharArray();
+			if ((!hacker.getPhoneNumber().equals(null) && !hacker.getPhoneNumber().equals("")))
 				if (phoneArray[0] != '+' && Character.isDigit(phoneArray[0])) {
-					String cc = this.systemConfigurationService
-							.findMySystemConfiguration().getCountryCode();
+					final String cc = this.systemConfigurationService.findMySystemConfiguration().getCountryCode();
 					hacker.setPhoneNumber(cc + " " + hacker.getPhoneNumber());
 				}
-			}
 
 			hacker.setUserAccount(principal.getUserAccount());
 
-			if (principal.getFinder() != null) {
+			if (principal.getFinder() != null)
 				hacker.setFinder(principal.getFinder());
-			}
-		}
 
+		}
 		res = this.hackerRepository.save(hacker);
+
 		return res;
+	}
+	public void saveFinder(final Hacker hack, final Finder f) {
+		hack.setFinder(f);
+		this.hackerRepository.save(hack);
+
 	}
 
 	/* Other methods */
@@ -172,9 +168,9 @@ public class HackerService {
 	 * 
 	 * @return Hacker
 	 */
-	public Hacker reconstruct(EditionFormObject form, BindingResult binding) {
+	public Hacker reconstruct(final EditionFormObject form, final BindingResult binding) {
 
-		Hacker res = this.create();
+		final Hacker res = this.create();
 
 		res.setId(form.getId());
 		res.setVersion(form.getVersion());
@@ -187,7 +183,7 @@ public class HackerService {
 		res.setAddress(form.getAddress());
 
 		/* Creating credit card */
-		CreditCard creditCard = new CreditCard();
+		final CreditCard creditCard = new CreditCard();
 
 		creditCard.setHolder(form.getHolder());
 		creditCard.setMake(form.getMake());
@@ -199,58 +195,43 @@ public class HackerService {
 		res.setCreditCard(creditCard);
 
 		/* VAT */
-		if (form.getVAT() != null) {
+		if (form.getVAT() != null)
 			try {
-				Assert.isTrue(this.utilityService.checkVAT(form.getVAT()),
-						"VAT.error");
-			} catch (Throwable oops) {
+				Assert.isTrue(this.utilityService.checkVAT(form.getVAT()), "VAT.error");
+			} catch (final Throwable oops) {
 				binding.rejectValue("VAT", "VAT.error");
 			}
-		}
 
 		/* Credit card */
-		if (form.getNumber() != null) {
+		if (form.getNumber() != null)
 			try {
-				Assert.isTrue(this.creditCardService
-						.checkCreditCardNumber(creditCard.getNumber()),
-						"card.number.error");
-			} catch (Throwable oops) {
+				Assert.isTrue(this.creditCardService.checkCreditCardNumber(creditCard.getNumber()), "card.number.error");
+			} catch (final Throwable oops) {
 				binding.rejectValue("number", "number.error");
 			}
-		}
 
-		if (creditCard.getExpirationMonth() != null
-				&& creditCard.getExpirationYear() != null) {
+		if (creditCard.getExpirationMonth() != null && creditCard.getExpirationYear() != null) {
 
 			try {
-				Assert.isTrue(
-						!this.creditCardService.checkIfExpired(
-								creditCard.getExpirationMonth(),
-								creditCard.getExpirationYear()),
-						"card.date.error");
-			} catch (Throwable oops) {
+				Assert.isTrue(!this.creditCardService.checkIfExpired(creditCard.getExpirationMonth(), creditCard.getExpirationYear()), "card.date.error");
+			} catch (final Throwable oops) {
 				binding.rejectValue("expirationMonth", "card.date.error");
 			}
 
-			if (form.getCVV() != null) {
+			if (form.getCVV() != null)
 				try {
-					Assert.isTrue(form.getCVV() < 999 && form.getCVV() > 100,
-							"CVV.error");
-				} catch (Throwable oops) {
+					Assert.isTrue(form.getCVV() < 999 && form.getCVV() > 100, "CVV.error");
+				} catch (final Throwable oops) {
 					binding.rejectValue("CVV", "CVV.error");
 				}
-			}
 		}
 
-		if (form.getEmail() != null) {
+		if (form.getEmail() != null)
 			try {
-				Assert.isTrue(
-						this.actorService.checkEmail(form.getEmail(), "HACKER"),
-						"actor.email.error");
-			} catch (Throwable oops) {
+				Assert.isTrue(this.actorService.checkEmail(form.getEmail(), "HACKER"), "actor.email.error");
+			} catch (final Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-		}
 
 		return res;
 	}
@@ -262,10 +243,10 @@ public class HackerService {
 	 * 
 	 * @return Hacker
 	 */
-	public Hacker reconstruct(RegisterFormObject form, BindingResult binding) {
+	public Hacker reconstruct(final RegisterFormObject form, final BindingResult binding) {
 
 		/* Creating hacker */
-		Hacker res = this.create();
+		final Hacker res = this.create();
 
 		res.setName(form.getName());
 		res.setSurname(form.getSurname());
@@ -276,7 +257,7 @@ public class HackerService {
 		res.setAddress(form.getAddress());
 
 		/* Creating credit card */
-		CreditCard creditCard = new CreditCard();
+		final CreditCard creditCard = new CreditCard();
 
 		creditCard.setHolder(form.getHolder());
 		creditCard.setMake(form.getMake());
@@ -288,10 +269,10 @@ public class HackerService {
 		res.setCreditCard(creditCard);
 
 		/* Creating user account */
-		UserAccount userAccount = new UserAccount();
+		final UserAccount userAccount = new UserAccount();
 
-		List<Authority> authorities = new ArrayList<Authority>();
-		Authority authority = new Authority();
+		final List<Authority> authorities = new ArrayList<Authority>();
+		final Authority authority = new Authority();
 		authority.setAuthority(Authority.HACKER);
 		authorities.add(authority);
 		userAccount.setAuthorities(authorities);
@@ -300,84 +281,64 @@ public class HackerService {
 
 		Md5PasswordEncoder encoder;
 		encoder = new Md5PasswordEncoder();
-		userAccount
-				.setPassword(encoder.encodePassword(form.getPassword(), null));
+		userAccount.setPassword(encoder.encodePassword(form.getPassword(), null));
 
 		res.setUserAccount(userAccount);
 
 		/* VAT */
-		if (form.getVAT() != null) {
+		if (form.getVAT() != null)
 			try {
-				Assert.isTrue(this.utilityService.checkVAT(form.getVAT()),
-						"VAT.error");
-			} catch (Throwable oops) {
+				Assert.isTrue(this.utilityService.checkVAT(form.getVAT()), "VAT.error");
+			} catch (final Throwable oops) {
 				binding.rejectValue("VAT", "VAT.error");
 			}
-		}
 
 		/* Password confirmation */
-		if (form.getPassword() != null) {
+		if (form.getPassword() != null)
 			try {
-				Assert.isTrue(
-						form.getPassword().equals(form.getPassConfirmation()),
-						"pass.confirm.error");
-			} catch (Throwable oops) {
+				Assert.isTrue(form.getPassword().equals(form.getPassConfirmation()), "pass.confirm.error");
+			} catch (final Throwable oops) {
 				binding.rejectValue("password", "pass.confirm.error");
 			}
-		}
 
 		/* Terms&Conditions */
-		if (form.getTermsAndConditions() != null) {
+		if (form.getTermsAndConditions() != null)
 			try {
 				Assert.isTrue((form.getTermsAndConditions()), "terms.error");
-			} catch (Throwable oops) {
+			} catch (final Throwable oops) {
 				binding.rejectValue("termsAndConditions", "terms.error");
 			}
-		}
 
 		/* Credit card */
-		if (form.getNumber() != null) {
+		if (form.getNumber() != null)
 			try {
-				Assert.isTrue(this.creditCardService
-						.checkCreditCardNumber(creditCard.getNumber()),
-						"card.number.error");
-			} catch (Throwable oops) {
+				Assert.isTrue(this.creditCardService.checkCreditCardNumber(creditCard.getNumber()), "card.number.error");
+			} catch (final Throwable oops) {
 				binding.rejectValue("number", "number.error");
 			}
-		}
 
-		if (creditCard.getExpirationMonth() != null
-				&& creditCard.getExpirationYear() != null) {
+		if (creditCard.getExpirationMonth() != null && creditCard.getExpirationYear() != null) {
 
 			try {
-				Assert.isTrue(
-						!this.creditCardService.checkIfExpired(
-								creditCard.getExpirationMonth(),
-								creditCard.getExpirationYear()),
-						"card.date.error");
-			} catch (Throwable oops) {
+				Assert.isTrue(!this.creditCardService.checkIfExpired(creditCard.getExpirationMonth(), creditCard.getExpirationYear()), "card.date.error");
+			} catch (final Throwable oops) {
 				binding.rejectValue("expirationMonth", "card.date.error");
 			}
 
-			if (form.getCVV() != null) {
+			if (form.getCVV() != null)
 				try {
-					Assert.isTrue(form.getCVV() < 999 && form.getCVV() > 100,
-							"CVV.error");
-				} catch (Throwable oops) {
+					Assert.isTrue(form.getCVV() < 999 && form.getCVV() > 100, "CVV.error");
+				} catch (final Throwable oops) {
 					binding.rejectValue("CVV", "CVV.error");
 				}
-			}
 		}
 
-		if (form.getEmail() != null) {
+		if (form.getEmail() != null)
 			try {
-				Assert.isTrue(
-						this.actorService.checkEmail(form.getEmail(), "HACKER"),
-						"actor.email.error");
-			} catch (Throwable oops) {
+				Assert.isTrue(this.actorService.checkEmail(form.getEmail(), "HACKER"), "actor.email.error");
+			} catch (final Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-		}
 
 		return res;
 	}
@@ -385,9 +346,8 @@ public class HackerService {
 	public String hackerWithMoreApplications() {
 
 		String res = this.hackerRepository.hackerWithMoreApplications();
-		if (res == null) {
+		if (res == null)
 			res = "";
-		}
 		return res;
 
 	}
@@ -396,12 +356,12 @@ public class HackerService {
 		this.hackerRepository.flush();
 	}
 
-	public Hacker findByUsername(String username) {
+	public Hacker findByUsername(final String username) {
 		return this.hackerRepository.findByUsername(username);
 
 	}
 
-	public void delete(Hacker hacker) {
+	public void delete(final Hacker hacker) {
 		Actor principal;
 
 		Assert.notNull(hacker);
