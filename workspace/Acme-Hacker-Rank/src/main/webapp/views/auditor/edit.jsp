@@ -244,7 +244,7 @@
 		<input type="submit" name="save"
 			value="<spring:message code="form.save" />" />
 
-		<input type="submit" name="deleteHacker"
+		<input type="submit" name="deleteAuditor"
 			value="<spring:message code="actor.delete"/>"
 			onclick="return confirm('<spring:message code="actor.confirm.delete"/>')" />
 

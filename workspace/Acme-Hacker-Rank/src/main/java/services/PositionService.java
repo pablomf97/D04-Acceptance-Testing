@@ -42,6 +42,13 @@ public class PositionService {
 
 	@Autowired
 	private Validator			validator;
+	
+	@Autowired
+	private AuditService auditService;
+	
+	
+	@Autowired
+	private SponsorshipService sponsorshipService;
 
 
 	public Position create(final Actor actor) {
@@ -308,11 +315,19 @@ public class PositionService {
 	public void DeletePositionPerCompany(final Company c) {
 
 		final Collection<Position> positions = this.findByOwner(c);
-
-		for (final Position p : positions)
-			for (final Application app : this.applicationService.findByPosition(p))
+		
+		for (final Position p : positions){
+			for (final Application app : this.applicationService.findByPosition(p)){
+				
 				this.applicationService.deleteAppPerPos(app);
+			}
+			this.sponsorshipService.deleteSponsorshipPerCompany(p);
+		}
 		this.positionRepository.deleteInBatch(positions);
+	}
+	
+	public Double[] statsSponsorshipsPerPosition(){
+		return this.positionRepository.statsSponsorshipsPerPosition();
 	}
 
 }

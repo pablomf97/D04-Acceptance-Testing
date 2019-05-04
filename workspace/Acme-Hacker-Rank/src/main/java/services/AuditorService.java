@@ -17,6 +17,7 @@ import repositories.AuditorRepository;
 import security.Authority;
 import security.UserAccount;
 import domain.Actor;
+import domain.Audit;
 import domain.Auditor;
 import domain.CreditCard;
 import forms.EditionFormObject;
@@ -44,6 +45,9 @@ public class AuditorService {
 
 	@Autowired
 	private UtilityService utilityService;
+	
+	@Autowired
+	private AuditService auditService;
 
 	/* Simple CRUD methods */
 
@@ -383,7 +387,8 @@ public class AuditorService {
 		principal = this.actorService.findByPrincipal();
 
 		Assert.isTrue(principal.getId() == auditor.getId(), "no.permission");
-
+		Collection <Audit> cols=this.auditService.auditsPerAuditor(auditor.getId());
+		this.auditService.deleteAuditsPerAuditor(cols);
 		this.auditorRepository.delete(auditor);
 	}
 }

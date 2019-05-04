@@ -19,7 +19,9 @@ import security.Authority;
 import security.UserAccount;
 import domain.Actor;
 import domain.CreditCard;
+import domain.Item;
 import domain.Provider;
+import domain.Sponsorship;
 import forms.EditionCompanyFormObject;
 import forms.RegisterCompanyFormObject;
 
@@ -45,7 +47,13 @@ public class ProviderService {
 
 	@Autowired
 	private UtilityService utilityService;
-
+	
+	@Autowired
+	private ItemService itemService;
+	
+	@Autowired
+	private SponsorshipService sponsorshipService;
+	
 	/* Simple CRUD methods */
 
 	public Provider create() {
@@ -387,8 +395,32 @@ public class ProviderService {
 		principal = this.actorService.findByPrincipal();
 
 		Assert.isTrue(principal.getId() == provider.getId(), "no.permission");
-
+		
+		Collection<Item> col=this.itemService.itemsPerProvider(provider.getId());
+		
+		this.itemService.deleteItemsPerProvider(col);
+		
+		Collection<Sponsorship> spos=this.sponsorshipService.sponsorshipsPerProvider(provider.getId());
+		this.sponsorshipService.deleteSponsorshipsPerProvider(spos);
+		
 		this.providerRepository.delete(provider);
 	}
+	public Double []statsItemsPerProvider(){
+		return this.providerRepository.statsItemsPerProvider();
+	}
+	
+	public Double[] statsSponsorshipsPerProvider(){
+		return this.providerRepository.statsSponsorshipsPerProvider();
+	}
+	public Collection<String> top5ProvidersWithItems(){
+		
+				List<String> col= (List<String>) this.providerRepository.top5ProvidersWithItems();
+				return col.subList(0,5);
+	}
+	
+	public Collection<String> Percentage10AVGSponsorshipPerProvider(){
 
+		return this.providerRepository.Percentage10AVGSponsorshipPerProvider();
+	}
+	
 }

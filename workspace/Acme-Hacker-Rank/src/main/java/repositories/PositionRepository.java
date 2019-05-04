@@ -22,12 +22,12 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 
 	@Query("select STDDEV(p.salary) from Position p")
 	Double STDDEVSalaryPositions();
-	@Query("select p.title from Position p where p.salary=( select max(p.salary) from Position p)")
+	@Query(nativeQuery=true,value="select p.title from Position p where p.salary=( select max(p.salary) from Position p)ORDER BY p.id  DESC LIMIT 1")
 	String bestPositionSalary();
-	@Query("select p.title from Position p where p.salary=( select min(p.salary) from Position p)")
+	@Query(nativeQuery=true,value="select p.title from Position p where p.salary=( select min(p.salary) from Position p)ORDER BY p.id  DESC LIMIT 1")
 	String worstPositionSalary();
 
-	@Query("select max(p.company.commercialName) from Position p")
+	@Query("select max(p.company.commercialName) from Position p ORDER BY p.id")
 	String companyWithMorePositions();
 
 	@Query("select max(1.0*(select count(p) from Position p where p.company.id = c.id)) from Company c")
@@ -57,4 +57,11 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 	@Query("select p from Application a join a.position p where a.hacker.id = ?1 and a.status != 'REJECTED'")
 	Collection<Position> findAllAppliedPositionsByHackerId(int hackerId);
 
+	@Query("select max(p.sponsorships.size), min(p.sponsorships.size), avg(p.sponsorships.size), stddev(p.sponsorships.size) from Position p")
+	Double[] statsSponsorshipsPerPosition();
+	
+	//select max(1.0*(select avg(a.score) from Audit a where a.position = p)) from Position p;
+	//The average salary offered by the positions that have the highest average audit score
+	//select avg(p.salary) from Position p order by  max(1.0*(select avg(a.score) from Audit a where a.position = p));
+	//select p.salary/count(p),max(1.0*(select avg(a.score) from Audit a where a.position = p)) from Position p;
 }

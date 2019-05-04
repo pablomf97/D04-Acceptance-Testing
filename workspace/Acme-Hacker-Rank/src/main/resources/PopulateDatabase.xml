@@ -213,6 +213,28 @@
 			</list>
 		</property>
 	</bean>
+		<bean id="userProvider5" class="security.UserAccount">
+		<property name="username" value="provider5" />
+		<property name="password" value="bd19ee25be71cfc77f532c4b26b4a54e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PROVIDER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+		<bean id="userProvider6" class="security.UserAccount">
+		<property name="username" value="provider6" />
+		<property name="password" value="85202849e05dc23e4b80f2af8be3650c" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PROVIDER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 	<!-- ADMINISTRATOR -->
 
 	<bean id="administrator1" class="domain.Administrator">
@@ -314,7 +336,7 @@
 		<property name="phoneNumber" value="+34611987654" />
 		<property name="address" value="C/ Puente 545 (Sevilla)" />
 		<property name="creditCard" ref="creditCard16" />
-		<property name="providerMake" value="Make1" />
+		<property name="providerMake" value="Make2" />
 		<property name="userAccount" ref="userProvider2" />
 	</bean>
 	<bean id="provider3" class="domain.Provider">
@@ -327,7 +349,7 @@
 		<property name="phoneNumber" value="+34611987654" />
 		<property name="address" value="C/ Puente 545 (Sevilla)" />
 		<property name="creditCard" ref="creditCard17" />
-		<property name="providerMake" value="Make1" />
+		<property name="providerMake" value="Make3" />
 		<property name="userAccount" ref="userProvider3" />
 	</bean>
 	<bean id="provider4" class="domain.Provider">
@@ -340,8 +362,34 @@
 		<property name="phoneNumber" value="+34611987654" />
 		<property name="address" value="C/ Puente 545 (Sevilla)" />
 		<property name="creditCard" ref="creditCard18" />
-		<property name="providerMake" value="Make1" />
+		<property name="providerMake" value="Make4" />
 		<property name="userAccount" ref="userProvider4" />
+	</bean>
+		<bean id="provider5" class="domain.Provider">
+		<property name="name" value="Pepe" />
+		<property name="surname" value="Botella" />
+		<property name="VAT" value="ES34567091" />
+		<property name="photo"
+			value="https://acns.com/ll%2Ccs_srgb%2Cfl_progressive%2Cg_faces:center%2Cq_auto:good%2Cw_768/MTI3OTA2NzM5Mjk0MDk1Mzcw/binary-code-greenjpg.jpg" />
+		<property name="email" value="alramirez@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="C/ Puente 545 (Sevilla)" />
+		<property name="creditCard" ref="creditCard24" />
+		<property name="providerMake" value="Make5" />
+		<property name="userAccount" ref="userProvider5" />
+	</bean>
+		<bean id="provider6" class="domain.Provider">
+		<property name="name" value="Paco" />
+		<property name="surname" value="Botella" />
+		<property name="VAT" value="ES34567091" />
+		<property name="photo"
+			value="https://acns.com/ll%2Ccs_srgb%2Cfl_progressive%2Cg_faces:center%2Cq_auto:good%2Cw_768/MTI3OTA2NzM5Mjk0MDk1Mzcw/binary-code-greenjpg.jpg" />
+		<property name="email" value="alramirez@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="C/ Puente 545 (Sevilla)" />
+		<property name="creditCard" ref="creditCard25" />
+		<property name="providerMake" value="Make6" />
+		<property name="userAccount" ref="userProvider6" />
 	</bean>
 	<!-- HACKERS -->
 
@@ -655,6 +703,22 @@
 	</bean>
 	<bean id="creditCard23" class="domain.CreditCard">
 		<property name="holder" value="Pepe Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="4786794542649160" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+		<bean id="creditCard24" class="domain.CreditCard">
+		<property name="holder" value="Pepito Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="4786794542649160" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+		<bean id="creditCard25" class="domain.CreditCard">
+		<property name="holder" value="Rodolfo Conde" />
 		<property name="make" value="AMERICAN EXPRESS" />
 		<property name="number" value="4786794542649160" />
 		<property name="expirationMonth" value="07" />
@@ -1264,7 +1328,7 @@
 		<property name="banner"
 			value="https://www.eff.org/files/banner_library/google-spy-eye.png" />
 		<property name="target" value="target default" />
-		<property name="provider" ref="provider4" />
+		<property name="provider" ref="provider5" />
 		<property name="creditCard" ref="creditCard22" />
 	</bean>
 	<bean id="sponsorship5" class="domain.Sponsorship">
@@ -1289,7 +1353,7 @@
 		<property name="name" value="Item 2" />
 		<property name="description" value="Item default" />
 		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
-		<property name="provider" ref="provider1" />
+		<property name="provider" ref="provider4" />
 
 	</bean>
 	<bean id="item3" class="domain.Item">
@@ -1297,7 +1361,7 @@
 		<property name="name" value="Item 3" />
 		<property name="description" value="Item default" />
 		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
-		<property name="provider" ref="provider1" />
+		<property name="provider" ref="provider5" />
 
 	</bean>
 	<bean id="item4" class="domain.Item">
