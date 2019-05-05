@@ -39,13 +39,6 @@
 				<br />
 
 				<div>
-					<strong><spring:message code="actor.surname" />: </strong>
-					<jstl:out value="${admin.surname}" />
-				</div>
-
-				<br />
-
-				<div>
 					<strong><spring:message code="actor.email" />: </strong>
 					<jstl:out value="${admin.email}" />
 				</div>
