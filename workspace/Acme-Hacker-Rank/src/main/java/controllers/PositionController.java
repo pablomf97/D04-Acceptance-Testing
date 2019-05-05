@@ -220,6 +220,7 @@ public class PositionController extends AbstractController {
 	public ModelAndView displayPosition(@RequestParam final int Id) {
 		ModelAndView result;
 		Position position;
+		String banner;
 		try {
 			result = new ModelAndView("position/display");
 			try {
@@ -229,7 +230,9 @@ public class PositionController extends AbstractController {
 			} catch (final Throwable opps) {
 			}
 			position = this.positionService.findOne(Id);
+			banner = this.positionService.randomBanner(position.getSponsorships());
 			result.addObject(position);
+			result.addObject("posBanner", banner);
 		} catch (final Throwable opps) {
 			result = new ModelAndView("redirect:list.do");
 			result.addObject("messageCode", "position.commit.error");

@@ -117,7 +117,7 @@
 
       	</form>
 		
-		<br><br>
+		<br>
 	<jstl:if test="${not empty positions}">
 		<display:table name="positions" id="row"
 		requestURI="finder/hacker/list.do" pagesize="10" class="displaytag">

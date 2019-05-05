@@ -53,6 +53,9 @@
 
 		<bean class="converters.ProblemToStringConverter" />
 		<bean class="converters.StringToProblemConverter" />
+		
+		<bean class="converters.SponsorshipToStringConverter" />
+		<bean class="converters.StringToSponsorshipConverter" />
 
 		<bean class="converters.SystemConfigurationToStringConverter" />
 		<bean class="converters.StringToSystemConfigurationConverter" />

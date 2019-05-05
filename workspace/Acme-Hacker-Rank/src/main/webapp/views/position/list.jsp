@@ -64,6 +64,16 @@
 		</a>
 	</display:column>
 	
+	 <security:authorize access="hasRole('PROVIDER')">
+		
+		
+	<display:column>
+			<a href="sponsorship/create.do?positionId=${row.id}"> <spring:message
+					code="position.sponsor" />
+			</a>
+	</display:column>
+	</security:authorize>
+	
 	<display:column>
 		<jstl:if
 			test="${row.isDraft eq true and row.company.userAccount.username == name}">

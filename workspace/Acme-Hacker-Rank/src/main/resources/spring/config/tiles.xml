@@ -45,6 +45,7 @@
 
 		<!-- Provider views -->
 		<value>/views/provider/tiles.xml</value>
+		<value>/views/sponsorship/tiles.xml</value>
 
 		<!-- Auditor views -->
 		<value>/views/auditor/tiles.xml</value>

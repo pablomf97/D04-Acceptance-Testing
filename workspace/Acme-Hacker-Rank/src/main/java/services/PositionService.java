@@ -1,9 +1,11 @@
 
 package services;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import javax.transaction.Transactional;
@@ -20,6 +22,7 @@ import domain.Application;
 import domain.Company;
 import domain.Position;
 import domain.Problem;
+import domain.Sponsorship;
 
 @Transactional
 @Service
@@ -328,6 +331,21 @@ public class PositionService {
 	
 	public Double[] statsSponsorshipsPerPosition(){
 		return this.positionRepository.statsSponsorshipsPerPosition();
+	}
+	
+	public String randomBanner(Collection<Sponsorship> sponsorships) {
+		String result;
+		final SecureRandom rnd = new SecureRandom();
+		List<Sponsorship> listSponsoships = new ArrayList<>(sponsorships);
+
+		Integer a = (rnd.nextInt() % 10);
+		while (a < 0 || a > (sponsorships.size() - 1)) {
+			a = (rnd.nextInt() % 10);
+		}
+
+		result = listSponsoships.get(a).getBanner();
+
+		return result;
 	}
 
 }

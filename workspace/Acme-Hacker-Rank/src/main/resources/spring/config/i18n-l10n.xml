@@ -44,6 +44,7 @@
 
 		<!-- Providers messages -->
 		<value>/views/provider/messages</value>
+		<value>/views/sponsorship/messages</value>
 
 		<!-- Providers messages -->
 		<value>/views/auditor/messages</value>

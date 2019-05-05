@@ -104,6 +104,13 @@
 
 				</ul></li>
 		</security:authorize>
+		
+		<security:authorize access="hasRole('PROVIDER')">
+
+			<li><a class="fNiv" href="sponsorship/list.do"><spring:message
+					code="master.page.sponsorship" /></a></li>
+
+		</security:authorize>
 
 
 		<li><a class="fNiv" href="company/list.do"><spring:message
@@ -215,21 +222,25 @@
 
 </div>
 
-<div>
-	<a href="?language=en">en</a> | <a href="?language=es">es</a>
+<div style="float:right; ">
+	<a href="?language=en"><img style="width: 20px; height: 15px" src="http://www.ahb.es/m/100150RES.jpg"
+				alt="EN"></a> <span>|</span> 
+				
+	<a href="?language=es"><img style="width: 20px; height: 15px;" src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png"
+				alt="ES"></a>
 </div>
 
 <security:authorize access="isAuthenticated()">
-	<jstl:if test="${pageContext.response.locale.language == 'es'}">
+	<jstl:if test="${pageContext.response.locale.language == 'es' && not empty breachNotification.get('Español')}">
 		<h2>
 			<strong style="color: red;"><jstl:out
-					value="${breachNotification.get('Español')}"></jstl:out><br /> </strong>
+					value="${breachNotification.get('Español')}"><br></jstl:out></strong>
 		</h2>
 	</jstl:if>
-	<jstl:if test="${pageContext.response.locale.language == 'en'}">
+	<jstl:if test="${pageContext.response.locale.language == 'en' && not empty breachNotification.get('English')}">
 		<h2>
 			<strong style="color: red;"> <jstl:out
-					value="${breachNotification.get('English')}"></jstl:out><br />
+					value="${breachNotification.get('English')}"><br></jstl:out>
 			</strong>
 		</h2>
 	</jstl:if>

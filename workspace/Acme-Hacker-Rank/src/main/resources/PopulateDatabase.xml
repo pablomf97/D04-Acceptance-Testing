@@ -1308,35 +1308,35 @@
 			value="https://www.eff.org/files/banner_library/google-spy-eye.png" />
 		<property name="target" value="target default" />
 		<property name="provider" ref="provider1" />
-		<property name="creditCard" ref="creditCard19" />
+		<property name="creditCard" ref="creditCard15" />
 	</bean>
 	<bean id="sponsorship2" class="domain.Sponsorship">
 		<property name="banner"
 			value="https://www.eff.org/files/banner_library/google-spy-eye.png" />
 		<property name="target" value="target default" />
 		<property name="provider" ref="provider2" />
-		<property name="creditCard" ref="creditCard20" />
+		<property name="creditCard" ref="creditCard16" />
 	</bean>
 	<bean id="sponsorship3" class="domain.Sponsorship">
 		<property name="banner"
 			value="https://www.eff.org/files/banner_library/google-spy-eye.png" />
 		<property name="target" value="target default" />
 		<property name="provider" ref="provider3" />
-		<property name="creditCard" ref="creditCard21" />
+		<property name="creditCard" ref="creditCard17" />
 	</bean>
 	<bean id="sponsorship4" class="domain.Sponsorship">
 		<property name="banner"
 			value="https://www.eff.org/files/banner_library/google-spy-eye.png" />
 		<property name="target" value="target default" />
 		<property name="provider" ref="provider5" />
-		<property name="creditCard" ref="creditCard22" />
+		<property name="creditCard" ref="creditCard24" />
 	</bean>
 	<bean id="sponsorship5" class="domain.Sponsorship">
 		<property name="banner"
 			value="https://www.eff.org/files/banner_library/google-spy-eye.png" />
 		<property name="target" value="target default" />
 		<property name="provider" ref="provider4" />
-		<property name="creditCard" ref="creditCard23" />
+		<property name="creditCard" ref="creditCard18" />
 	</bean>
 
 	<!-- ITEM -->

@@ -33,6 +33,7 @@ public class Sponsorship extends DomainEntity {
 		this.provider = provider;
 	}
 
+	@Valid
 	@NotNull
 	public CreditCard getCreditCard() {
 		return creditCard;
