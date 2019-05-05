@@ -28,6 +28,9 @@ public class SystemConfigurationService {
 	private ActorService actorService;
 
 	@Autowired
+	private UtilityService utilityService;
+
+	@Autowired
 	private Validator validator;
 
 	/* Simple CRUD methods */
@@ -38,13 +41,33 @@ public class SystemConfigurationService {
 		Assert.notNull(systemConfiguration, "null.system.configuration");
 		Actor principal;
 		SystemConfiguration result;
+		SystemConfiguration aux = this.systemConfigurationRepository
+				.findSystemConf();
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(
-				this.actorService.checkAuthority(principal, "ADMIN"),
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ADMIN"),
 				"not.allowed");
 
-		result = this.systemConfigurationRepository.save(systemConfiguration);
+		if (aux.getAlreadyRebranded()) {
+			Assert.isTrue(systemConfiguration.getAlreadyRebranded());
+			Assert.isTrue(systemConfiguration.getSystemName().equals(
+					aux.getSystemName()));
+		} else if (!systemConfiguration.getSystemName().equals(
+				aux.getSystemName())) {
+			aux.setAlreadyRebranded(true);
+			aux.setSystemName(systemConfiguration.getSystemName());
+
+		}
+
+		aux.setWelcomeMessage(systemConfiguration.getWelcomeMessage());
+		aux.setBanner(systemConfiguration.getBanner());
+		aux.setCountryCode(systemConfiguration.getCountryCode());
+		aux.setTimeResultsCached(systemConfiguration.getTimeResultsCached());
+		aux.setMaxResults(systemConfiguration.getMaxResults());
+		aux.setBreachNotification(systemConfiguration.getBreachNotification());
+		aux.setVATTax(systemConfiguration.getVATTax());
+
+		result = this.systemConfigurationRepository.save(aux);
 
 		return result;
 	}
@@ -93,34 +116,65 @@ public class SystemConfigurationService {
 
 		SystemConfiguration res = new SystemConfiguration();
 
-		Assert.isTrue(systemConfiguration.getId() == this
-				.findMySystemConfiguration().getId());
+		res.setWelcomeMessage(systemConfiguration.getWelcomeMessage());
+		res.setBreachNotification(systemConfiguration.getBreachNotification());
+		res.setSystemName(systemConfiguration.getSystemName());
+		res.setBanner(systemConfiguration.getBanner());
+		res.setCountryCode(systemConfiguration.getCountryCode());
+		res.setTimeResultsCached(systemConfiguration.getTimeResultsCached());
+		res.setMaxResults(systemConfiguration.getMaxResults());
+		res.setVATTax(systemConfiguration.getVATTax());
+		res.setAlreadyRebranded(systemConfiguration.getAlreadyRebranded());
+
 		Assert.isTrue(this.actorService.checkAuthority(
 				this.actorService.findByPrincipal(), "ADMIN"));
 
-		final SystemConfiguration bd = this.systemConfigurationRepository
-				.findOne(systemConfiguration.getId());
+		res.setWelcomeMessage(new HashMap<String, String>());
 
-		systemConfiguration.setWelcomeMessage(new HashMap<String, String>());
+		res.getWelcomeMessage().put("Español", nameES);
+		res.getWelcomeMessage().put("English", nameEN);
+		res.setBreachNotification(new HashMap<String, String>());
+		res.getBreachNotification().put("Español", nEs);
+		res.getBreachNotification().put("English", nEn);
 
-		systemConfiguration.getWelcomeMessage().put("Español", nameES);
-		systemConfiguration.getWelcomeMessage().put("English", nameEN);
-		systemConfiguration
-				.setBreachNotification(new HashMap<String, String>());
-		systemConfiguration.getBreachNotification().put("Español", nEs);
-		systemConfiguration.getBreachNotification().put("English", nEn);
+		try {
+			Assert.isTrue(!res.getSystemName().isEmpty());
+		} catch (Throwable oops) {
+			binding.rejectValue("systemName", "name.error");
+		}
 
-		bd.setWelcomeMessage(systemConfiguration.getWelcomeMessage());
-		bd.setBreachNotification(systemConfiguration.getBreachNotification());
-		bd.setSystemName(systemConfiguration.getSystemName());
-		bd.setBanner(systemConfiguration.getBanner());
-		bd.setCountryCode(systemConfiguration.getCountryCode());
-		bd.setTimeResultsCached(systemConfiguration.getTimeResultsCached());
-		bd.setMaxResults(systemConfiguration.getMaxResults());
+		try {
+			Assert.isTrue(!res.getBanner().isEmpty());
+		} catch (Throwable oops) {
+			binding.rejectValue("banner", "banner.error");
+		}
 
-		this.validator.validate(bd, binding);
+		try {
+			Assert.isTrue(this.utilityService.checkCC(res.getCountryCode()));
+		} catch (Throwable oops) {
+			binding.rejectValue("countryCode", "cc.error");
+		}
 
-		res = bd;
+		try {
+			Assert.isTrue(res.getTimeResultsCached() >= 1
+					&& res.getTimeResultsCached() <= 24);
+		} catch (Throwable oops) {
+			binding.rejectValue("timeResultsCached", "time.error");
+		}
+
+		try {
+			Assert.isTrue(res.getMaxResults() > 0 && res.getMaxResults() <= 100);
+		} catch (Throwable oops) {
+			binding.rejectValue("maxResults", "results.error");
+		}
+
+		try {
+			Assert.isTrue(res.getVATTax() > 0 && res.getVATTax() < 1);
+		} catch (Throwable oops) {
+			binding.rejectValue("VATTax", "vat.error");
+		}
+
+		this.validator.validate(res, binding);
 
 		return res;
 	}

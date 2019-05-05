@@ -1,4 +1,3 @@
-
 package domain;
 
 import java.util.Map;
@@ -7,6 +6,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -20,16 +20,15 @@ public class SystemConfiguration extends DomainEntity {
 
 	/* Attributes */
 
-	private String				systemName;
-	private Map<String, String>	welcomeMessage;
-	private String				banner;
-	private String				countryCode;
-	private int					timeResultsCached;
-	private int					maxResults;
-	private Map<String, String>	breachNotification;
-	private Double				VATTax;
-	private Boolean 			alreadyRebranded;
-
+	private String systemName;
+	private Map<String, String> welcomeMessage;
+	private String banner;
+	private String countryCode;
+	private Integer timeResultsCached;
+	private Integer maxResults;
+	private Map<String, String> breachNotification;
+	private Double VATTax;
+	private Boolean alreadyRebranded;
 
 	/* Getters&Setters */
 
@@ -38,7 +37,8 @@ public class SystemConfiguration extends DomainEntity {
 		return this.breachNotification;
 	}
 
-	public void setBreachNotification(final Map<String, String> breachNotification) {
+	public void setBreachNotification(
+			final Map<String, String> breachNotification) {
 		this.breachNotification = breachNotification;
 	}
 
@@ -82,23 +82,25 @@ public class SystemConfiguration extends DomainEntity {
 	}
 
 	@Range(min = 1, max = 24)
-	public int getTimeResultsCached() {
+	public Integer getTimeResultsCached() {
 		return this.timeResultsCached;
 	}
 
-	public void setTimeResultsCached(final int timeResultsCached) {
+	public void setTimeResultsCached(final Integer timeResultsCached) {
 		this.timeResultsCached = timeResultsCached;
 	}
 
 	@Range(min = 0, max = 100)
-	public int getMaxResults() {
+	public Integer getMaxResults() {
 		return this.maxResults;
 	}
 
-	public void setMaxResults(final int maxResults) {
+	public void setMaxResults(final Integer maxResults) {
 		this.maxResults = maxResults;
 	}
-	//{Digits(3,2), Range(0,1)}
+
+	@Digits(integer = 3, fraction = 2)
+	@Range(min = 0, max = 1)
 	public Double getVATTax() {
 		return VATTax;
 	}
@@ -114,6 +116,5 @@ public class SystemConfiguration extends DomainEntity {
 	public void setAlreadyRebranded(Boolean alreadyRebranded) {
 		this.alreadyRebranded = alreadyRebranded;
 	}
-
 
 }
