@@ -11,7 +11,7 @@
 <jstl:choose>
 	<jstl:when test="${!err}">
 		<display:table class="displayStyle" name="allCompanies" id="company"
-			requestURI="company/list.do">
+			requestURI="company/list.do" pagesize="5">
 
 			<display:column style="text-align: center;">
 				<button

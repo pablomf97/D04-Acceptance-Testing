@@ -7,6 +7,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- Listing grid -->
 
@@ -23,7 +24,7 @@
 		<jstl:out value="${row.profileRequired }"></jstl:out>
 	</display:column>
 	<display:column titleKey="position.salary" sortable="true">
-		<jstl:out value="${row.salary }"></jstl:out>
+		<fmt:formatNumber maxFractionDigits="2" value="${row.salary }" />
 	</display:column>
 	<display:column titleKey="position.ticker" sortable="true">
 		<jstl:out value="${row.ticker }"></jstl:out>
@@ -34,28 +35,44 @@
 	</display:column>
 
 	<jstl:if test="${name == row.company.userAccount.username }">
+
+		<jstl:choose>
+			<jstl:when test="${row.isDraft == true}">
+				<spring:message var="statusD" code='not.final.it.is' />
+			</jstl:when>
+			<jstl:otherwise>
+				<spring:message var="statusD" code='final.it.is' />
+			</jstl:otherwise>
+		</jstl:choose>
+
 		<display:column titleKey="position.isDraft" sortable="true">
-			<jstl:out value="${row.isDraft }"></jstl:out>
+			${statusD}
 		</display:column>
 	</jstl:if>
+
+	<jstl:choose>
+		<jstl:when test="${row.isCancelled == true}">
+			<spring:message var="status" code='cancelled.it.is' />
+		</jstl:when>
+		<jstl:otherwise>
+			<spring:message var="status" code='not.cancelled.it.is' />
+		</jstl:otherwise>
+	</jstl:choose>
+
 	<display:column titleKey="position.isCancelled" sortable="true">
-		<jstl:out value="${row.isCancelled }"></jstl:out>
+		${status}
 	</display:column>
 
-	 <security:authorize access="hasRole('COMPANY')">
-		<display:column titleKey="position.isDraft" sortable="true">
-			<jstl:out value="${row.isDraft }"></jstl:out>
+	<security:authorize access="hasRole('COMPANY')">
+		<!-- Action links -->
+		<display:column titleKey="position.edit" sortable="true">
+			<jstl:if
+				test="${row.isDraft eq true and row.company.userAccount.username == name}">
+				<a href="position/edit.do?Id=${row.id}"> <spring:message
+						code="position.edit" />
+				</a>
+			</jstl:if>
 		</display:column>
-		
-	<!-- Action links -->
-	<display:column titleKey="position.edit" sortable="true">
-		<jstl:if
-			test="${row.isDraft eq true and row.company.userAccount.username == name}">
-			<a href="position/edit.do?Id=${row.id}"> <spring:message
-					code="position.edit" />
-			</a>
-		</jstl:if>
-	</display:column>
 	</security:authorize>
 
 	<display:column>
@@ -63,7 +80,7 @@
 				code="position.display" />
 		</a>
 	</display:column>
-	
+
 	<security:authorize access="hasRole('HACKER')">
 		<display:column>
 			<a href="application/create.do?positionId=${row.id}"> <spring:message

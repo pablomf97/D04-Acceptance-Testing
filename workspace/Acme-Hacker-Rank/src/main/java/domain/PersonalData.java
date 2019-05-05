@@ -1,8 +1,10 @@
+
 package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
@@ -12,62 +14,62 @@ import org.hibernate.validator.constraints.URL;
 public class PersonalData extends DomainEntity implements Cloneable {
 
 	//Attributes
-	
-	private String githubProfile;
-	private String linkedIn;
-	private String fullName;
-	private String statement;
-	private String phoneNumber;
-	
+
+	private String	githubProfile;
+	private String	linkedIn;
+	private String	fullName;
+	private String	statement;
+	private String	phoneNumber;
+
+
 	//Getters and setters
-	
+
 	@URL
+	@Pattern(regexp = "http(s)?:\\/\\/(www\\.)?github\\.com\\/[A-z0-9_-]+\\/?")
 	public String getGithubProfile() {
-		return githubProfile;
+		return this.githubProfile;
 	}
-	public void setGithubProfile(String githubProfile) {
+	public void setGithubProfile(final String githubProfile) {
 		this.githubProfile = githubProfile;
 	}
-	
+
 	@URL
+	@Pattern(regexp = "http(s)?:\\/\\/([\\w]+\\.)?linkedin\\.com\\/in\\/[A-z0-9_-]+\\/?")
 	public String getLinkedIn() {
-		return linkedIn;
+		return this.linkedIn;
 	}
-	public void setLinkedIn(String linkedIn) {
+	public void setLinkedIn(final String linkedIn) {
 		this.linkedIn = linkedIn;
 	}
-	
+
 	@NotBlank
 	public String getFullName() {
-		return fullName;
+		return this.fullName;
 	}
-	public void setFullName(String fullName) {
+	public void setFullName(final String fullName) {
 		this.fullName = fullName;
 	}
-	
+
 	@NotBlank
 	public String getStatement() {
-		return statement;
+		return this.statement;
 	}
-	public void setStatement(String statement) {
+	public void setStatement(final String statement) {
 		this.statement = statement;
 	}
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return this.phoneNumber;
 	}
-	public void setPhoneNumber(String phoneNumber) {
+	public void setPhoneNumber(final String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
+
 	@Override
 	public PersonalData clone() throws CloneNotSupportedException {
-		PersonalData personalClone = (PersonalData) super.clone();
+		final PersonalData personalClone = (PersonalData) super.clone();
 		personalClone.setId(0);
 		personalClone.setVersion(0);
 		return personalClone;
 	}
 
-	
-	
-	
 }

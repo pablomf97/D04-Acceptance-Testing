@@ -59,7 +59,8 @@
 		<td><strong> <spring:message code="position.salary" />
 				:
 		</strong></td>
-		<td><jstl:out value="${position.salary}" /></td>
+		<td><fmt:formatNumber maxFractionDigits="2"
+				value="${position.salary }" /></td>
 	</tr>
 
 	<tr>
@@ -83,25 +84,54 @@
 		<td><jstl:out value="${position.company.commercialName}" /></td>
 	</tr>
 
+	<jstl:choose>
+		<jstl:when test="${position.isDraft == true}">
+			<spring:message var="status" code='not.final.it.is' />
+		</jstl:when>
+		<jstl:otherwise>
+			<spring:message var="status" code='final.it.is' />
+		</jstl:otherwise>
+	</jstl:choose>
+
 	<tr>
 		<td><strong> <spring:message code="position.isDraft" />
 				:
 		</strong></td>
-		<td><jstl:out value="${position.isDraft}" /></td>
+		<td>${status}</td>
 	</tr>
+
+	<jstl:choose>
+		<jstl:when test="${position.isCancelled == true}">
+			<spring:message var="status" code='cancelled.it.is' />
+		</jstl:when>
+		<jstl:otherwise>
+			<spring:message var="status" code='not.cancelled.it.is' />
+		</jstl:otherwise>
+	</jstl:choose>
+
 
 	<tr>
 		<td><strong> <spring:message code="position.isCancelled" />
 				:
 		</strong></td>
-		<td><jstl:out value="${position.isCancelled}" /></td>
+		<td>${status}</td>
 	</tr>
 
 	<jstl:if test="${name == position.company.userAccount.username}">
 		<jstl:forEach items="${position.problems}" var="pro">
+
+			<jstl:choose>
+				<jstl:when test="${position.isDraft == true}">
+					<spring:message var="status" code='not.final.it.is' />
+				</jstl:when>
+				<jstl:otherwise>
+					<spring:message var="status" code='final.it.is' />
+				</jstl:otherwise>
+			</jstl:choose>
+
 			<tr>
 				<td>${pro.title}</td>
-				<td>${pro.isDraft}</td>
+				<td>${status}</td>
 				<td>
 					<button
 						onClick="window.location.href='problem/display.do?Id=${pro.id}'">
@@ -112,19 +142,26 @@
 		</jstl:forEach>
 	</jstl:if>
 </table>
-	<jstl:if test="${posBanner != ''}">
-		<div >
-		<h3><spring:message code="position.sponsored" /></h3>
-			<img style="width: 150px; height: 150px" src="${posBanner}"
-				alt="Banner">
-		</div>
-	</jstl:if>	
+<jstl:if test="${posBanner != ''}">
+	<div>
+		<h3>
+			<spring:message code="position.sponsored" />
+		</h3>
+		<img style="width: 150px; height: 150px" src="${posBanner}"
+			alt="Banner">
+	</div>
+</jstl:if>
 
 <jstl:if test="${name == position.company.userAccount.username }">
 
 	<button
 		onClick="window.location.href='position/delete.do?Id=${position.id}'">
-		<spring:message code="position.confirm.delete" />
+		<jstl:if test="${position.isDraft == false }">
+			<spring:message code="position.cancel" />
+		</jstl:if>
+		<jstl:if test="${position.isDraft == true }">
+			<spring:message code="position.confirm.delete" />
+		</jstl:if>
 	</button>
 </jstl:if>
 <br />

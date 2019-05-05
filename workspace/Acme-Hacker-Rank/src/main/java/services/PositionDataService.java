@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -20,29 +21,23 @@ public class PositionDataService {
 
 	//Repository
 	@Autowired
-	private PositionDataRepository positionDataRepository;
+	private PositionDataRepository	positionDataRepository;
 
 	//Services
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private CurriculaService curriculaService;
+	private CurriculaService		curriculaService;
+
 
 	//Create
-	public PositionData create(){
+	public PositionData create() {
 		Hacker principal;
 		PositionData result;
-		Collection<Curricula> principalCurriculas;
 
 		principal = (Hacker) this.actorService.findByPrincipal();
-
-		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
-
-		//Checking creating a data in an own curricula
-		for(Curricula c : principalCurriculas){
-			Assert.isTrue(c.getHacker().getId() == principal.getId());
-		}
+		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
 
 		result = new PositionData();
 
@@ -50,7 +45,7 @@ public class PositionDataService {
 	}
 
 	//Save
-	public PositionData save(PositionData data,int curriculaId){
+	public PositionData save(final PositionData data, final int curriculaId) {
 		Hacker principal;
 		PositionData dataDB = new PositionData();
 		Collection<Curricula> principalCurriculas;
@@ -59,11 +54,9 @@ public class PositionDataService {
 
 		principal = (Hacker) this.actorService.findByPrincipal();
 
-
-
 		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
 
-		if(data.getId()!=0){
+		if (data.getId() != 0) {
 
 			currentCurricula = this.curriculaService.getCurriculaByPositionData(data.getId());
 
@@ -78,17 +71,15 @@ public class PositionDataService {
 			dataDB.setStartDate(data.getStartDate());
 			dataDB.setEndDate(data.getEndDate());
 
-
 			result = this.positionDataRepository.save(dataDB);
 
-		}else{
+		} else {
 			Assert.notNull(data.getTitle());
 			Assert.notNull(data.getDescription());
 			Assert.notNull(data.getStartDate());
 
-			if(!(data.getEndDate()==null)){
+			if (!(data.getEndDate() == null))
 				Assert.isTrue(data.getStartDate().before(data.getEndDate()));
-			}
 			result = this.positionDataRepository.save(data);
 
 			currentCurricula = this.curriculaService.findOne(curriculaId);
@@ -96,13 +87,12 @@ public class PositionDataService {
 			currentCurricula.getPositionData().add(data);
 		}
 
-
 		return result;
 
 	}
 
 	//Delete
-	public void delete(PositionData data){
+	public void delete(final PositionData data) {
 		Hacker principal;
 		Collection<Curricula> principalCurriculas;
 		Curricula currentCurricula;
@@ -126,26 +116,26 @@ public class PositionDataService {
 	}
 
 	//Finds
-	public PositionData findOne(int dataId){
-		PositionData result = this.positionDataRepository.findOne(dataId);
+	public PositionData findOne(final int dataId) {
+		final PositionData result = this.positionDataRepository.findOne(dataId);
 
 		return result;
 	}
 
-	public Collection<PositionData> findAll(){
-		Collection<PositionData>result = this.positionDataRepository.findAll();
+	public Collection<PositionData> findAll() {
+		final Collection<PositionData> result = this.positionDataRepository.findAll();
 
 		return result;
 	}
 
-	public void flush(){
+	public void flush() {
 		this.positionDataRepository.flush();
 	}
 
-	public void deletePosHacker(PositionData pd){
+	public void deletePosHacker(final PositionData pd) {
 		this.positionDataRepository.delete(pd);
 	}
-	public PositionData createCopy(){
+	public PositionData createCopy() {
 		Actor principal;
 		PositionData result;
 
@@ -157,7 +147,7 @@ public class PositionDataService {
 		return result;
 	}
 
-	public PositionData saveCopy(PositionData data){
+	public PositionData saveCopy(final PositionData data) {
 		Actor principal;
 		PositionData result;
 
@@ -173,5 +163,11 @@ public class PositionDataService {
 
 		return result;
 
+	}
+
+	public void checkOwnerPositionData(final Integer id) {
+		final Actor principal = this.actorService.findByPrincipal();
+		final Curricula c = this.curriculaService.getCurriculaByPositionData(id);
+		Assert.isTrue(c.getHacker().equals(principal));
 	}
 }

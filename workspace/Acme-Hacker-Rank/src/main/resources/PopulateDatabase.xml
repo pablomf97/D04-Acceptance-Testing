@@ -125,6 +125,151 @@
 			</list>
 		</property>
 	</bean>
+
+	<bean id="userCompany4" class="security.UserAccount">
+		<property name="username" value="company4" />
+		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userCompany5" class="security.UserAccount">
+		<property name="username" value="company5" />
+		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userCompany6" class="security.UserAccount">
+		<property name="username" value="company6" />
+		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userCompany7" class="security.UserAccount">
+		<property name="username" value="company7" />
+		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userCompany8" class="security.UserAccount">
+		<property name="username" value="company8" />
+		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userCompany9" class="security.UserAccount">
+		<property name="username" value="company9" />
+		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userCompany10" class="security.UserAccount">
+		<property name="username" value="company10" />
+		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userCompany11" class="security.UserAccount">
+		<property name="username" value="company11" />
+		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userCompany12" class="security.UserAccount">
+		<property name="username" value="company12" />
+		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userCompany13" class="security.UserAccount">
+		<property name="username" value="company13" />
+		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userCompany14" class="security.UserAccount">
+		<property name="username" value="company14" />
+		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userCompany15" class="security.UserAccount">
+		<property name="username" value="company15" />
+		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 	<bean id="userAuditor1" class="security.UserAccount">
 		<property name="username" value="auditor1" />
 		<property name="password" value="175d2e7a63f386554a4dd66e865c3e14" />
@@ -504,6 +649,186 @@
 		<property name="commercialName" value="Disney" />
 		<property name="userAccount" ref="userCompany3" />
 	</bean>
+
+	<bean id="company4" class="domain.Company">
+		<property name="name" value="Donald" />
+		<property name="surname" value="Pato VC" />
+		<property name="VAT" value="IT12345678" />
+		<property name="photo"
+			value="https://revistadiners.com.co/wp-content/uploads/2016/08/patodonald_800x669.jpg" />
+		<property name="email" value="gusranver@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="Los Ãngeles" />
+		<property name="creditCard" ref="creditCard26" />
+		<property name="score" value="1.0" />
+		<property name="commercialName" value="Disney" />
+		<property name="userAccount" ref="userCompany4" />
+	</bean>
+
+	<bean id="company5" class="domain.Company">
+		<property name="name" value="Donald" />
+		<property name="surname" value="Pato VC" />
+		<property name="VAT" value="IT12345678" />
+		<property name="photo"
+			value="https://revistadiners.com.co/wp-content/uploads/2016/08/patodonald_800x669.jpg" />
+		<property name="email" value="gusranver@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="Los Ãngeles" />
+		<property name="creditCard" ref="creditCard27" />
+		<property name="score" value="1.0" />
+		<property name="commercialName" value="Disney" />
+		<property name="userAccount" ref="userCompany5" />
+	</bean>
+
+	<bean id="company6" class="domain.Company">
+		<property name="name" value="Donald" />
+		<property name="surname" value="Pato VC" />
+		<property name="VAT" value="IT12345678" />
+		<property name="photo"
+			value="https://revistadiners.com.co/wp-content/uploads/2016/08/patodonald_800x669.jpg" />
+		<property name="email" value="gusranver@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="Los Ãngeles" />
+		<property name="creditCard" ref="creditCard28" />
+		<property name="score" value="1.0" />
+		<property name="commercialName" value="Disney" />
+		<property name="userAccount" ref="userCompany6" />
+	</bean>
+
+	<bean id="company7" class="domain.Company">
+		<property name="name" value="Donald" />
+		<property name="surname" value="Pato VC" />
+		<property name="VAT" value="IT12345678" />
+		<property name="photo"
+			value="https://revistadiners.com.co/wp-content/uploads/2016/08/patodonald_800x669.jpg" />
+		<property name="email" value="gusranver@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="Los Ãngeles" />
+		<property name="creditCard" ref="creditCard29" />
+		<property name="score" value="1.0" />
+		<property name="commercialName" value="Disney" />
+		<property name="userAccount" ref="userCompany7" />
+	</bean>
+
+	<bean id="company8" class="domain.Company">
+		<property name="name" value="Donald" />
+		<property name="surname" value="Pato VC" />
+		<property name="VAT" value="IT12345678" />
+		<property name="photo"
+			value="https://revistadiners.com.co/wp-content/uploads/2016/08/patodonald_800x669.jpg" />
+		<property name="email" value="gusranver@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="Los Ãngeles" />
+		<property name="creditCard" ref="creditCard30" />
+		<property name="score" value="1.0" />
+		<property name="commercialName" value="Disney" />
+		<property name="userAccount" ref="userCompany8" />
+	</bean>
+
+	<bean id="company9" class="domain.Company">
+		<property name="name" value="Donald" />
+		<property name="surname" value="Pato VC" />
+		<property name="VAT" value="IT12345678" />
+		<property name="photo"
+			value="https://revistadiners.com.co/wp-content/uploads/2016/08/patodonald_800x669.jpg" />
+		<property name="email" value="gusranver@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="Los Ãngeles" />
+		<property name="creditCard" ref="creditCard31" />
+		<property name="score" value="1.0" />
+		<property name="commercialName" value="Disney" />
+		<property name="userAccount" ref="userCompany9" />
+	</bean>
+
+	<bean id="company10" class="domain.Company">
+		<property name="name" value="Donald" />
+		<property name="surname" value="Pato VC" />
+		<property name="VAT" value="IT12345678" />
+		<property name="photo"
+			value="https://revistadiners.com.co/wp-content/uploads/2016/08/patodonald_800x669.jpg" />
+		<property name="email" value="gusranver@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="Los Ãngeles" />
+		<property name="creditCard" ref="creditCard32" />
+		<property name="score" value="1.0" />
+		<property name="commercialName" value="Disney" />
+		<property name="userAccount" ref="userCompany10" />
+	</bean>
+
+	<bean id="company11" class="domain.Company">
+		<property name="name" value="Donald" />
+		<property name="surname" value="Pato VC" />
+		<property name="VAT" value="IT12345678" />
+		<property name="photo"
+			value="https://revistadiners.com.co/wp-content/uploads/2016/08/patodonald_800x669.jpg" />
+		<property name="email" value="gusranver@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="Los Ãngeles" />
+		<property name="creditCard" ref="creditCard33" />
+		<property name="score" value="1.0" />
+		<property name="commercialName" value="Disney" />
+		<property name="userAccount" ref="userCompany11" />
+	</bean>
+
+	<bean id="company12" class="domain.Company">
+		<property name="name" value="Donald" />
+		<property name="surname" value="Pato VC" />
+		<property name="VAT" value="IT12345678" />
+		<property name="photo"
+			value="https://revistadiners.com.co/wp-content/uploads/2016/08/patodonald_800x669.jpg" />
+		<property name="email" value="gusranver@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="Los Ãngeles" />
+		<property name="creditCard" ref="creditCard34" />
+		<property name="score" value="1.0" />
+		<property name="commercialName" value="Disney" />
+		<property name="userAccount" ref="userCompany12" />
+	</bean>
+
+	<bean id="company13" class="domain.Company">
+		<property name="name" value="Donald" />
+		<property name="surname" value="Pato VC" />
+		<property name="VAT" value="IT12345678" />
+		<property name="photo"
+			value="https://revistadiners.com.co/wp-content/uploads/2016/08/patodonald_800x669.jpg" />
+		<property name="email" value="gusranver@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="Los Ãngeles" />
+		<property name="creditCard" ref="creditCard35" />
+		<property name="score" value="1.0" />
+		<property name="commercialName" value="Disney" />
+		<property name="userAccount" ref="userCompany13" />
+	</bean>
+
+	<bean id="company14" class="domain.Company">
+		<property name="name" value="Donald" />
+		<property name="surname" value="Pato VC" />
+		<property name="VAT" value="IT12345678" />
+		<property name="photo"
+			value="https://revistadiners.com.co/wp-content/uploads/2016/08/patodonald_800x669.jpg" />
+		<property name="email" value="gusranver@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="Los Ãngeles" />
+		<property name="creditCard" ref="creditCard36" />
+		<property name="score" value="1.0" />
+		<property name="commercialName" value="Disney" />
+		<property name="userAccount" ref="userCompany14" />
+	</bean>
+
+	<bean id="company15" class="domain.Company">
+		<property name="name" value="Donald" />
+		<property name="surname" value="Pato VC" />
+		<property name="VAT" value="IT12345678" />
+		<property name="photo"
+			value="https://revistadiners.com.co/wp-content/uploads/2016/08/patodonald_800x669.jpg" />
+		<property name="email" value="gusranver@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="Los Ãngeles" />
+		<property name="creditCard" ref="creditCard37" />
+		<property name="score" value="1.0" />
+		<property name="commercialName" value="Disney" />
+		<property name="userAccount" ref="userCompany15" />
+	</bean>
 	<!-- CREDIT CARD -->
 
 	<bean id="creditCard1" class="domain.CreditCard">
@@ -721,6 +1046,114 @@
 		<property name="holder" value="Rodolfo Conde" />
 		<property name="make" value="AMERICAN EXPRESS" />
 		<property name="number" value="4786794542649160" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+
+	<bean id="creditCard26" class="domain.CreditCard">
+		<property name="holder" value="Rodolfo Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="1111222233334444" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+
+	<bean id="creditCard27" class="domain.CreditCard">
+		<property name="holder" value="Rodolfo Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="1111222233334444" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+
+	<bean id="creditCard28" class="domain.CreditCard">
+		<property name="holder" value="Rodolfo Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="1111222233334444" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+
+	<bean id="creditCard29" class="domain.CreditCard">
+		<property name="holder" value="Rodolfo Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="1111222233334444" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+
+	<bean id="creditCard30" class="domain.CreditCard">
+		<property name="holder" value="Rodolfo Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="1111222233334444" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+
+	<bean id="creditCard31" class="domain.CreditCard">
+		<property name="holder" value="Rodolfo Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="1111222233334444" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+
+	<bean id="creditCard32" class="domain.CreditCard">
+		<property name="holder" value="Rodolfo Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="1111222233334444" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+
+	<bean id="creditCard33" class="domain.CreditCard">
+		<property name="holder" value="Rodolfo Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="1111222233334444" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+
+	<bean id="creditCard34" class="domain.CreditCard">
+		<property name="holder" value="Rodolfo Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="1111222233334444" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+
+	<bean id="creditCard35" class="domain.CreditCard">
+		<property name="holder" value="Rodolfo Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="1111222233334444" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+
+	<bean id="creditCard36" class="domain.CreditCard">
+		<property name="holder" value="Rodolfo Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="1111222233334444" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="27" />
+		<property name="CVV" value="536" />
+	</bean>
+
+	<bean id="creditCard37" class="domain.CreditCard">
+		<property name="holder" value="Rodolfo Conde" />
+		<property name="make" value="AMERICAN EXPRESS" />
+		<property name="number" value="1111222233334444" />
 		<property name="expirationMonth" value="07" />
 		<property name="expirationYear" value="27" />
 		<property name="CVV" value="536" />
@@ -1060,80 +1493,80 @@
 	<!-- PERSONAL DATA -->
 
 	<bean id="personalData1" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Alberto RamÃ­rez" />
 		<property name="statement" value="Statement of personalData 1" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData1copy" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Alberto RamÃ­rez" />
 		<property name="statement" value="Statement of personalData 1" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData2" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Pepe Viyuela" />
 		<property name="statement" value="Statement of personalData 2" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData3" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="MarÃ­a RodrÃ­guez Perez" />
 		<property name="statement" value="Statement of personalData 3" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData4" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Pedro MarÃ­n LÃ³pez" />
 		<property name="statement" value="Statement of personalData 4" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData5" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Paula Montero GalÃ¡n" />
 		<property name="statement" value="Statement of personalData 5" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData6" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Paula Montero GalÃ¡n" />
 		<property name="statement" value="Statement of personalData 6" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData7" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Paula Montero GalÃ¡n" />
 		<property name="statement" value="Statement of personalData 7" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData7copy" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Paula Montero GalÃ¡n" />
 		<property name="statement" value="Statement of personalData 7" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData8" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Paula Montero GalÃ¡n" />
 		<property name="statement" value="Statement of personalData 8" />
 		<property name="phoneNumber" value="646626167" />
@@ -1663,6 +2096,7 @@
 
 	<bean id="sysConf" class="domain.SystemConfiguration">
 		<property name="systemName" value=" Acme Rookies" />
+
 		<property name="welcomeMessage">
 			<util:map id="utilmap0" map-class="java.util.HashMap"
 				key-type="java.lang.String" value-type="java.lang.String">
@@ -1670,12 +2104,13 @@
 					value="¡Bienvenidos a Acme Rookies¡, ¡Somos el mercado de trabajo favorito de los profesionales de las TICs!" />
 				<entry key="English"
 					value="Welcome to Acme Rookies¡, We’re IT hacker’s favourite job marketplace!" />
+
 			</util:map>
 		</property>
 		<property name="breachNotification">
 			<util:map id="utilmap10" map-class="java.util.HashMap"
 				key-type="java.lang.String" value-type="java.lang.String">
-				<entry key="EspaÃ±ol" value="" />
+				<entry key="Español" value="" />
 				<entry key="English" value="" />
 			</util:map>
 		</property>
