@@ -1060,80 +1060,80 @@
 	<!-- PERSONAL DATA -->
 
 	<bean id="personalData1" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Alberto RamÃ­rez" />
 		<property name="statement" value="Statement of personalData 1" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData1copy" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Alberto RamÃ­rez" />
 		<property name="statement" value="Statement of personalData 1" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData2" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Pepe Viyuela" />
 		<property name="statement" value="Statement of personalData 2" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData3" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="MarÃ­a RodrÃ­guez Perez" />
 		<property name="statement" value="Statement of personalData 3" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData4" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Pedro MarÃ­n LÃ³pez" />
 		<property name="statement" value="Statement of personalData 4" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData5" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Paula Montero GalÃ¡n" />
 		<property name="statement" value="Statement of personalData 5" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData6" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Paula Montero GalÃ¡n" />
 		<property name="statement" value="Statement of personalData 6" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData7" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Paula Montero GalÃ¡n" />
 		<property name="statement" value="Statement of personalData 7" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData7copy" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Paula Montero GalÃ¡n" />
 		<property name="statement" value="Statement of personalData 7" />
 		<property name="phoneNumber" value="646626167" />
 	</bean>
 
 	<bean id="personalData8" class="domain.PersonalData">
-		<property name="githubProfile" value="https://github.com/" />
-		<property name="linkedIn" value="https://es.linkedin.com/" />
+		<property name="githubProfile" value="https://github.com/pabmac" />
+		<property name="linkedIn" value="https://www.linkedin.com/in/pabmac/" />
 		<property name="fullName" value="Paula Montero GalÃ¡n" />
 		<property name="statement" value="Statement of personalData 8" />
 		<property name="phoneNumber" value="646626167" />
