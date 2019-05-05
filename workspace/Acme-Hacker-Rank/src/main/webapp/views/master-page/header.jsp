@@ -109,6 +109,16 @@
 
 			<li><a class="fNiv" href="sponsorship/list.do"><spring:message
 					code="master.page.sponsorship" /></a></li>
+					
+			<li><a class="fNiv"><spring:message
+						code="master.page.items" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="item/list.do"><spring:message
+								code="master.page.item.list" /></a></li>
+					<li><a href="item/create.do"><spring:message
+								code="master.page.item.create" /></a></li>
+				</ul></li>
 
 		</security:authorize>
 

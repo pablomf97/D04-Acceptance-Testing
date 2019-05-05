@@ -220,7 +220,7 @@ public class PositionController extends AbstractController {
 	public ModelAndView displayPosition(@RequestParam final int Id) {
 		ModelAndView result;
 		Position position;
-		String banner;
+		String banner = "";
 		try {
 			result = new ModelAndView("position/display");
 			try {
@@ -230,7 +230,9 @@ public class PositionController extends AbstractController {
 			} catch (final Throwable opps) {
 			}
 			position = this.positionService.findOne(Id);
-			banner = this.positionService.randomBanner(position.getSponsorships());
+			if(position.getSponsorships().size() > 0) {
+				banner = this.positionService.randomBanner(position.getSponsorships());
+			}
 			result.addObject(position);
 			result.addObject("posBanner", banner);
 		} catch (final Throwable opps) {

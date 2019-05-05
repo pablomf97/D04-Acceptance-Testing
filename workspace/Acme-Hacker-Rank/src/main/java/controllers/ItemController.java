@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,63 +14,68 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
-import services.SponsorshipService;
+import services.ItemService;
 import domain.Actor;
+import domain.Item;
 import domain.Provider;
-import domain.Sponsorship;
 
 @Controller
-@RequestMapping("/sponsorship")
-public class SponsorshipController extends AbstractController {
+@RequestMapping("/item")
+public class ItemController extends AbstractController {
 
 	@Autowired
 	private ActorService	actorService;
 
 	@Autowired
-	private SponsorshipService	sponsorshipService;
+	private ItemService	itemService;
 	
-	public SponsorshipController() {
+	public ItemController() {
 		super();
 	}
 
 	// Display
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int sponsorshipId) {
-
+	public ModelAndView display(@RequestParam final int itemId) {
 		ModelAndView result;
-		Sponsorship sponsorship;
+		Item item;
 		boolean isPrincipal = false;
 		Actor principal;
 
 		principal = this.actorService.findByPrincipal();
-		sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+		item = this.itemService.findOne(itemId);
 
-		if (sponsorship.getProvider().equals((Provider)principal))
+		if (item.getProvider().equals((Provider)principal))
 			isPrincipal = true;
+		
+		final BindingResult binding = null;
+		final Collection<String> links = this.itemService.checkSplitAttachments(item.getLinks(), binding);
+		final Collection<String> pictures = this.itemService.checkSplitAttachments(item.getPictures(), binding);
 
-		result = new ModelAndView("sponsorship/display");
-		result.addObject("sponsorship", sponsorship);
+		result = new ModelAndView("item/display");
+		result.addObject("item", item);
+		result.addObject("links", links);
+		result.addObject("pictures", pictures);
 		result.addObject("isPrincipal", isPrincipal);
-		result.addObject("requestURI", "sponsorship/display.do?sponsorshipId="
-				+ sponsorshipId);
+		result.addObject("requestURI", "item/display.do?itemId="
+				+ itemId);
 
 		return result;
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
-		ModelAndView result = new ModelAndView("sponsorship/list");
-		Collection<Sponsorship> sponsorships;
+		ModelAndView result = new ModelAndView("item/list");
+		Collection<Item> items;
 		Actor principal;
 		
 		try {
 			principal = this.actorService.findByPrincipal();
 			Assert.isTrue(this.actorService.checkAuthority(principal, "PROVIDER"));
 			
-			sponsorships = this.sponsorshipService.sponsorshipsPerProvider(principal.getId());
+			items = this.itemService.itemsPerProvider(principal.getId());
 			
-			result.addObject("sponsorships", sponsorships);
+			result.addObject("items", items);
 			result.addObject("permission", true);
 			
 		} catch (Throwable oops) {
@@ -79,83 +85,94 @@ public class SponsorshipController extends AbstractController {
 		return result;
 	}
 	
+	/* List of items */
+	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
+	public ModelAndView listAll(final Integer providerId) {
+		ModelAndView result;
+		try {
+			Collection<Item> items = new ArrayList<>();
+			result = new ModelAndView("item/list");
+			items = this.itemService.itemsPerProvider(providerId);
+			
+			result.addObject("requestURI", "/item/listAll.do");
+			result.addObject("items", items);
+		} catch (final Throwable opps) {
+			result = new ModelAndView("redirect:../welcome/index.do");
+			result.addObject("messageCode", "position.commit.error");
+		}
+		return result;
+	}
+	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam int positionId) {
+	public ModelAndView create() {
 		ModelAndView result = null;
 		try {
-			Sponsorship sponsorship = this.sponsorshipService.create();
-			Integer aux = positionId;
+			Item item = this.itemService.create();
 			
-			sponsorship.setTarget(aux.toString());
-			result = this.createEditModelAndView(sponsorship);
+			result = this.createEditModelAndView(item);
 		} catch (Throwable oops) {
 			System.out.println(oops.getMessage());
 		}
-
 		return result;
-
 	}
 	
 	// Edition
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int sponsorshipId) {
+	public ModelAndView edit(@RequestParam final int itemId) {
 		ModelAndView result;
-		Sponsorship sponsorship;
-
+		Item item;
 		try {
-			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
-			Assert.notNull(sponsorship);
+			item = this.itemService.findOne(itemId);
+			Assert.notNull(item);
 			
-			result = this.createEditModelAndView(sponsorship);
-			result.addObject("sponsorshipId", sponsorshipId);
+			result = this.createEditModelAndView(item);
+			result.addObject("itemId", itemId);
 		} catch (Throwable oops) {
-			
 			result = new ModelAndView("redirect:/welcome/index.do");
 		}
 		return result;
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Sponsorship sponsorship, BindingResult binding) {
+	public ModelAndView save(Item item, BindingResult binding) {
 		ModelAndView result;
-		Sponsorship aux;
+		Item aux;
 		try {
-			aux = this.sponsorshipService.reconstruct(sponsorship,
+			aux = this.itemService.reconstruct(item,
 					binding);
 			if (binding.hasErrors()) {
 
-				result = new ModelAndView("sponsorship/edit");
-				result.addObject("sponsorship", sponsorship);
+				result = new ModelAndView("item/edit");
+				result.addObject("item", item);
 				result.addObject("binding", binding);
 				result.addObject("isPrincipal", true);
 			} else {
 				try {
-
-					this.sponsorshipService.save(aux);
+					this.itemService.save(aux);
 					result = new ModelAndView(
 							"redirect:list.do");
 				} catch (final Throwable oops) {
-					result = new ModelAndView("sponsorship/edit");
-					result.addObject("sponsorship", aux);
+					result = new ModelAndView("item/edit");
+					result.addObject("item", aux);
 					result.addObject("messageCode", oops.getMessage());
 				}
 			}
 		} catch (final Throwable oops) {
 			if(binding.hasErrors()) {
-				result = this.createEditModelAndView(sponsorship, "jpa.error");
+				result = this.createEditModelAndView(item, "jpa.error");
 			} else {
-				result = this.createEditModelAndView(sponsorship, "commit.error");
+				result = this.createEditModelAndView(item, "commit.error");
 			}
 		}
 		return result;
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam final int sponsorshipId) {
+	public ModelAndView delete(@RequestParam final int itemId) {
 		ModelAndView result;
 		try {
-			final Sponsorship sponsorship = this.sponsorshipService.findOne(sponsorshipId);
-			this.sponsorshipService.delete(sponsorship);
+			final Item item = this.itemService.findOne(itemId);
+			this.itemService.delete(item);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:list.do");
@@ -165,16 +182,16 @@ public class SponsorshipController extends AbstractController {
 	}
 
 	// Ancillary methods
-	protected ModelAndView createEditModelAndView(final Sponsorship sponsorship) {
+	protected ModelAndView createEditModelAndView(final Item item) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(sponsorship, null);
+		result = this.createEditModelAndView(item, null);
 
 		return result;
 	}
 
 	protected ModelAndView createEditModelAndView(
-			final Sponsorship sponsorship, final String messageCode) {
+			final Item item, final String messageCode) {
 		final ModelAndView result;
 		Actor principal;
 		boolean isPrincipal = true;
@@ -182,12 +199,12 @@ public class SponsorshipController extends AbstractController {
 		if(messageCode == null) {
 			principal = this.actorService.findByPrincipal();
 
-			if (principal.getId() != sponsorship.getProvider().getId())
+			if (principal.getId() != item.getProvider().getId())
 				isPrincipal = false;
 		}
 		
-		result = new ModelAndView("sponsorship/edit");
-		result.addObject("sponsorship", sponsorship);
+		result = new ModelAndView("item/edit");
+		result.addObject("item", item);
 		result.addObject("isPrincipal", isPrincipal);
 		result.addObject("message", messageCode);
 

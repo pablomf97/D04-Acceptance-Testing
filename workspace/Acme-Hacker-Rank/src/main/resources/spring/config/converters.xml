@@ -56,6 +56,9 @@
 		
 		<bean class="converters.SponsorshipToStringConverter" />
 		<bean class="converters.StringToSponsorshipConverter" />
+		
+		<bean class="converters.ItemToStringConverter" />
+		<bean class="converters.StringToItemConverter" />
 
 		<bean class="converters.SystemConfigurationToStringConverter" />
 		<bean class="converters.StringToSystemConfigurationConverter" />
