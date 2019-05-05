@@ -29,4 +29,12 @@ public class UtilityService {
 
 		return (matcher.matches() ? true : false);
 	}
+
+	/* [+]\d{3} */
+	public boolean checkCC(String cc) {
+		final Pattern pattern = Pattern.compile("([+]\\d{3})");
+		final Matcher matcher = pattern.matcher(cc);
+
+		return (matcher.matches() ? true : false);
+	}
 }

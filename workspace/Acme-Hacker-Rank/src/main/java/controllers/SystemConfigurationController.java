@@ -49,8 +49,7 @@ public class SystemConfigurationController extends AbstractController {
 
 		try {
 			principal = this.actorService.findByPrincipal();
-			Assert.isTrue(this.actorService.checkAuthority(principal,
-					"ADMIN"));
+			Assert.isTrue(this.actorService.checkAuthority(principal, "ADMIN"));
 
 			sysConfig = this.systemConfigurationService
 					.findMySystemConfiguration();
@@ -63,8 +62,6 @@ public class SystemConfigurationController extends AbstractController {
 			res.addObject("welcomeMessage", welcomeMessage);
 			res.addObject("breachNotification", breachNotification);
 
-		} catch (final IllegalArgumentException oops) {
-			res = new ModelAndView("misc/403");
 		} catch (final Throwable oopsie) {
 			res = new ModelAndView("sysConfig/display");
 			err = true;
@@ -120,31 +117,26 @@ public class SystemConfigurationController extends AbstractController {
 			@RequestParam("nEs") final String nEs,
 			@RequestParam("nEn") final String nEn, final BindingResult binding) {
 		ModelAndView res;
-		String message = null;
 
-		if (binding.hasErrors())
-			res = this.createEditModelAndView(systemConfiguration,
-					binding.toString());
-		else
+		systemConfiguration = this.systemConfigurationService.reconstruct(
+				systemConfiguration, nameES, nameEN, nEs, nEn, binding);
+
+		if (binding.hasErrors()) {
+			// res = new ModelAndView("sysConfig/edit");
+			//
+			// res.addObject("sysConfig", systemConfiguration);
+			// res.addObject("binding", binding);
+			res = this.createEditModelAndView(systemConfiguration);
+		} else
 			try {
-				systemConfiguration = this.systemConfigurationService
-						.reconstruct(systemConfiguration, nameES, nameEN, nEs,
-								nEn, binding);
 
 				this.systemConfigurationService.save(systemConfiguration);
+
 				res = new ModelAndView("redirect:display.do");
 			} catch (final Throwable oops) {
-				if (systemConfiguration.getMaxResults() <= 0
-						|| systemConfiguration.getMaxResults() > 100)
-					message = "sysconfig.max.results.err";
-				else if (systemConfiguration.getTimeResultsCached() < 0
-						|| systemConfiguration.getTimeResultsCached() >= 24)
-					message = "sysconfig.time.err";
-				else
-					message = "sysconfig.commit.error";
-				res = this.createEditModelAndView(systemConfiguration, message);
+				res = this.createEditModelAndView(systemConfiguration,
+						"system.error");
 			}
 		return res;
 	}
-
 }

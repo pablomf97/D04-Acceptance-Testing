@@ -158,6 +158,11 @@
 						code="administrator.statistics.AcmeRookies" /></th>
 			</tr>
 			
+			<tr>
+				<td><spring:message code="administrator.avgSalaryPerPositionHighestScoreAudits" /></td>
+				<td style="text-align: right">${avgSalaryPerPositionHighestScoreAudits}</td>
+			</tr>
+			
 			
 			<tr>
 				<td><spring:message code="administrator.statsAuditPositions.max" /></td>

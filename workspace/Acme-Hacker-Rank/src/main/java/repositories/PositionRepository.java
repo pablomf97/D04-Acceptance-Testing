@@ -60,8 +60,7 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 	@Query("select max(p.sponsorships.size), min(p.sponsorships.size), avg(p.sponsorships.size), stddev(p.sponsorships.size) from Position p")
 	Double[] statsSponsorshipsPerPosition();
 	
-	//select max(1.0*(select avg(a.score) from Audit a where a.position = p)) from Position p;
-	//The average salary offered by the positions that have the highest average audit score
-	//select avg(p.salary) from Position p order by  max(1.0*(select avg(a.score) from Audit a where a.position = p));
-	//select p.salary/count(p),max(1.0*(select avg(a.score) from Audit a where a.position = p)) from Position p;
+	@Query("select avg(p.salary) from Position p where (select avg(a.score) from Audit a where a.position = p) > (select avg(1.0*(select avg(a.score) from Audit a where a.position = p1)) from Position p1)")
+	Double avgSalaryPerPositionHighestScoreAudits();
+	
 }

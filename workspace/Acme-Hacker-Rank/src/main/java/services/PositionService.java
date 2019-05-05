@@ -315,19 +315,53 @@ public class PositionService {
 		return this.positionRepository.stddevPositionPerCompany();
 	}
 
-	public void DeletePositionPerCompany(final Company c) {
+	/*public void DeletePositionPerCompany(final Company c) {
 
 		final Collection<Position> positions = this.findByOwner(c);
+<<<<<<< HEAD
+		
+		for (final Position p : positions){
+			for (final Application app : this.applicationService.findByPosition(p)){
+				
+				//this.problemService.DeleteProblemPerCompany(p.getProblems());
+				this.applicationService.deleteAppPerPos(app);
+				this.problemService.DeleteProblemPerCompany(app.getProblem());
+				
+			}
+=======
 
 		for (final Position p : positions) {
 			for (final Application app : this.applicationService.findByPosition(p))
 				this.applicationService.deleteAppPerPos(app);
+>>>>>>> 14eafaad001723110fe8f5cf42b058b13a45dec0
 			this.sponsorshipService.deleteSponsorshipPerCompany(p);
+			//this.problemService.DeleteProblemPerCompany(p.getProblems());
+			this.positionRepository.delete(p);
+			
 		}
-		this.positionRepository.deleteInBatch(positions);
+		//this.positionRepository.deleteInBatch(positions);
+	}
+	*/
+	public void DeletePositionPerCompany(final Company c) {
+
+		final Collection<Position> positions = this.findByOwner(c);
+
+		for (final Position p : positions){
+			for (final Application app : this.applicationService.findByPosition(p)){
+				this.applicationService.deleteAppPerPos(app);
+				//this.problemService.DeleteProblemPerCompany(app.getProblem());
+			}
+			this.sponsorshipService.deleteSponsorshipPerCompany(p);
+			//this.problemService.DeleteProblemsPerCompany(p.getProblems());
+			this.positionRepository.delete(p);
+		}
+		
+		//this.positionRepository.deleteInBatch(positions);
 	}
 
+
 	public Double[] statsSponsorshipsPerPosition() {
+
 		return this.positionRepository.statsSponsorshipsPerPosition();
 	}
 
@@ -343,6 +377,15 @@ public class PositionService {
 		result = listSponsoships.get(a).getBanner();
 
 		return result;
+	}
+	public Double avgSalaryPerPositionHighestScoreAudits(){
+		return this.positionRepository.avgSalaryPerPositionHighestScoreAudits();
+	}
+
+	public void DeletePositionsPerCompany(Collection<Position> positions) {
+	
+		this.positionRepository.deleteInBatch(positions);
+		
 	}
 
 }
