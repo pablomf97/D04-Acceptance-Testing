@@ -119,6 +119,7 @@
 				alt="Banner">
 		</div>
 	</jstl:if>	
+
 <jstl:if test="${name == position.company.userAccount.username }">
 
 	<button

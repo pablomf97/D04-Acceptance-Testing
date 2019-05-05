@@ -213,7 +213,7 @@
 			</list>
 		</property>
 	</bean>
-		<bean id="userProvider5" class="security.UserAccount">
+	<bean id="userProvider5" class="security.UserAccount">
 		<property name="username" value="provider5" />
 		<property name="password" value="bd19ee25be71cfc77f532c4b26b4a54e" />
 		<property name="authorities">
@@ -224,7 +224,7 @@
 			</list>
 		</property>
 	</bean>
-		<bean id="userProvider6" class="security.UserAccount">
+	<bean id="userProvider6" class="security.UserAccount">
 		<property name="username" value="provider6" />
 		<property name="password" value="85202849e05dc23e4b80f2af8be3650c" />
 		<property name="authorities">
@@ -365,7 +365,7 @@
 		<property name="providerMake" value="Make4" />
 		<property name="userAccount" ref="userProvider4" />
 	</bean>
-		<bean id="provider5" class="domain.Provider">
+	<bean id="provider5" class="domain.Provider">
 		<property name="name" value="Pepe" />
 		<property name="surname" value="Botella" />
 		<property name="VAT" value="ES34567091" />
@@ -378,7 +378,7 @@
 		<property name="providerMake" value="Make5" />
 		<property name="userAccount" ref="userProvider5" />
 	</bean>
-		<bean id="provider6" class="domain.Provider">
+	<bean id="provider6" class="domain.Provider">
 		<property name="name" value="Paco" />
 		<property name="surname" value="Botella" />
 		<property name="VAT" value="ES34567091" />
@@ -709,7 +709,7 @@
 		<property name="expirationYear" value="27" />
 		<property name="CVV" value="536" />
 	</bean>
-		<bean id="creditCard24" class="domain.CreditCard">
+	<bean id="creditCard24" class="domain.CreditCard">
 		<property name="holder" value="Pepito Conde" />
 		<property name="make" value="AMERICAN EXPRESS" />
 		<property name="number" value="4786794542649160" />
@@ -717,7 +717,7 @@
 		<property name="expirationYear" value="27" />
 		<property name="CVV" value="536" />
 	</bean>
-		<bean id="creditCard25" class="domain.CreditCard">
+	<bean id="creditCard25" class="domain.CreditCard">
 		<property name="holder" value="Rodolfo Conde" />
 		<property name="make" value="AMERICAN EXPRESS" />
 		<property name="number" value="4786794542649160" />
@@ -1265,6 +1265,7 @@
 		<property name="score" value="9" />
 		<property name="auditor" ref="auditor1" />
 		<property name="position" ref="position1c1" />
+		<property name="isDraft" value="True" />
 	</bean>
 	<bean id="audit2" class="domain.Audit">
 		<property name="moment" value="01/09/2019 19:48" />
@@ -1272,6 +1273,8 @@
 		<property name="score" value="7" />
 		<property name="auditor" ref="auditor1" />
 		<property name="position" ref="position1c2" />
+		<property name="isDraft" value="True" />
+
 	</bean>
 	<bean id="audit3" class="domain.Audit">
 		<property name="moment" value="01/07/2019 19:48" />
@@ -1279,6 +1282,8 @@
 		<property name="score" value="6" />
 		<property name="auditor" ref="auditor1" />
 		<property name="position" ref="position3c1" />
+		<property name="isDraft" value="False" />
+
 	</bean>
 	<bean id="audit4" class="domain.Audit">
 		<property name="moment" value="01/12/2019 19:48" />
@@ -1286,6 +1291,8 @@
 		<property name="score" value="10" />
 		<property name="auditor" ref="auditor2" />
 		<property name="position" ref="position4c1" />
+		<property name="isDraft" value="True" />
+
 	</bean>
 
 	<bean id="audit5" class="domain.Audit">
@@ -1294,6 +1301,8 @@
 		<property name="score" value="3" />
 		<property name="auditor" ref="auditor2" />
 		<property name="position" ref="position1c2" />
+		<property name="isDraft" value="False" />
+
 	</bean>
 	<bean id="audit6" class="domain.Audit">
 		<property name="moment" value="01/08/2019 19:48" />
@@ -1301,43 +1310,28 @@
 		<property name="score" value="4" />
 		<property name="auditor" ref="auditor3" />
 		<property name="position" ref="position2c2" />
+		<property name="isDraft" value="False" />
+
 	</bean>
 	<!-- SPONSORSHIP -->
-	<!-- <bean id="sponsorship1" class="domain.Sponsorship">
-		<property name="banner"
-			value="https://www.eff.org/files/banner_library/google-spy-eye.png" />
-		<property name="target" value="target default" />
-		<property name="provider" ref="provider1" />
-		<property name="creditCard" ref="creditCard15" />
-	</bean>
-	<bean id="sponsorship2" class="domain.Sponsorship">
-		<property name="banner"
-			value="https://www.eff.org/files/banner_library/google-spy-eye.png" />
-		<property name="target" value="target default" />
-		<property name="provider" ref="provider2" />
-		<property name="creditCard" ref="creditCard16" />
-	</bean>
-	<bean id="sponsorship3" class="domain.Sponsorship">
-		<property name="banner"
-			value="https://www.eff.org/files/banner_library/google-spy-eye.png" />
-		<property name="target" value="target default" />
-		<property name="provider" ref="provider3" />
-		<property name="creditCard" ref="creditCard17" />
-	</bean>
-	<bean id="sponsorship4" class="domain.Sponsorship">
-		<property name="banner"
-			value="https://www.eff.org/files/banner_library/google-spy-eye.png" />
-		<property name="target" value="target default" />
-		<property name="provider" ref="provider5" />
-		<property name="creditCard" ref="creditCard24" />
-	</bean>
-	<bean id="sponsorship5" class="domain.Sponsorship">
-		<property name="banner"
-			value="https://www.eff.org/files/banner_library/google-spy-eye.png" />
-		<property name="target" value="target default" />
-		<property name="provider" ref="provider4" />
-		<property name="creditCard" ref="creditCard18" />
-	</bean> -->
+	<!-- <bean id="sponsorship1" class="domain.Sponsorship"> <property name="banner" 
+		value="https://www.eff.org/files/banner_library/google-spy-eye.png" /> <property 
+		name="target" value="target default" /> <property name="provider" ref="provider1" 
+		/> <property name="creditCard" ref="creditCard15" /> </bean> <bean id="sponsorship2" 
+		class="domain.Sponsorship"> <property name="banner" value="https://www.eff.org/files/banner_library/google-spy-eye.png" 
+		/> <property name="target" value="target default" /> <property name="provider" 
+		ref="provider2" /> <property name="creditCard" ref="creditCard16" /> </bean> 
+		<bean id="sponsorship3" class="domain.Sponsorship"> <property name="banner" 
+		value="https://www.eff.org/files/banner_library/google-spy-eye.png" /> <property 
+		name="target" value="target default" /> <property name="provider" ref="provider3" 
+		/> <property name="creditCard" ref="creditCard17" /> </bean> <bean id="sponsorship4" 
+		class="domain.Sponsorship"> <property name="banner" value="https://www.eff.org/files/banner_library/google-spy-eye.png" 
+		/> <property name="target" value="target default" /> <property name="provider" 
+		ref="provider5" /> <property name="creditCard" ref="creditCard24" /> </bean> 
+		<bean id="sponsorship5" class="domain.Sponsorship"> <property name="banner" 
+		value="https://www.eff.org/files/banner_library/google-spy-eye.png" /> <property 
+		name="target" value="target default" /> <property name="provider" ref="provider4" 
+		/> <property name="creditCard" ref="creditCard18" /> </bean> -->
 
 	<!-- ITEM -->
 	<bean id="item1" class="domain.Item">
@@ -1411,11 +1405,8 @@
 			</list>
 		</property>
 		<property name="sponsorships">
-<!-- 			<list>
-				<ref bean="sponsorship1" />
-				<ref bean="sponsorship2" />
-				<ref bean="sponsorship3" />
-			</list> -->
+			<!-- <list> <ref bean="sponsorship1" /> <ref bean="sponsorship2" /> <ref 
+				bean="sponsorship3" /> </list> -->
 			<null></null>
 		</property>
 	</bean>
@@ -1441,10 +1432,8 @@
 			</list>
 		</property>
 		<property name="sponsorships">
-<!-- 			<list>
-				<ref bean="sponsorship4" />
-			</list> -->
-			
+			<!-- <list> <ref bean="sponsorship4" /> </list> -->
+
 			<null></null>
 		</property>
 	</bean>
