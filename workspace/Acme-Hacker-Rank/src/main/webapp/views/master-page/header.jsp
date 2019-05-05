@@ -112,6 +112,13 @@
 								code="master.page.audit.list" /></a></li>
 				</ul></li>
 		</security:authorize>
+		
+		<security:authorize access="!hasRole('PROVIDER')">
+					
+					<li><a href="item/listAll.do"><spring:message
+								code="master.page.items" /></a></li>
+
+		</security:authorize>
 
 		<security:authorize access="hasRole('PROVIDER')">
 

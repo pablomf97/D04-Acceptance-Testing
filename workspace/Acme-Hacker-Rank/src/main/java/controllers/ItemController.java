@@ -87,18 +87,23 @@ public class ItemController extends AbstractController {
 	
 	/* List of items */
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
-	public ModelAndView listAll(final Integer providerId) {
+	public ModelAndView listAll(@RequestParam(required = false) final Integer providerId) {
 		ModelAndView result;
 		try {
 			Collection<Item> items = new ArrayList<>();
-			result = new ModelAndView("item/list");
-			items = this.itemService.itemsPerProvider(providerId);
-			
+			result = new ModelAndView("item/listAll");
+			if(providerId != null) {
+				items = this.itemService.itemsPerProvider(providerId);
+			} else {
+				items = this.itemService.findAll();
+			}
 			result.addObject("requestURI", "/item/listAll.do");
 			result.addObject("items", items);
+			result.addObject("permission", true);
 		} catch (final Throwable opps) {
 			result = new ModelAndView("redirect:../welcome/index.do");
 			result.addObject("messageCode", "position.commit.error");
+			result.addObject("permission", false);
 		}
 		return result;
 	}

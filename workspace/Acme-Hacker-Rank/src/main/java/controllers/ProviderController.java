@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Collection;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -14,10 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.ProviderService;
-import domain.Auditor;
 import domain.Provider;
 import forms.EditionCompanyFormObject;
-import forms.EditionFormObject;
 import forms.RegisterCompanyFormObject;
 
 @Controller
@@ -64,6 +64,36 @@ public class ProviderController extends AbstractController {
 			found = false;
 			res = new ModelAndView("provider/display");
 			res.addObject("found", found);
+		}
+
+		return res;
+	}
+
+	/**
+	 * 
+	 * List provider
+	 * 
+	 * @params id (optional)
+	 * 
+	 * @return ModelAndView
+	 * **/
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView res;
+		Collection<Provider> toDisplay;
+		boolean err = false;
+
+		try {
+			toDisplay = this.providerService.findAll();
+			Assert.notEmpty(toDisplay);
+
+			res = new ModelAndView("provider/list");
+			res.addObject("providers", toDisplay);
+			res.addObject("err", err);
+		} catch (Throwable oops) {
+			res = new ModelAndView("provider/list");
+			err = true;
+			res.addObject("err", err);
 		}
 
 		return res;
@@ -264,6 +294,5 @@ public class ProviderController extends AbstractController {
 
 		return result;
 	}
-
 
 }
