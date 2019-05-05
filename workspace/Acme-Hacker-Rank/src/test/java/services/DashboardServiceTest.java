@@ -22,9 +22,9 @@ import domain.Actor;
 @Transactional
 public class DashboardServiceTest extends AbstractTest {
 
-	
-	
-	
+
+
+
 	/*
 	 * Total coverage of all tests
 	 * 
@@ -60,13 +60,25 @@ public class DashboardServiceTest extends AbstractTest {
 
 	@Autowired
 	private HackerService hackerService;
+	
+	@Autowired
+	private AuditService auditService;
+	
+	@Autowired
+	private SponsorshipService sponsorshipService;
+	
+	@Autowired
+	private ProviderService providerService;
+	@Autowired
+	private CompanyService companyService;
+	
 
 
 
 	//	RF.11.1		The maximum of the number of positions per company.
 	@Test 
 	public void maxPositionPerCompanyDriver() {
-		Object testingData[][] = { { "admin", 3, null },// Positive
+		Object testingData[][] = { { "admin", 4, null },// Positive
 				{ "admin", 5, IllegalArgumentException.class },//non expected
 
 				{ "hacker1", 3, IllegalArgumentException.class } //non authorized actor
@@ -158,7 +170,7 @@ public class DashboardServiceTest extends AbstractTest {
 
 	@Test
 	public void avgPositionPerCompanyDriver() {
-		Object testingData[][] = { { "admin",1.66667, null },// Positive
+		Object testingData[][] = { { "admin",2.33333, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
 				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
@@ -205,7 +217,7 @@ public class DashboardServiceTest extends AbstractTest {
 
 	@Test
 	public void stddevPositionPerCompanyDriver() {
-		Object testingData[][] = { { "admin", 1.24722, null },// Positive
+		Object testingData[][] = { { "admin", 1.69967, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
 				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
@@ -252,7 +264,7 @@ public class DashboardServiceTest extends AbstractTest {
 
 	@Test
 	public void sttdevApplicationsPerHackerDriver() {
-		Object testingData[][] = { { "admin", 0.4, null },// Positive
+		Object testingData[][] = { { "admin", 1.6, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
 				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
@@ -299,7 +311,7 @@ public class DashboardServiceTest extends AbstractTest {
 
 	@Test
 	public void avgdevApplicationsPerHackerDriver() {
-		Object testingData[][] = { { "admin", 0.2, null },// Positive
+		Object testingData[][] = { { "admin", 0.8, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
 				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
@@ -346,7 +358,7 @@ public class DashboardServiceTest extends AbstractTest {
 
 	@Test 
 	public void maxApplicationsPerHackerDriver() {
-		Object testingData[][] = { { "admin", 1, null },// Positive
+		Object testingData[][] = { { "admin", 4, null },// Positive
 				{ "admin", 5, IllegalArgumentException.class },//non expected
 
 				{ "hacker1", 3, IllegalArgumentException.class } //non authorized actor
@@ -530,7 +542,7 @@ public class DashboardServiceTest extends AbstractTest {
 
 	@Test
 	public void avgSalarayPositionsDriver() {
-		Object testingData[][] = { { "admin",47.54, null },// Positive
+		Object testingData[][] = { { "admin",59.142857142857146, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
 				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
@@ -571,12 +583,12 @@ public class DashboardServiceTest extends AbstractTest {
 		Assert.isTrue(res.doubleValue()==min);
 
 	}
-	
+
 	//	RF.11.5		The standard deviation of the salaries offered
-	
+
 	@Test
 	public void STTDEVSalarayPositionsDriver() {
-		Object testingData[][] = { { "admin", 53.92363489231786, null },// Positive
+		Object testingData[][] = { { "admin", 59.24568355929538, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
 				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
@@ -617,9 +629,9 @@ public class DashboardServiceTest extends AbstractTest {
 		Assert.isTrue(res.doubleValue()==min);
 
 	}
-	
+
 	//	RF.11.3		The company that have offered more positions
-	
+
 	@Test
 	public void companyWithMorePositionsDriver() {
 		Object testingData[][] = { { "admin","Gustavos S.A.", null },// Positive
@@ -663,9 +675,9 @@ public class DashboardServiceTest extends AbstractTest {
 		Assert.isTrue(res.contentEquals(min));
 
 	}
-	
+
 	//	RF.11.4		The hacker who have made more applications
-	
+
 	@Test
 	public void hackerWithMoreApplicationsTest() {
 		Object testingData[][] = { { "admin","Alberto", null },// Positive
@@ -709,10 +721,10 @@ public class DashboardServiceTest extends AbstractTest {
 		Assert.isTrue(res.contentEquals(min));
 
 	}
-	
-//	RF.11.6		The worst position in terms of salary
-	
-	
+
+	//	RF.11.6		The worst position in terms of salary
+
+
 	@Test
 	public void worstPositionSalaryDriver() {
 		Object testingData[][] = { { "admin","Position 3 of company 1", null },// Positive
@@ -756,13 +768,13 @@ public class DashboardServiceTest extends AbstractTest {
 		Assert.isTrue(res.contentEquals(min));
 
 	}	
-	
-//	RF.11.6		The best position in terms of salary
-	
-	
+
+	//	RF.11.6		The best position in terms of salary
+
+
 	@Test
 	public void bestPositionSalaryDriver() {
-		Object testingData[][] = { { "admin","Position 2 of company 2", null },// Positive
+		Object testingData[][] = { { "admin","Position 3 of company 2", null },// Positive
 				{ "admin", "Aliexpress", IllegalArgumentException.class },//non expected
 
 				{ "hacker1", "El corte ingles", IllegalArgumentException.class } //non authorized actor
@@ -851,12 +863,12 @@ public class DashboardServiceTest extends AbstractTest {
 
 
 	}
-	
-	
-	
-	
+
+
+
+
 	//	RF.18.2	Min results in the finders
-	
+
 	@Test 
 	public void minResultsFinderDriver() {
 		Object testingData[][] = { { "admin", 0.0, null },// Positive
@@ -901,11 +913,11 @@ public class DashboardServiceTest extends AbstractTest {
 
 
 	}
-	
-	
-	
+
+
+
 	//	RF.18.2	Average results in the finders
-	
+
 	@Test 
 	public void avgResultsFinderDriver() {
 		Object testingData[][] = { { "admin", 0.0, null },// Positive
@@ -950,9 +962,9 @@ public class DashboardServiceTest extends AbstractTest {
 
 
 	}
-	
+
 	//	RF.18.2	Standard deviation results in the finders
-	
+
 	@Test 
 	public void stdevResultsFinderDriver() {
 		Object testingData[][] = { { "admin", 0.0, null },// Positive
@@ -999,8 +1011,8 @@ public class DashboardServiceTest extends AbstractTest {
 	}
 
 	//	RF.18.3	The ratio of empty versus non-empty finders
-	
-	
+
+
 	@Test 
 	public void ratioFindersDriver() {
 		Object testingData[][] = { { "admin", 1.0, null },// Positive
@@ -1045,16 +1057,16 @@ public class DashboardServiceTest extends AbstractTest {
 
 
 	}
-	
-	
-	
-	
+
+
+
+
 
 	//	RF.18.1	Average of the number of curricula per hacker
-	
+
 	@Test 
 	public void stdevCurriculaPerHackerDriver() {
-		Object testingData[][] = { { "admin", 1.16619, null },// Positive
+		Object testingData[][] = { { "admin", 1.54919, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
 				{ "hacker1", 3., IllegalArgumentException.class } //non authorized actor
@@ -1096,14 +1108,14 @@ public class DashboardServiceTest extends AbstractTest {
 
 
 	}
-	
-	
-	
+
+
+
 	//	RF.18.1	Maximum of the number of curricula per hacker
-	
+
 	@Test 
 	public void MaxCurriculaPerHackerDriver() {
-		Object testingData[][] = { { "admin", 4, null },// Positive
+		Object testingData[][] = { { "admin", 5, null },// Positive
 				{ "admin", 54, IllegalArgumentException.class },//non expected
 
 				{ "hacker1", 4, IllegalArgumentException.class } //non authorized actor
@@ -1145,11 +1157,11 @@ public class DashboardServiceTest extends AbstractTest {
 
 
 	}
-	
-	
-	
+
+
+
 	//	RF.18.1	Minimum of the number of curricula per hacker
-	
+
 	@Test 
 	public void minCurriculaPerHackerDriver() {
 		Object testingData[][] = { { "admin", 1, null },// Positive
@@ -1194,13 +1206,13 @@ public class DashboardServiceTest extends AbstractTest {
 
 
 	}
-	
-	
+
+
 	//	RF.18.1	Deviation standard of the number of curricula per hacker
-	
+
 	@Test 
 	public void avgCurriculaPerHackerDriver() {
-		Object testingData[][] = { { "admin", 1.8, null },// Positive
+		Object testingData[][] = { { "admin", 2.0, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
 				{ "hacker1", 3., IllegalArgumentException.class } //non authorized actor
@@ -1242,5 +1254,126 @@ public class DashboardServiceTest extends AbstractTest {
 
 
 	}
+
+	//	 The average, the minimum, the maximum, and the standard deviation of the
+	//	 audit score of the positions stored in the system.
+	
+	@Test 
+	public void statsAuditsPerPositionDriver() {
+		Object testingData[][] = { { "admin", 10.0,3.0,6.5,2.5, null },// Positive
+				{ "admin", 1.8,1.9,1.9,1.8, IllegalArgumentException.class },//non expected
+
+				{ "hacker1",1.8,1.9,1.9,1.8, IllegalArgumentException.class } //non authorized actor
+
+		};
+
+		for (int i = 0; i < testingData.length; i++) {
+			statsAuditsPerPositionTemplate((String) testingData[i][0],
+					(Double) testingData[i][1],(Double) testingData[i][2],
+					(Double) testingData[i][3],(Double) testingData[i][4], (Class<?>) testingData[i][5]);
+		}
+	}
+
+	protected void statsAuditsPerPositionTemplate(String username,Double max,
+			Double min, Double avg, Double stddev, Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+
+		try {
+			authenticate(username);
+
+			this.statsAuditsPerPositionTest(max,min,avg,stddev);
+
+			unauthenticate();
+
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		super.checkExceptions(expected, caught);
+	}
+
+	public void statsAuditsPerPositionTest(Double max, Double min, Double avg, Double stddev) {
+		final Actor principal = this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal,
+				"ADMIN"));
+		Double [] res=this.auditService.statsAuditPositions();
+		Assert.isTrue(res[0].doubleValue()==max&&res[1].doubleValue()==min&&res[2].doubleValue()==avg&&res[3].doubleValue()==stddev);
+
+
+	}
+	
+
+	//	 The average, the minimum, the maximum, and the standard deviation of the
+	//	 audit score of the companies that are registered in the system.
+	
+	@Test 
+	public void statsScoreCompaniesDriver() {
+		Object testingData[][] = { { "admin", 1.0,0.2,0.6333333333333333,0.3299831645537222, null },// Positive
+				{ "admin", 1.8,1.9,1.9,1.8, IllegalArgumentException.class },//non expected
+
+				{ "hacker1",1.8,1.9,1.9,1.8, IllegalArgumentException.class } //non authorized actor
+
+		};
+
+		for (int i = 0; i < testingData.length; i++) {
+			statsScoreCompaniesTemplate((String) testingData[i][0],
+					(Double) testingData[i][1],(Double) testingData[i][2],
+					(Double) testingData[i][3],(Double) testingData[i][4], (Class<?>) testingData[i][5]);
+		}
+	}
+
+	protected void statsScoreCompaniesTemplate(String username,Double max,
+			Double min, Double avg, Double stddev, Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+
+		try {
+			authenticate(username);
+
+			this.statsScoreCompaniesTest(max,min,avg,stddev);
+
+			unauthenticate();
+
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		super.checkExceptions(expected, caught);
+	}
+
+	public void statsScoreCompaniesTest(Double max, Double min, Double avg, Double stddev) {
+		final Actor principal = this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal,
+				"ADMIN"));
+		Double [] res=this.companyService.statsScoreCompanies();
+		Assert.isTrue(res[0].doubleValue()==max&&res[1].doubleValue()==min&&res[2].doubleValue()==avg&&res[3].doubleValue()==stddev);
+
+
+	}
+	
+	
+	//	
+	//	 The companies with the highest audit score.
+	//	 The average salary offered by the positions that have the highest average
+	//	 audit score.
+
+
+	//	The minimum, the maximum, the average, and the standard deviation of the
+	//	number of items per provider.
+
+	//  The top-5 providers in terms of total number of items provided.
+
+
+	//	The average, the minimum, the maximum, and the standard deviation of the
+	//	number of sponsorships per provider.
+
+	//	The average, the minimum, the maximum, and the standard deviation of the
+	//	number of sponsorships per position.
+
+	//	The providers who have a number of sponsorships that is at least 10% above
+	//	the average number of sponsorships per provider.
 
 }

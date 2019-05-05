@@ -1,9 +1,11 @@
 
 package services;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import javax.transaction.Transactional;
@@ -20,6 +22,7 @@ import domain.Application;
 import domain.Company;
 import domain.Position;
 import domain.Problem;
+import domain.Sponsorship;
 
 @Transactional
 @Service
@@ -42,6 +45,12 @@ public class PositionService {
 
 	@Autowired
 	private Validator			validator;
+
+	@Autowired
+	private AuditService		auditService;
+
+	@Autowired
+	private SponsorshipService	sponsorshipService;
 
 
 	public Position create(final Actor actor) {
@@ -117,6 +126,7 @@ public class PositionService {
 
 		return result;
 	}
+
 	public void delete(final Position position) {
 		Actor principal;
 
@@ -309,10 +319,30 @@ public class PositionService {
 
 		final Collection<Position> positions = this.findByOwner(c);
 
-		for (final Position p : positions)
+		for (final Position p : positions) {
 			for (final Application app : this.applicationService.findByPosition(p))
 				this.applicationService.deleteAppPerPos(app);
+			this.sponsorshipService.deleteSponsorshipPerCompany(p);
+		}
 		this.positionRepository.deleteInBatch(positions);
+	}
+
+	public Double[] statsSponsorshipsPerPosition() {
+		return this.positionRepository.statsSponsorshipsPerPosition();
+	}
+
+	public String randomBanner(final Collection<Sponsorship> sponsorships) {
+		String result;
+		final SecureRandom rnd = new SecureRandom();
+		final List<Sponsorship> listSponsoships = new ArrayList<>(sponsorships);
+
+		Integer a = (rnd.nextInt() % 10);
+		while (a < 0 || a > (sponsorships.size() - 1))
+			a = (rnd.nextInt() % 10);
+
+		result = listSponsoships.get(a).getBanner();
+
+		return result;
 	}
 
 }

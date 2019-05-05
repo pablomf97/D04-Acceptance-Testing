@@ -51,6 +51,12 @@ public class CompanyService {
 
 	@Autowired
 	private PositionService positionService;
+	
+	@Autowired
+	private AuditService auditService;
+	
+	@Autowired
+	private SponsorshipService sponsorshipService;
 
 	/* Simple CRUD methods */
 
@@ -391,11 +397,22 @@ public class CompanyService {
 
 		Assert.isTrue(principal.getId() == company.getId(), "no.permission");
 
+		this.auditService.deleteAuditsPerCompany(company);
+		
+		
 		this.positionService.DeletePositionPerCompany(company);
 
 		this.problemService.DeleteProblemPerCompany(company);
 
 		this.companyRepository.delete(company);
+	}
+	public Double[] statsScoreCompanies(){
+		
+		return this.companyRepository.statsScoreCompanies();
+		
+	}
+	public Collection<Company> CompaniesHighestScores(){
+		return this.companyRepository.CompaniesHighestScores();
 	}
 
 }

@@ -1,3 +1,4 @@
+
 package converters;
 
 import javax.transaction.Transactional;
@@ -7,22 +8,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-
-import repositories.PositionDataRepository;
-
-import domain.PositionData;
+import repositories.PositionRepository;
+import domain.Position;
 
 @Component
 @Transactional
-public class StringToPositionConverter implements Converter<String, PositionData> {
+public class StringToPositionConverter implements Converter<String, Position> {
 
 	@Autowired
+	PositionRepository	actorRepository;
 
-	PositionDataRepository	actorRepository;
 
 	@Override
-	public PositionData convert(final String text) {
-		PositionData result;
+	public Position convert(final String text) {
+		Position result;
 
 		int id;
 

@@ -64,6 +64,16 @@
 		</a>
 	</display:column>
 	
+	 <security:authorize access="hasRole('PROVIDER')">
+		
+		
+	<display:column>
+			<a href="sponsorship/create.do?positionId=${row.id}"> <spring:message
+					code="position.sponsor" />
+			</a>
+	</display:column>
+	</security:authorize>
+	
 	<display:column>
 		<jstl:if
 			test="${row.isDraft eq true and row.company.userAccount.username == name}">
@@ -79,6 +89,14 @@
 					code="position.cancel" />
 			</a>
 		</jstl:if>
+	</display:column>
+		<display:column>
+				<security:authorize access="hasRole('AUDITOR')">
+		
+			<a href="audit/create.do?Id=${row.id}"> <spring:message
+					code="position.audit" />
+			</a>
+			</security:authorize>
 	</display:column>
 
 </display:table>

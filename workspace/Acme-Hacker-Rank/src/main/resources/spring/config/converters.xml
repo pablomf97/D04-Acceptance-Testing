@@ -22,6 +22,9 @@
 
 		<bean class="converters.ApplicationToStringConverter" />
 		<bean class="converters.StringToApplicationConverter" />
+		
+		<bean class="converters.AuditToStringConverter" />
+		<bean class="converters.StringToAuditConverter" />
 
 		<bean class="converters.CompanyToStringConverter" />
 		<bean class="converters.StringToCompanyConverter" />
@@ -53,6 +56,12 @@
 
 		<bean class="converters.ProblemToStringConverter" />
 		<bean class="converters.StringToProblemConverter" />
+		
+		<bean class="converters.SponsorshipToStringConverter" />
+		<bean class="converters.StringToSponsorshipConverter" />
+		
+		<bean class="converters.ItemToStringConverter" />
+		<bean class="converters.StringToItemConverter" />
 
 		<bean class="converters.SystemConfigurationToStringConverter" />
 		<bean class="converters.StringToSystemConfigurationConverter" />

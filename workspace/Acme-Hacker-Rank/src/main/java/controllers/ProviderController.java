@@ -14,8 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.ProviderService;
+import domain.Auditor;
 import domain.Provider;
 import forms.EditionCompanyFormObject;
+import forms.EditionFormObject;
 import forms.RegisterCompanyFormObject;
 
 @Controller
@@ -262,5 +264,6 @@ public class ProviderController extends AbstractController {
 
 		return result;
 	}
+
 
 }

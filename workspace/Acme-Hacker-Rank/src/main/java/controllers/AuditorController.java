@@ -14,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.AuditorService;
+import domain.Administrator;
 import domain.Auditor;
+import domain.Hacker;
 import forms.EditionFormObject;
 import forms.RegisterFormObject;
 
@@ -225,6 +227,7 @@ public class AuditorController extends AbstractController {
 
 		return result;
 	}
+
 
 	@RequestMapping(value = "/auditor/edit", method = RequestMethod.POST, params = "deleteAuditor")
 	public ModelAndView deleteAuditor(final EditionFormObject editionFormObject,

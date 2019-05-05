@@ -7,12 +7,21 @@ import java.util.Date;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+import repositories.CreditCardRepository;
+
+import domain.CreditCard;
+
 @Transactional
+@Service
 public class CreditCardService {
 
+		
+/*	@Autowired
+	private CreditCardRepository  creditCardRepository;
+	*/
 	/**
 	 * 
 	 * Checks if the date of the credit card is expired
@@ -71,4 +80,8 @@ public class CreditCardService {
 		}
 		return (sum % 10 == 0);
 	}
+	
+/*	public void deleteCreditCardPerSponsorship(CreditCard c){
+		this.creditCardRepository.delete(c);
+	}*/
 }

@@ -44,9 +44,13 @@
 
 		<!-- Providers messages -->
 		<value>/views/provider/messages</value>
+		<value>/views/sponsorship/messages</value>
+		<value>/views/item/messages</value>
 
 		<!-- Providers messages -->
 		<value>/views/auditor/messages</value>
+		<!-- Providers audit -->
+		<value>/views/audit/messages</value>
 
 	</util:list>
 

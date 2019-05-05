@@ -68,5 +68,4 @@ public class Item extends DomainEntity {
 	public void setProvider(Provider provider) {
 		this.provider = provider;
 	}
-
 }

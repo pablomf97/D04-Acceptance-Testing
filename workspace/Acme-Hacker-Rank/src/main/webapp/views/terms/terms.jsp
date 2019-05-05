@@ -18,7 +18,7 @@
 
 <jstl:if test="${language==english}"> 
   
-<p>These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, Acme Madruga accessible at https://www.Acme-Hacker-Rank.com.</p>
+<p>These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, Acme Rookies accessible at https://www.Acme-Rookies.com .</p>
 
 <p>These Terms will be applied fully and affect to your use of this Website. By using this Website, you agreed to accept all terms and conditions written in here. You must not use this Website if you disagree with any of these Website Standard Terms and Conditions.</p>
 
@@ -26,7 +26,7 @@
 
 <h2>Intellectual Property Rights</h2>
 
-<p>Other than the content you own, under these Terms, Acme Madruga and/or its licensors own all the intellectual property rights and materials contained in this Website.</p>
+<p>Other than the content you own, under these Terms, Acme Rookies and/or its licensors own all the intellectual property rights and materials contained in this Website.</p>
 
 <p>You are granted limited license only for purposes of viewing the material contained on this Website.</p>
 
@@ -45,29 +45,29 @@
     <li>using this Website to engage in any advertising or marketing.</li>
 </ul>
 
-<p>Certain areas of this Website are restricted from being access by you and Acme Madruga may further restrict access by you to any areas of this Website, at any time, in absolute discretion. Any user ID and password you may have for this Website are confidential and you must maintain confidentiality as well.</p>
+<p>Certain areas of this Website are restricted from being access by you and Acme Rookies may further restrict access by you to any areas of this Website, at any time, in absolute discretion. Any user ID and password you may have for this Website are confidential and you must maintain confidentiality as well.</p>
 
 <h2>Your Content</h2>
 
-<p>In these Website Standard Terms and Conditions, "Your Content" shall mean any audio, video text, images or other material you choose to display on this Website. By displaying Your Content, you grant Acme Madruga a non-exclusive, worldwide irrevocable, sub licensable license to use, reproduce, adapt, publish, translate and distribute it in any and all media.</p>
+<p>In these Website Standard Terms and Conditions, "Your Content" shall mean any audio, video text, images or other material you choose to display on this Website. By displaying Your Content, you grant Acme Rookies a non-exclusive, worldwide irrevocable, sub licensable license to use, reproduce, adapt, publish, translate and distribute it in any and all media.</p>
 
 <h2>Your Privacy</h2>
 
 
 
-<p>Your Content must be your own and must not be invading any third-party's rights. Acme Madruga reserves the right to remove any of Your Content from this Website at any time without notice.</p>
+<p>Your Content must be your own and must not be invading any third-party's rights. Acme Rookies reserves the right to remove any of Your Content from this Website at any time without notice.</p>
 
 <h2>No warranties</h2>
 
-<p>This Website is provided "as is," with all faults, and Acme Madruga express no representations or warranties, of any kind related to this Website or the materials contained on this Website. Also, nothing contained on this Website shall be interpreted as advising you.</p>
+<p>This Website is provided "as is," with all faults, and Acme Rookies express no representations or warranties, of any kind related to this Website or the materials contained on this Website. Also, nothing contained on this Website shall be interpreted as advising you.</p>
 
 <h2>Limitation of liability</h2>
 
-<p>In no event shall Acme Madruga, nor any of its officers, directors and employees, shall be held liable for anything arising out of or in any way connected with your use of this Website whether such liability is under contract. Â Acme Madruga, including its officers, directors and employees shall not be held liable for any indirect, consequential or special liability arising out of or in any way related to your use of this Website.</p>
+<p>In no event shall Acme Rookies, nor any of its officers, directors and employees, shall be held liable for anything arising out of or in any way connected with your use of this Website whether such liability is under contract. Â Acme Rookies, including its officers, directors and employees shall not be held liable for any indirect, consequential or special liability arising out of or in any way related to your use of this Website.</p>
 
 <h2>Indemnification</h2>
 
-<p>You hereby indemnify to the fullest extent Acme Madruga from and against any and/or all liabilities, costs, demands, causes of action, damages and expenses arising in any way related to your breach of any of the provisions of these Terms.</p>
+<p>You hereby indemnify to the fullest extent Acme Rookies from and against any and/or all liabilities, costs, demands, causes of action, damages and expenses arising in any way related to your breach of any of the provisions of these Terms.</p>
 
 <h2>Severability</h2>
 
@@ -75,15 +75,15 @@
 
 <h2>Variation of Terms</h2>
 
-<p>Acme Madruga is permitted to revise these Terms at any time as it sees fit, and by using this Website you are expected to review these Terms on a regular basis.</p>
+<p>Acme Rookies is permitted to revise these Terms at any time as it sees fit, and by using this Website you are expected to review these Terms on a regular basis.</p>
 
 <h2>Assignment</h2>
 
-<p>The Acme Madruga is allowed to assign, transfer, and subcontract its rights and/or obligations under these Terms without any notification. However, you are not allowed to assign, transfer, or subcontract any of your rights and/or obligations under these Terms.</p>
+<p>The Acme Rookies is allowed to assign, transfer, and subcontract its rights and/or obligations under these Terms without any notification. However, you are not allowed to assign, transfer, or subcontract any of your rights and/or obligations under these Terms.</p>
 
 <h2>Entire Agreement</h2>
     
-<p>These Terms constitute the entire agreement between Acme Madruga and you in relation to your use of this Website, and supersede all prior agreements and understandings.</p>
+<p>These Terms constitute the entire agreement between Acme Rookies and you in relation to your use of this Website, and supersede all prior agreements and understandings.</p>
 
 <h2>Governing Law and Jurisdiction</h2>
 
@@ -96,7 +96,7 @@
   
   <body>
 
-<p>Estos T&eacute;rminos y Condiciones Est&aacute;ndar del Sitio Web escritos en esta pagina web gestionaran su uso de nuestro sitio web, Acme Madruga accesible en https://www.Acme-Hacker-Rank.com.</p>
+<p>Estos T&eacute;rminos y Condiciones Est&aacute;ndar del Sitio Web escritos en esta pagina web gestionaran su uso de nuestro sitio web, Acme Rookies accesible en https://www.Acme-Rookies-Rank.com.</p>
 
 <p>Estos Terminos se aplicaran en su totalidad y afectar&aacute;n al uso que usted haga de este sitio web. Al utilizar este sitio web, usted acepta todos los terminos y condiciones aqu&iacute; escritos. Usted no debe usar este sitio web si no est&aacute; de acuerdo con alguno de estos Terminos y Condiciones Estandar del sitio web. Nuestros Terminos y Condiciones han sido generados en la Plantilla de T&eacute;rminos y Condiciones y en la Plantilla de Politica de Privacidad.</p>
 
@@ -104,7 +104,7 @@
 
 <h2>Derechos de Propiedad Intelectual</h2>
 
-<p>Ademas del contenido que usted posee, bajo estos Terminos, Acme Madruga y/o sus licenciatarios poseen todos los derechos de propiedad intelectual y materiales contenidos en este sitio web.</p>
+<p>Ademas del contenido que usted posee, bajo estos Terminos, Acme Rookies y/o sus licenciatarios poseen todos los derechos de propiedad intelectual y materiales contenidos en este sitio web.</p>
 
 <p>Se le concede una licencia limitada solo para ver el material contenido en este sitio web.</p>
 
@@ -123,31 +123,31 @@
     <li> utilizar este sitio web para realizar cualquier tipo de publicidad o marketing.</li>
 </ul>
 
-<p>Ciertas areas de este sitio web estan restringidas para que usted pueda acceder a ellas y Acme Madruga puede restringir aun mas el acceso de usted a cualquier area de este sitio web, en cualquier momento, a su absoluta discreci&oacute;n. Cualquier identificaci&oacute;n de usuario y contrase&ntilde;a que pueda tener para este sitio web son confidenciales y usted tambien debe mantener la confidencialidad.</p>
+<p>Ciertas areas de este sitio web estan restringidas para que usted pueda acceder a ellas y Acme Rookies puede restringir aun mas el acceso de usted a cualquier area de este sitio web, en cualquier momento, a su absoluta discreci&oacute;n. Cualquier identificaci&oacute;n de usuario y contrase&ntilde;a que pueda tener para este sitio web son confidenciales y usted tambien debe mantener la confidencialidad.</p>
 
 <h2>Su contenido</h2>
 
-<p>En estos Terminos y Condiciones Estandar del Sitio Web, "Su Contenido" significara cualquier audio, texto de video, imagenes u otro material que usted elija mostrar en este Sitio Web. Al mostrar Su Contenido, usted otorga a Acme Madruga una licencia no exclusiva, irrevocable y sublicenciable en todo el mundo para utilizarlo, reproducirlo, adaptarlo, publicarlo, traducirlo y distribuirlo en todos y cada uno de los medios.</p>
+<p>En estos Terminos y Condiciones Estandar del Sitio Web, "Su Contenido" significara cualquier audio, texto de video, imagenes u otro material que usted elija mostrar en este Sitio Web. Al mostrar Su Contenido, usted otorga a Acme Rookies una licencia no exclusiva, irrevocable y sublicenciable en todo el mundo para utilizarlo, reproducirlo, adaptarlo, publicarlo, traducirlo y distribuirlo en todos y cada uno de los medios.</p>
 
 <h2>Su privacidad</h2>
 
 
 
-<p>Su Contenido debe ser suyo y no debe estar invadiendo los derechos de terceros Acme Madruga se reserva el derecho de eliminar cualquier parte de su contenido de este sitio web en cualquier momento y sin previo aviso.</p>
+<p>Su Contenido debe ser suyo y no debe estar invadiendo los derechos de terceros Acme Rookies se reserva el derecho de eliminar cualquier parte de su contenido de este sitio web en cualquier momento y sin previo aviso.</p>
 
 <h2>No hay garant&iacute;as</h2>
 
-<p>Este sitio web se proporciona "tal cual", con todos los defectos, y Acme Madruga no expresa ninguna representacion o garantia, de ningun tipo relacionada con este sitio web o los materiales contenidos en este sitio web. Asimismo, nada de lo contenido en este sitio web se interpretar&aacute; como una recomendaci&oacute;n.</p>
+<p>Este sitio web se proporciona "tal cual", con todos los defectos, y Acme Rookies no expresa ninguna representacion o garantia, de ningun tipo relacionada con este sitio web o los materiales contenidos en este sitio web. Asimismo, nada de lo contenido en este sitio web se interpretar&aacute; como una recomendaci&oacute;n.</p>
 
 <h2>Limitaci&oacute;n de responsabilidad</h2>
 
-<p>En ningun caso Acme Madruga, ni ninguno de sus funcionarios, directores y empleados, seran responsables de nada que surja de o este relacionado de alguna manera con el uso que usted haga de este sitio web, ya sea que dicha responsabilidad este bajo contrato. Acme Madruga, incluidos sus directivos, directores y empleados, no se hace responsable de ninguna responsabilidad indirecta, consecuente o especial que se derive de o est&eacute; relacionada de alguna manera con el uso que usted haga de este sitio web.</p>
+<p>En ningun caso Acme Rookies, ni ninguno de sus funcionarios, directores y empleados, seran responsables de nada que surja de o este relacionado de alguna manera con el uso que usted haga de este sitio web, ya sea que dicha responsabilidad este bajo contrato. Acme Rookies, incluidos sus directivos, directores y empleados, no se hace responsable de ninguna responsabilidad indirecta, consecuente o especial que se derive de o est&eacute; relacionada de alguna manera con el uso que usted haga de este sitio web.</p>
 
 
 
 <h2>Indemnizaci&oacute;n</h2>
 
-<p>Usted indemniza en la mayor medida posible a Acme Madruga de y contra cualquier y/o todas las responsabilidades, costos, demandas, causas de acci&oacute;n, daÃ±os y gastos que surjan de cualquier manera relacionados con su incumplimiento de cualquiera de las disposiciones de estos Terminos.</p>
+<p>Usted indemniza en la mayor medida posible a Acme Rookies de y contra cualquier y/o todas las responsabilidades, costos, demandas, causas de acci&oacute;n, daÃ±os y gastos que surjan de cualquier manera relacionados con su incumplimiento de cualquiera de las disposiciones de estos Terminos.</p>
 
 <h2>Divisibilidad</h2>
 
@@ -155,15 +155,15 @@
 
 <h2>Variacion de los t&eacute;rminos</h2>
 
-<p>Acme Madruga esta autorizado a revisar estos Terminos en cualquier momento como considere conveniente, y al usar este sitio web se espera que usted revise estos Terminos de forma regular.</p>
+<p>Acme Rookies esta autorizado a revisar estos Terminos en cualquier momento como considere conveniente, y al usar este sitio web se espera que usted revise estos Terminos de forma regular.</p>
 
 <h2>Asignaci&oacute;n</h2>
 
-<p>El Acme Madruga esta autorizado a ceder, transferir y subcontratar sus derechos y/u obligaciones bajo estos T&eacute;rminos sin notificaci&oacute;n alguna. Sin embargo, no se le permite ceder, transferir o subcontratar ninguno de sus derechos u obligaciones bajo estos Terminos.</p>
+<p>El Acme Rookies esta autorizado a ceder, transferir y subcontratar sus derechos y/u obligaciones bajo estos T&eacute;rminos sin notificaci&oacute;n alguna. Sin embargo, no se le permite ceder, transferir o subcontratar ninguno de sus derechos u obligaciones bajo estos Terminos.</p>
 
 <h2>Acuerdo Completo</h2>
     
-<p>Estos Terminos constituyen el acuerdo completo entre Acme Madruga y usted en relacion con su uso de este sitio web, y reemplazan todos los acuerdos y entendimientos anteriores.</p>
+<p>Estos Terminos constituyen el acuerdo completo entre Acme Rookies y usted en relacion con su uso de este sitio web, y reemplazan todos los acuerdos y entendimientos anteriores.</p>
 
 <h2>Ley Aplicable y Jurisdicci&oacute;n
 </h2>

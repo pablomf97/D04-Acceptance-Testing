@@ -51,10 +51,10 @@
 				<td style="text-align: right">${worstPositionSalary}</td>
 			</tr>
 			
-			<tr>
+		 	<tr>
 				<td><spring:message code="administrator.companyWithMorePositions" /></td>
 				<td style="text-align: right">${companyWithMorePositions}</td>
-			</tr>
+			</tr> 
 				<tr>
 				<td><spring:message code="administrator.maxPositionPerCompany" /></td>
 				<td style="text-align: right">${maxPositionPerCompany}</td>
@@ -146,6 +146,126 @@
 	
 	
 	
+			
+
+		</table>
+		
+		
+	
+		<table class="displayStyle" style="width: 50%">
+			<tr>
+				<th colspan="2"><spring:message
+						code="administrator.statistics.AcmeRookies" /></th>
+			</tr>
+			
+			
+			<tr>
+				<td><spring:message code="administrator.statsAuditPositions.max" /></td>
+				<td style="text-align: right">${statsAuditPositions[0]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsAuditPositions.min" /></td>
+				<td style="text-align: right">${statsAuditPositions[1]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsAuditPositions.avg" /></td>
+				<td style="text-align: right">${statsAuditPositions[2]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsAuditPositions.stdev" /></td>
+				<td style="text-align: right">${statsAuditPositions[3]}</td>
+			</tr>
+			
+						
+			<tr>
+				<td><spring:message code="administrator.statsScoreCompanies.max" /></td>
+				<td style="text-align: right">${statsScoreCompanies[0]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsScoreCompanies.min" /></td>
+				<td style="text-align: right">${statsScoreCompanies[1]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsScoreCompanies.avg" /></td>
+				<td style="text-align: right">${statsScoreCompanies[2]}</td>
+			</tr> 
+			<tr>
+				<td><spring:message code="administrator.statsScoreCompanies.stdev" /></td>
+				<td style="text-align: right">${statsScoreCompanies[3]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.CompaniesHighestScores" /></td>
+				<jstl:forEach var="company" items="${CompaniesHighestScores}">
+					<td style="text-align: right"><jstl:out
+							value="${company.commercialName}" /></td>
+					<br />
+				</jstl:forEach>
+				
+				
+			</tr>
+					<tr>
+				<td><spring:message code="administrator.top5ProvidersWithItems" /></td>
+				<td style="text-align: right">${top5ProvidersWithItems}</td>
+			</tr>
+												
+			<tr>
+				<td><spring:message code="administrator.statsItemsPerProvider.max" /></td>
+				<td style="text-align: right">${statsItemsPerProvider[0]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsItemsPerProvider.min" /></td>
+				<td style="text-align: right">${statsItemsPerProvider[1]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsItemsPerProvider.avg" /></td>
+				<td style="text-align: right">${statsItemsPerProvider[2]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsItemsPerProvider.stdev" /></td>
+				<td style="text-align: right">${statsItemsPerProvider[3]}</td>
+			</tr>
+									
+			<tr>
+				<td><spring:message code="administrator.statsSponsorshipsPerProvider.max" /></td>
+				<td style="text-align: right">${statsSponsorshipsPerProvider[0]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsSponsorshipsPerProvider.min" /></td>
+				<td style="text-align: right">${statsSponsorshipsPerProvider[1]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsSponsorshipsPerProvider.avg" /></td>
+				<td style="text-align: right">${statsSponsorshipsPerProvider[2]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsSponsorshipsPerProvider.stdev" /></td>
+				<td style="text-align: right">${statsSponsorshipsPerProvider[3]}</td>
+			</tr>
+			
+	
+				<tr>
+				<td><spring:message code="administrator.statsSponsorshipsPerPosition.max" /></td>
+				<td style="text-align: right">${statsSponsorshipsPerPosition[0]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsSponsorshipsPerPosition.min" /></td>
+				<td style="text-align: right">${statsSponsorshipsPerPosition[1]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsSponsorshipsPerPosition.avg" /></td>
+				<td style="text-align: right">${statsSponsorshipsPerPosition[2]}</td>
+			</tr>
+			<tr>
+				<td><spring:message code="administrator.statsSponsorshipsPerPosition.stdev" /></td>
+				<td style="text-align: right">${statsSponsorshipsPerPosition[3]}</td>
+			</tr>
+			
+		
+			
+					<tr>
+				<td><spring:message code="administrator.Percentage10AVGSponsorshipPerProvider" /></td>
+				<td style="text-align: right">${Percentage10AVGSponsorshipPerProvider}</td>
+			</tr>
 			
 
 		</table>
