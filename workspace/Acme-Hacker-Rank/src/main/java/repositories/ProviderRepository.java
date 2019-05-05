@@ -25,6 +25,6 @@ public interface ProviderRepository extends JpaRepository<Provider, Integer> {
 	@Query("select p.name from Provider p where (select count(s) from Sponsorship s where s.provider.id = p.id) > 1.1*(select avg(1.0 * (select count(s) from Sponsorship s where s.provider.id = p.id)) from Provider p))")
 	Collection<String> Percentage10AVGSponsorshipPerProvider();
 	
-	// select p from Position p where (select count(*) from Audit a where a.position = p)>1.0*( select max(1.0*(select avg(a.score) from Audit a where a.position = p)) from Position p); 
+	
 	
 }

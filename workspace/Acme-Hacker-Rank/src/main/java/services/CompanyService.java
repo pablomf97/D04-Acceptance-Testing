@@ -402,37 +402,15 @@ public class CompanyService {
 
 		Assert.isTrue(principal.getId() == company.getId(), "no.permission");
 		
-		final Collection<Position> positions = this.positionService.findByOwner(company);
-		
-		for(Position p: positions){
-			this.sponsorshipService.deleteSponsorshipPerCompany(p);
-			
-		}
-		
 		this.auditService.deleteAuditsPerCompany(company);
-		for(Position p: positions){
-			for (final Application app : this.applicationService.findByPosition(p)){
-			this.applicationService.deleteAppPerPos(app);
-			}
-		}
-		
-			
-		/////	this.positionService.DeletePositionsPerCompany(positions);
-			
-			for(Position p: positions){
-				this.problemService.DeleteProblemsPerCompany(p.getProblems());
-			}
-			
-			this.positionService.DeletePositionsPerCompany(positions);
-		/*this.auditService.deleteAuditsPerCompany(company);
-		
-	//	this.problemService.DeleteProblemPerCompany(company);
 		
 		this.positionService.DeletePositionPerCompany(company);
+
 		this.problemService.DeleteProblemPerCompany(company);
-		
-*/
+
 		this.companyRepository.delete(company);
+		
+		
 	}
 	public Double[] statsScoreCompanies(){
 		

@@ -175,25 +175,18 @@ public class ProblemService {
 		this.problemRepository.flush();
 	}
 
-	public void DeleteProblemPerCompany(final Company company) {
-		final Collection<Problem> col = this.findByOwner(company);
 
-		this.problemRepository.deleteInBatch(col);
-
-	}
 	public void DeleteProblemsPerCompany(Collection<Problem>p){
 		this.problemRepository.deleteInBatch(p);
 	}
-	/*public void DeleteProblemPerCompany(Problem p){
-		this.problemRepository.delete(p);
-	}
-	
-	/*public void DeleteProblemPerCompany(final Company company) {
+
+	public void DeleteProblemPerCompany(final Company company) {
 		final Collection<Problem> col = this.findByOwner(company);
-
-		this.problemRepository.deleteInBatch(col);
+		
+		this.problemRepository.delete(col);
+		
+		
 
 	}
-	*/
 
 }
