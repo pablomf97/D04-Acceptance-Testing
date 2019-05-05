@@ -127,12 +127,16 @@ public class SponsorshipController extends AbstractController {
 		ModelAndView result;
 		Sponsorship sponsorship;
 
-		sponsorship = this.sponsorshipService.findOne(sponsorshipId);
-		Assert.notNull(sponsorship);
-		
-		result = this.createEditModelAndView(sponsorship);
-		result.addObject("sponsorshipId", sponsorshipId);
-
+		try {
+			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+			Assert.notNull(sponsorship);
+			
+			result = this.createEditModelAndView(sponsorship);
+			result.addObject("sponsorshipId", sponsorshipId);
+		} catch (Throwable oops) {
+			
+			result = new ModelAndView("redirect:/welcome/index.do");
+		}
 		return result;
 	}
 	
@@ -148,7 +152,8 @@ public class SponsorshipController extends AbstractController {
 				result = new ModelAndView("sponsorship/edit");
 				result.addObject("sponsorship", sponsorship);
 				result.addObject("binding", binding);
-			} else
+				result.addObject("isPrincipal", true);
+			} else {
 				try {
 
 					this.sponsorshipService.save(aux);
@@ -159,10 +164,13 @@ public class SponsorshipController extends AbstractController {
 					result.addObject("sponsorship", aux);
 					result.addObject("messageCode", oops.getMessage());
 				}
+			}
 		} catch (final Throwable oops) {
-			sponsorship = this.sponsorshipService.findOne(sponsorship.getId());
-			result = this
-					.createEditModelAndView(sponsorship, oops.getMessage());
+			if(binding.hasErrors()) {
+				result = this.createEditModelAndView(sponsorship, "jpa.error");
+			} else {
+				result = this.createEditModelAndView(sponsorship, "commit.error");
+			}
 		}
 		return result;
 	}
@@ -194,13 +202,15 @@ public class SponsorshipController extends AbstractController {
 			final Sponsorship sponsorship, final String messageCode) {
 		final ModelAndView result;
 		Actor principal;
-		boolean isPrincipal = false;
+		boolean isPrincipal = true;
 		
-		principal = this.actorService.findByPrincipal();
+		if(messageCode == null) {
+			principal = this.actorService.findByPrincipal();
 
-		if (principal.getId() == sponsorship.getProvider().getId())
-			isPrincipal = true;
-
+			if (principal.getId() != sponsorship.getProvider().getId())
+				isPrincipal = false;
+		}
+		
 		result = new ModelAndView("sponsorship/edit");
 		result.addObject("sponsorship", sponsorship);
 		result.addObject("isPrincipal", isPrincipal);

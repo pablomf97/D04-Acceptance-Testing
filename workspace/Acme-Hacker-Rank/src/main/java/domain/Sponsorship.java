@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -44,6 +45,7 @@ public class Sponsorship extends DomainEntity {
 	}
 
 	@NotBlank
+	@URL
 	public String getBanner() {
 		return banner;
 	}

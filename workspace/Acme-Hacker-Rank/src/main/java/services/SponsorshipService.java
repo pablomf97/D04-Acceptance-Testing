@@ -144,13 +144,6 @@ public class SponsorshipService {
 			final BindingResult binding) {
 		Sponsorship result;
 		
-		try {
-			Assert.isTrue(!sponsorship.getBanner().isEmpty(),
-					"banner.needed");
-		} catch (Exception e) {
-			binding.rejectValue("banner", "banner.needed");
-		}
-
 		if (sponsorship.getId() == 0) {
 			result = this.create();
 			
@@ -170,8 +163,12 @@ public class SponsorshipService {
 		result.setBanner(sponsorship.getBanner());
 
 		this.validator.validate(result, binding);
-
+		
 		return result;
+	}
+	
+	public void flush() {
+		this.sponsorshipRepository.flush();
 	}
 	
 	public void deleteSponsorshipPerCompany(Position p) {

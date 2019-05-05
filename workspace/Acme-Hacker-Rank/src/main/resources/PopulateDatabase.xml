@@ -1303,7 +1303,7 @@
 		<property name="position" ref="position2c2" />
 	</bean>
 	<!-- SPONSORSHIP -->
-	<bean id="sponsorship1" class="domain.Sponsorship">
+	<!-- <bean id="sponsorship1" class="domain.Sponsorship">
 		<property name="banner"
 			value="https://www.eff.org/files/banner_library/google-spy-eye.png" />
 		<property name="target" value="target default" />
@@ -1337,7 +1337,7 @@
 		<property name="target" value="target default" />
 		<property name="provider" ref="provider4" />
 		<property name="creditCard" ref="creditCard18" />
-	</bean>
+	</bean> -->
 
 	<!-- ITEM -->
 	<bean id="item1" class="domain.Item">
@@ -1411,11 +1411,12 @@
 			</list>
 		</property>
 		<property name="sponsorships">
-			<list>
+<!-- 			<list>
 				<ref bean="sponsorship1" />
 				<ref bean="sponsorship2" />
 				<ref bean="sponsorship3" />
-			</list>
+			</list> -->
+			<null></null>
 		</property>
 	</bean>
 
@@ -1440,11 +1441,11 @@
 			</list>
 		</property>
 		<property name="sponsorships">
-			<list>
+<!-- 			<list>
 				<ref bean="sponsorship4" />
-
-
-			</list>
+			</list> -->
+			
+			<null></null>
 		</property>
 	</bean>
 
