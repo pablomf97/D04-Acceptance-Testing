@@ -18,8 +18,10 @@ import repositories.CompanyRepository;
 import security.Authority;
 import security.UserAccount;
 import domain.Actor;
+import domain.Application;
 import domain.Company;
 import domain.CreditCard;
+import domain.Position;
 import forms.EditionCompanyFormObject;
 import forms.RegisterCompanyFormObject;
 
@@ -57,6 +59,9 @@ public class CompanyService {
 	
 	@Autowired
 	private SponsorshipService sponsorshipService;
+	
+	@Autowired
+	private ApplicationService applicationService;
 
 	/* Simple CRUD methods */
 
@@ -396,14 +401,37 @@ public class CompanyService {
 		principal = this.actorService.findByPrincipal();
 
 		Assert.isTrue(principal.getId() == company.getId(), "no.permission");
-
-		this.auditService.deleteAuditsPerCompany(company);
 		
+		final Collection<Position> positions = this.positionService.findByOwner(company);
+		
+		for(Position p: positions){
+			this.sponsorshipService.deleteSponsorshipPerCompany(p);
+			
+		}
+		
+		this.auditService.deleteAuditsPerCompany(company);
+		for(Position p: positions){
+			for (final Application app : this.applicationService.findByPosition(p)){
+			this.applicationService.deleteAppPerPos(app);
+			}
+		}
+		
+			
+		/////	this.positionService.DeletePositionsPerCompany(positions);
+			
+			for(Position p: positions){
+				this.problemService.DeleteProblemsPerCompany(p.getProblems());
+			}
+			
+			this.positionService.DeletePositionsPerCompany(positions);
+		/*this.auditService.deleteAuditsPerCompany(company);
+		
+	//	this.problemService.DeleteProblemPerCompany(company);
 		
 		this.positionService.DeletePositionPerCompany(company);
-
 		this.problemService.DeleteProblemPerCompany(company);
-
+		
+*/
 		this.companyRepository.delete(company);
 	}
 	public Double[] statsScoreCompanies(){

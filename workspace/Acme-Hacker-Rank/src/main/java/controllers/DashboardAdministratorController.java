@@ -81,9 +81,11 @@ public class DashboardAdministratorController extends AbstractController{
 		Double[] statsSponsorshipsPerProvider=this.providerService.statsSponsorshipsPerProvider();
 		Double[] statsSponsorshipsPerPosition=this.positionService.statsSponsorshipsPerPosition();
 		Collection<String> Percentage10AVGSponsorshipPerProvider=this.providerService.Percentage10AVGSponsorshipPerProvider();
+		Double avgSalaryPerPositionHighestScoreAudits=this.positionService.avgSalaryPerPositionHighestScoreAudits();
 		
 		result = new ModelAndView("administrator/statistics");
 		
+		result.addObject("avgSalaryPerPositionHighestScoreAudits",avgSalaryPerPositionHighestScoreAudits);
 		result.addObject("Percentage10AVGSponsorshipPerProvider",Percentage10AVGSponsorshipPerProvider);
 		result.addObject("statsSponsorshipsPerPosition",statsSponsorshipsPerPosition);
 		result.addObject("statsSponsorshipsPerProvider",statsSponsorshipsPerProvider);
