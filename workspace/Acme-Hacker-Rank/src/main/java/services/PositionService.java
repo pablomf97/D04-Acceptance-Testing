@@ -349,15 +349,13 @@ public class PositionService {
 		for (final Position p : positions){
 			for (final Application app : this.applicationService.findByPosition(p)){
 				this.applicationService.deleteAppPerPos(app);
-				//this.problemService.DeleteProblemPerCompany(app.getProblem());
 			}
-			this.sponsorshipService.deleteSponsorshipPerCompany(p);
-			//this.problemService.DeleteProblemsPerCompany(p.getProblems());
 			this.positionRepository.delete(p);
 		}
 		
-		//this.positionRepository.deleteInBatch(positions);
 	}
+
+
 
 
 	public Double[] statsSponsorshipsPerPosition() {

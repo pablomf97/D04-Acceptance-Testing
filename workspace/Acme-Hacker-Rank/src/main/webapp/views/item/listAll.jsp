@@ -26,7 +26,7 @@
 				</display:column>
 				
 				<display:column titleKey="item.provider">
-					<a href="provider/display.do?providerId=${item.provider.id}"> 
+					<a href="provider/display.do?id=${item.provider.id}"> 
 						<jstl:out value="${item.provider.name}" />
 					</a>
 				</display:column>
