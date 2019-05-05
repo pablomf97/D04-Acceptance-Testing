@@ -35,21 +35,14 @@ public class PersonalDataService {
 	public PersonalData create() {
 		Hacker principal;
 		PersonalData result;
-		Collection<Curricula> principalCurriculas;
 
 		principal = (Hacker) this.actorService.findByPrincipal();
-
-		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
-
-		//Checking creating a data in an own curricula
-		for (final Curricula c : principalCurriculas)
-			Assert.isTrue(c.getHacker().getId() == principal.getId());
+		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
 
 		result = new PersonalData();
 
 		return result;
 	}
-
 	//Save
 	public PersonalData save(final PersonalData data, final int curriculaId) {
 		Hacker principal;
@@ -175,5 +168,11 @@ public class PersonalDataService {
 		c.setPersonalData(result);
 		this.curriculaService.save(c);
 		return result;
+	}
+
+	public void checkOwnerPersonalData(final Integer id) {
+		final Actor principal = this.actorService.findByPrincipal();
+		final Curricula c = this.curriculaService.getCurriculaByPersonalData(id);
+		Assert.isTrue(c.getHacker().equals(principal));
 	}
 }

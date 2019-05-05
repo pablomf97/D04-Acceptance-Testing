@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.CurriculaService;
 import services.PersonalDataService;
+import domain.Actor;
 import domain.Curricula;
 import domain.PersonalData;
 
@@ -22,6 +25,8 @@ import domain.PersonalData;
 public class PersonalDataController extends AbstractController {
 
 	//Services
+	@Autowired
+	private ActorService		actorService;
 
 	@Autowired
 	private PersonalDataService	personalDataService;
@@ -40,15 +45,19 @@ public class PersonalDataController extends AbstractController {
 		ModelAndView result;
 		PersonalData data;
 
-		data = this.personalDataService.findOne(dataId);
+		try {
+			data = this.personalDataService.findOne(dataId);
+			final Actor actor = this.actorService.findByPrincipal();
+			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "HACKER"));
+			result = new ModelAndView("personalData/display");
 
-		result = new ModelAndView("personalData/display");
-
-		result.addObject("data", data);
-		result.addObject("curriculaId", curriculaId);
-
+			result.addObject("data", data);
+			result.addObject("curriculaId", curriculaId);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:../welcome/index.do");
+			result.addObject("messageCode", "problem.commit.error");
+		}
 		return result;
-
 	}
 
 	//Edition
@@ -59,8 +68,8 @@ public class PersonalDataController extends AbstractController {
 		PersonalData data;
 
 		try {
-
 			data = this.personalDataService.findOne(dataId);
+			this.personalDataService.checkOwnerPersonalData(dataId);
 
 			result = this.createEditModelAndView(data, curriculaId);
 
@@ -82,12 +91,16 @@ public class PersonalDataController extends AbstractController {
 			result = this.createEditModelAndView(data, curriculaId);
 		else
 			try {
+				if (data.getId() != 0)
+					this.personalDataService.checkOwnerPersonalData(data.getId());
+
 				this.personalDataService.save(data, curriculaId);
 				final Curricula currentCurricula = this.curriculaService.findOne(curriculaId);
 
 				result = new ModelAndView("redirect:display.do?dataId=" + data.getId() + "&curriculaId=" + currentCurricula.getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(data, curriculaId, "md.commit.error");
+				result = new ModelAndView("redirect:../welcome/index.do");
+				result.addObject("messageCode", "problem.commit.error");
 			}
 		return result;
 
@@ -142,14 +155,15 @@ public class PersonalDataController extends AbstractController {
 		if (binding.hasErrors()) {
 			result = new ModelAndView("curricula/edit");
 			result.addObject("personalData", personalData);
-		}
-		try {
-			this.personalDataService.saveNewCurricula(personalData);
-			result = new ModelAndView("redirect:../../curricula/hacker/list.do");
-		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:../welcome/index.do");
-			result.addObject("messageCode", "problem.commit.error");
-		}
+		} else
+			try {
+				this.personalDataService.saveNewCurricula(personalData);
+
+				result = new ModelAndView("redirect:../../curricula/hacker/list.do");
+			} catch (final Throwable oops) {
+				result = new ModelAndView("redirect:../welcome/index.do");
+				result.addObject("messageCode", "problem.commit.error");
+			}
 		return result;
 	}
 

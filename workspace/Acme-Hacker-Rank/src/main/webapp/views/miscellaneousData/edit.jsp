@@ -28,7 +28,7 @@
 
 		<spring:message code="miscellaneousData.attachements" />
 		<br>
-		<form:textarea code="miscellaneousData.attachements"
+		<form:input code="miscellaneousData.attachements"
 			path="attachements" />
 		<form:errors path="attachements" cssClass="error" />
 

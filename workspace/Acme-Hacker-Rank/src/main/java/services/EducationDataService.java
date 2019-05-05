@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -21,32 +22,25 @@ public class EducationDataService {
 	//Repository
 
 	@Autowired
-	private EducationDataRepository educationDataRepository;
+	private EducationDataRepository	educationDataRepository;
 
 	//Services
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private CurriculaService curriculaService;
+	private CurriculaService		curriculaService;
 
 
 	//Create
 
-	public EducationData create(){
+	public EducationData create() {
 		Hacker principal;
 		EducationData result;
-		Collection<Curricula> principalCurriculas;
 
 		principal = (Hacker) this.actorService.findByPrincipal();
-
-		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
-
-		//Checking creating a data in an own curricula
-		for(Curricula c : principalCurriculas){
-			Assert.isTrue(c.getHacker().getId() == principal.getId());
-		}
+		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
 
 		result = new EducationData();
 
@@ -54,7 +48,7 @@ public class EducationDataService {
 	}
 
 	//Save
-	public EducationData save(EducationData data,int curriculaId){
+	public EducationData save(final EducationData data, final int curriculaId) {
 		Hacker principal;
 		EducationData dataDB = new EducationData();
 		Collection<Curricula> principalCurriculas;
@@ -63,20 +57,17 @@ public class EducationDataService {
 
 		principal = (Hacker) this.actorService.findByPrincipal();
 
-		
-
 		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
 
 		//Checking creating a data in a own curricula
-		
 
-		if(data.getId()!=0){
+		if (data.getId() != 0) {
 			currentCurricula = this.curriculaService.getCurriculaByEducationData(data.getId());
-			
+
 			Assert.isTrue(currentCurricula.getEducationData().contains(data));
 			Assert.isTrue(principalCurriculas.contains(currentCurricula));
 			Assert.isTrue(currentCurricula.getHacker().getId() == principal.getId());
-			
+
 			dataDB = this.educationDataRepository.findOne(data.getId());
 
 			dataDB.setDegree(data.getDegree());
@@ -86,32 +77,31 @@ public class EducationDataService {
 
 			result = this.educationDataRepository.save(dataDB);
 
-		}else{
+		} else {
 			Assert.notNull(data.getDegree());
 			Assert.notNull(data.getInstitution());
 			Assert.notNull(data.getStartDate());
 
 			result = this.educationDataRepository.save(data);
-			
+
 			currentCurricula = this.curriculaService.findOne(curriculaId);
-			
+
 			currentCurricula.getEducationData().add(data);
 		}
-
 
 		return result;
 
 	}
 
 	//Delete
-	public void delete(EducationData data){
+	public void delete(final EducationData data) {
 		Hacker principal;
 		Collection<Curricula> principalCurriculas;
 		Curricula currentCurricula;
 		EducationData db = new EducationData();
-		
+
 		db = this.educationDataRepository.findOne(data.getId());
-		
+
 		principal = (Hacker) this.actorService.findByPrincipal();
 
 		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
@@ -121,30 +111,26 @@ public class EducationDataService {
 		Assert.isTrue(currentCurricula.getHacker().getId() == principal.getId());
 		Assert.isTrue(principalCurriculas.contains(currentCurricula));
 		Assert.isTrue(currentCurricula.getEducationData().contains(db));
-		
+
 		currentCurricula.getEducationData().remove(db);
-		
+
 		this.educationDataRepository.delete(db);
 	}
 
 	//Finds
-	public EducationData findOne(int dataId){
-		EducationData result = this.educationDataRepository.findOne(dataId);
+	public EducationData findOne(final int dataId) {
+		final EducationData result = this.educationDataRepository.findOne(dataId);
 
 		return result;
 	}
 
-	public Collection<EducationData> findAll(){
-		Collection<EducationData>result = this.educationDataRepository.findAll();
+	public Collection<EducationData> findAll() {
+		final Collection<EducationData> result = this.educationDataRepository.findAll();
 
 		return result;
 	}
-	
 
-	
-	
-	
-	public EducationData createCopy(){
+	public EducationData createCopy() {
 		Actor principal;
 		EducationData result;
 
@@ -155,8 +141,8 @@ public class EducationDataService {
 
 		return result;
 	}
-	
-	public EducationData saveCopy(EducationData data){
+
+	public EducationData saveCopy(final EducationData data) {
 		Actor principal;
 		EducationData result;
 
@@ -171,18 +157,21 @@ public class EducationDataService {
 		Assert.notNull(result);
 
 		return result;
-		
+
 	}
-	
-	public void flush(){
+
+	public void flush() {
 		this.educationDataRepository.flush();
 	}
 
-	
-	public void deleteEDHacker(EducationData ed){
+	public void deleteEDHacker(final EducationData ed) {
 		this.educationDataRepository.delete(ed);
-		
+
 	}
-	
+	public void checkOwnerEducationData(final Integer id) {
+		final Actor principal = this.actorService.findByPrincipal();
+		final Curricula c = this.curriculaService.getCurriculaByEducationData(id);
+		Assert.isTrue(c.getHacker().equals(principal));
+	}
 
 }
