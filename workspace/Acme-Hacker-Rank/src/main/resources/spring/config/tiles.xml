@@ -49,6 +49,8 @@
 
 		<!-- Auditor views -->
 		<value>/views/auditor/tiles.xml</value>
+		<!-- Audit views -->
+		<value>/views/audit/tiles.xml</value>
 
 	</util:list>
 

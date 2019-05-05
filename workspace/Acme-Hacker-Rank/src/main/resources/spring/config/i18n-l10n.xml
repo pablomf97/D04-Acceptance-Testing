@@ -48,6 +48,8 @@
 
 		<!-- Providers messages -->
 		<value>/views/auditor/messages</value>
+		<!-- Providers audit -->
+		<value>/views/audit/messages</value>
 
 	</util:list>
 

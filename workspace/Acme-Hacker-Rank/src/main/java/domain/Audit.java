@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -21,51 +22,62 @@ public class Audit extends DomainEntity {
 
 	/* Attributes */
 
-	private Date moment;
-	private String text;
-	private Integer score;
-	private Auditor auditor;
-	private Position position;
+	private Date		moment;
+	private String		text;
+	private Integer		score;
+	private Auditor		auditor;
+	private Position	position;
+	private Boolean		isDraft;
+
 
 	/* Getters & Setters */
+
+	@NotNull
+	public Boolean getIsDraft() {
+		return this.isDraft;
+	}
+
+	public void setIsDraft(final Boolean isDraft) {
+		this.isDraft = isDraft;
+	}
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getMoment() {
-		return moment;
+		return this.moment;
 	}
 
-	public void setMoment(Date moment) {
+	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
 
 	@NotBlank
 	public String getText() {
-		return text;
+		return this.text;
 	}
 
-	public void setText(String text) {
+	public void setText(final String text) {
 		this.text = text;
 	}
 
 	@NotNull
 	@Range(min = 0, max = 10)
 	public Integer getScore() {
-		return score;
+		return this.score;
 	}
 
-	public void setScore(Integer score) {
+	public void setScore(final Integer score) {
 		this.score = score;
 	}
 
 	@Valid
 	@ManyToOne(optional = true)
 	public Auditor getAuditor() {
-		return auditor;
+		return this.auditor;
 	}
 
-	public void setAuditor(Auditor auditor) {
+	public void setAuditor(final Auditor auditor) {
 		this.auditor = auditor;
 	}
 
@@ -73,10 +85,10 @@ public class Audit extends DomainEntity {
 	@NotNull
 	@ManyToOne(optional = false)
 	public Position getPosition() {
-		return position;
+		return this.position;
 	}
 
-	public void setPosition(Position position) {
+	public void setPosition(final Position position) {
 		this.position = position;
 	}
 
