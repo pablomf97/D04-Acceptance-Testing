@@ -36,57 +36,57 @@
 		</property>
 	</bean>
 
-	<bean id="userHacker1" class="security.UserAccount">
-		<property name="username" value="hacker1" />
+	<bean id="userRookie1" class="security.UserAccount">
+		<property name="username" value="rookie1" />
 		<property name="password" value="2ba2a8ac968a7a2b0a7baa7f2fef18d2" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="HACKER" />
+					<property name="authority" value="ROOKIE" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-	<bean id="userHacker2" class="security.UserAccount">
-		<property name="username" value="hacker2" />
+	<bean id="userRookie2" class="security.UserAccount">
+		<property name="username" value="rookie2" />
 		<property name="password" value="91af68b69a50a98dbc0800942540342c" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="HACKER" />
+					<property name="authority" value="ROOKIE" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-	<bean id="userHacker3" class="security.UserAccount">
-		<property name="username" value="hacker3" />
+	<bean id="userRookie3" class="security.UserAccount">
+		<property name="username" value="rookie3" />
 		<property name="password" value="c6ae6edca1ad45f42e619ec91a32b636" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="HACKER" />
+					<property name="authority" value="ROOKIE" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-	<bean id="userHacker4" class="security.UserAccount">
-		<property name="username" value="hacker4" />
+	<bean id="userRookie4" class="security.UserAccount">
+		<property name="username" value="rookie4" />
 		<property name="password" value="a0ba178a7585a3b3575613351aa76ef7" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="HACKER" />
+					<property name="authority" value="ROOKIE" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-	<bean id="userHacker5" class="security.UserAccount">
-		<property name="username" value="hacker5" />
+	<bean id="userRookie5" class="security.UserAccount">
+		<property name="username" value="rookie5" />
 		<property name="password" value="c788cf2e81a407a2d33ee178ed79de3e" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="HACKER" />
+					<property name="authority" value="ROOKIE" />
 				</bean>
 			</list>
 		</property>
@@ -391,9 +391,9 @@
 		<property name="providerMake" value="Make6" />
 		<property name="userAccount" ref="userProvider6" />
 	</bean>
-	<!-- HACKERS -->
+	<!-- ROOKIES -->
 
-	<bean id="hacker1" class="domain.Hacker">
+	<bean id="rookie1" class="domain.Rookie">
 		<property name="name" value="Alberto" />
 		<property name="surname" value="RamÃ­rez" />
 		<property name="VAT" value="ES34567891" />
@@ -404,10 +404,10 @@
 		<property name="address" value="C/ Reina Mercedes, 545 (Sevilla)" />
 		<property name="creditCard" ref="creditCard3" />
 		<property name="finder" ref="finderH1" />
-		<property name="userAccount" ref="userHacker1" />
+		<property name="userAccount" ref="userRookie1" />
 	</bean>
 
-	<bean id="hacker2" class="domain.Hacker">
+	<bean id="rookie2" class="domain.Rookie">
 		<property name="name" value="Joseph" />
 		<property name="surname" value="Cuadrado" />
 		<property name="VAT" value="ES45678912" />
@@ -419,23 +419,23 @@
 			value="C/ Esta es una calle con un nombre bastante largo, 1. 47005 (Estepona)" />
 		<property name="creditCard" ref="creditCard4" />
 		<property name="finder" ref="finderH2" />
-		<property name="userAccount" ref="userHacker2" />
+		<property name="userAccount" ref="userRookie2" />
 	</bean>
-	<bean id="hacker3" class="domain.Hacker">
+	<bean id="rookie3" class="domain.Rookie">
 		<property name="name" value="MarÃ­a" />
 		<property name="surname" value="RodrÃ­guez Perez" />
 		<property name="VAT" value="ES56789123" />
 		<property name="photo"
-			value="http://www.internetlab.org.br/wp-content/uploads/2017/07/policial_hacker.png" />
+			value="http://www.internetlab.org.br/wp-content/uploads/2017/07/policial_rookie.png" />
 		<property name="email" value="marrodper@mail.com" />
 		<property name="phoneNumber" value="+34611987654" />
 		<property name="address" value="C/ AtlÃ¡ntica, 71 (MÃ¡laga)" />
 		<property name="creditCard" ref="creditCard5" />
 		<property name="finder" ref="finderH3" />
-		<property name="userAccount" ref="userHacker3" />
+		<property name="userAccount" ref="userRookie3" />
 	</bean>
 
-	<bean id="hacker4" class="domain.Hacker">
+	<bean id="rookie4" class="domain.Rookie">
 		<property name="name" value="Pedro" />
 		<property name="surname" value="MarÃ­n LÃ³pez" />
 		<property name="VAT" value="ES67891234" />
@@ -444,20 +444,20 @@
 		<property name="address" value="Sin nombre, 1" />
 		<property name="creditCard" ref="creditCard6" />
 		<property name="finder" ref="finderH4" />
-		<property name="userAccount" ref="userHacker4" />
+		<property name="userAccount" ref="userRookie4" />
 	</bean>
-	<bean id="hacker5" class="domain.Hacker">
+	<bean id="rookie5" class="domain.Rookie">
 		<property name="name" value="Paula" />
 		<property name="surname" value="Montero GalÃ¡n" />
 		<property name="VAT" value="ES78912345" />
 		<property name="photo"
-			value="https://www.definicionabc.com/wp-content/uploads/hacker1.jpg" />
+			value="https://www.definicionabc.com/wp-content/uploads/rookie1.jpg" />
 		<property name="email" value="paumongal@mail.com" />
 		<property name="phoneNumber" value="+34611987654" />
 		<property name="address" value="C/ Mi calle, 1 (Madrid)" />
 		<property name="creditCard" ref="creditCard7" />
 		<property name="finder" ref="finderH5" />
-		<property name="userAccount" ref="userHacker5" />
+		<property name="userAccount" ref="userRookie5" />
 	</bean>
 	<!-- COMPANIES -->
 
@@ -524,7 +524,7 @@
 		<property name="CVV" value="366" />
 	</bean>
 
-	<!-- HACKERS -->
+	<!-- ROOKIES -->
 
 	<bean id="creditCard3" class="domain.CreditCard">
 		<property name="holder" value="Alberto RamÃ­rez" />
@@ -735,7 +735,7 @@
 		<property name="submitMoment" value="08/01/2019 10:00" />
 		<property name="status" value="ACCEPTED" />
 		<property name="problem" ref="problem3c1" />
-		<property name="hacker" ref="hacker1" />
+		<property name="rookie" ref="rookie1" />
 		<property name="position" ref="position1c1" />
 		<property name="copyCurricula" ref="curricula1copy" />
 	</bean>
@@ -744,7 +744,7 @@
 		<property name="applicationMoment" value="08/12/2018 10:00" />
 		<property name="status" value="PENDING" />
 		<property name="problem" ref="problem1c1" />
-		<property name="hacker" ref="hacker1" />
+		<property name="rookie" ref="rookie1" />
 		<property name="position" ref="position2c1" />
 	</bean>
 
@@ -752,7 +752,7 @@
 		<property name="applicationMoment" value="08/12/2018 10:00" />
 		<property name="status" value="PENDING" />
 		<property name="problem" ref="problem3c2" />
-		<property name="hacker" ref="hacker1" />
+		<property name="rookie" ref="rookie1" />
 		<property name="position" ref="position1c2" />
 	</bean>
 
@@ -763,7 +763,7 @@
 		<property name="submitMoment" value="25/11/2018 10:00" />
 		<property name="status" value="SUBMITTED" />
 		<property name="problem" ref="problem5c1" />
-		<property name="hacker" ref="hacker1" />
+		<property name="rookie" ref="rookie1" />
 		<property name="position" ref="position4c1" />
 		<property name="copyCurricula" ref="curricula1copy" />
 	</bean>
@@ -772,7 +772,7 @@
 
 	<bean id="curricula1" class="domain.Curricula">
 		<property name="isCopy" value="false" />
-		<property name="hacker" ref="hacker1" />
+		<property name="rookie" ref="rookie1" />
 		<property name="personalData" ref="personalData1" />
 		<property name="educationData">
 			<list>
@@ -791,7 +791,7 @@
 
 	<bean id="curricula1copy" class="domain.Curricula">
 		<property name="isCopy" value="true" />
-		<property name="hacker" ref="hacker1" />
+		<property name="rookie" ref="rookie1" />
 		<property name="personalData" ref="personalData1copy" />
 		<property name="educationData">
 			<list>
@@ -810,7 +810,7 @@
 
 	<bean id="curricula6" class="domain.Curricula">
 		<property name="isCopy" value="false" />
-		<property name="hacker" ref="hacker1" />
+		<property name="rookie" ref="rookie1" />
 		<property name="personalData" ref="personalData6" />
 		<property name="educationData">
 			<list>
@@ -831,7 +831,7 @@
 
 	<bean id="curricula7" class="domain.Curricula">
 		<property name="isCopy" value="false" />
-		<property name="hacker" ref="hacker1" />
+		<property name="rookie" ref="rookie1" />
 		<property name="personalData" ref="personalData7" />
 		<property name="educationData">
 			<list>
@@ -850,7 +850,7 @@
 
 	<bean id="curricula7copy" class="domain.Curricula">
 		<property name="isCopy" value="true" />
-		<property name="hacker" ref="hacker1" />
+		<property name="rookie" ref="rookie1" />
 		<property name="personalData" ref="personalData7copy" />
 		<property name="educationData">
 			<list>
@@ -869,7 +869,7 @@
 
 	<bean id="curricula2" class="domain.Curricula">
 		<property name="isCopy" value="false" />
-		<property name="hacker" ref="hacker2" />
+		<property name="rookie" ref="rookie2" />
 		<property name="personalData" ref="personalData2" />
 		<property name="educationData">
 			<list>
@@ -888,7 +888,7 @@
 
 	<bean id="curricula8" class="domain.Curricula">
 		<property name="isCopy" value="false" />
-		<property name="hacker" ref="hacker2" />
+		<property name="rookie" ref="rookie2" />
 		<property name="personalData" ref="personalData8" />
 		<property name="educationData">
 			<list>
@@ -907,7 +907,7 @@
 
 	<bean id="curricula3" class="domain.Curricula">
 		<property name="isCopy" value="false" />
-		<property name="hacker" ref="hacker3" />
+		<property name="rookie" ref="rookie3" />
 		<property name="personalData" ref="personalData3" />
 		<property name="educationData">
 			<list>
@@ -929,7 +929,7 @@
 
 	<bean id="curricula4" class="domain.Curricula">
 		<property name="isCopy" value="false" />
-		<property name="hacker" ref="hacker4" />
+		<property name="rookie" ref="rookie4" />
 		<property name="personalData" ref="personalData4" />
 		<property name="educationData">
 			<list>
@@ -948,7 +948,7 @@
 
 	<bean id="curricula5" class="domain.Curricula">
 		<property name="isCopy" value="false" />
-		<property name="hacker" ref="hacker5" />
+		<property name="rookie" ref="rookie5" />
 		<property name="personalData" ref="personalData5" />
 		<property name="educationData">
 			<list>
@@ -1670,7 +1670,7 @@
 				<entry key="Español"
 					value="¡Bienvenidos a Acme Rookies¡, ¡Somos el mercado de trabajo favorito de los profesionales de las TICs!" />
 				<entry key="English"
-					value="Welcome to Acme Rookies¡, We’re IT hacker’s favourite job marketplace!" />
+					value="Welcome to Acme Rookies¡, We’re IT rookie’s favourite job marketplace!" />
 
 			</util:map>
 		</property>
@@ -1681,7 +1681,7 @@
 				<entry key="English" value="" />
 			</util:map>
 		</property>
-		<property name="banner" value="https://github.com/pablomf97/D04-Acceptance-Testing/blob/model/workspace/rookie.png" />
+		<property name="banner" value="https://github.com/McAllisterDTur/grooving-project/blob/master/rookie.png" />
 		<property name="countryCode" value="+034" />
 		<property name="timeResultsCached" value="1" />
 		<property name="maxResults" value="10" />

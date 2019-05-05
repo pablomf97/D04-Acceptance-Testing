@@ -27,8 +27,8 @@
 		<value>/views/administrator/messages</value>
 		<value>/views/system-configuration/messages</value>
 
-		<!-- Hacker messages -->
-		<value>/views/hacker/messages</value>
+		<!-- Rookie messages -->
+		<value>/views/rookie/messages</value>
 		<value>/views/finder/messages</value>
 		<value>/views/curricula/messages</value>
 		<value>/views/miscellaneousData/messages</value>

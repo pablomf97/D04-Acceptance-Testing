@@ -28,8 +28,8 @@
 		<value>/views/administrator/tiles.xml</value>
 		<value>/views/system-configuration/tiles.xml</value>
 
-		<!-- Hacker views -->
-		<value>/views/hacker/tiles.xml</value>
+		<!-- Rookie views -->
+		<value>/views/rookie/tiles.xml</value>
 		<value>/views/finder/tiles.xml</value>
 		<value>/views/curricula/tiles.xml</value>
 		<value>/views/miscellaneousData/tiles.xml</value>
