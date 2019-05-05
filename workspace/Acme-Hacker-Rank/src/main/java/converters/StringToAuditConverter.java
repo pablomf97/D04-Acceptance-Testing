@@ -8,20 +8,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import repositories.PositionRepository;
-import domain.Position;
+import repositories.AuditRepository;
+import domain.Audit;
 
 @Component
 @Transactional
-public class StringToPositionConverter implements Converter<String, Position> {
+public class StringToAuditConverter implements Converter<String, Audit> {
 
 	@Autowired
-	PositionRepository	actorRepository;
+	AuditRepository	auditRepository;
 
 
 	@Override
-	public Position convert(final String text) {
-		Position result;
+	public Audit convert(final String text) {
+		Audit result;
 
 		int id;
 
@@ -30,11 +30,12 @@ public class StringToPositionConverter implements Converter<String, Position> {
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.actorRepository.findOne(id);
+				result = this.auditRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
 		}
 		return result;
 	}
+
 }

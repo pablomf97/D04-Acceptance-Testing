@@ -90,5 +90,13 @@
 			</a>
 		</jstl:if>
 	</display:column>
+		<display:column>
+				<security:authorize access="hasRole('AUDITOR')">
+		
+			<a href="audit/create.do?Id=${row.id}"> <spring:message
+					code="position.audit" />
+			</a>
+			</security:authorize>
+	</display:column>
 
 </display:table>

@@ -112,13 +112,14 @@
 		</jstl:forEach>
 	</jstl:if>
 </table>
-
+	<jstl:if test="${posBanner != ''}">
 		<div >
 		<h3><spring:message code="position.sponsored" /></h3>
 			<img style="width: 150px; height: 150px" src="${posBanner}"
-				alt="User photo">
+				alt="Banner">
 		</div>
-		
+	</jstl:if>	
+
 <jstl:if test="${name == position.company.userAccount.username }">
 
 	<button

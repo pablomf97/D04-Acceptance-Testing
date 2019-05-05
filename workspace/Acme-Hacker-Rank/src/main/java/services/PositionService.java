@@ -45,13 +45,12 @@ public class PositionService {
 
 	@Autowired
 	private Validator			validator;
-	
+
 	@Autowired
-	private AuditService auditService;
-	
-	
+	private AuditService		auditService;
+
 	@Autowired
-	private SponsorshipService sponsorshipService;
+	private SponsorshipService	sponsorshipService;
 
 
 	public Position create(final Actor actor) {
@@ -127,6 +126,7 @@ public class PositionService {
 
 		return result;
 	}
+
 	public void delete(final Position position) {
 		Actor principal;
 
@@ -318,6 +318,7 @@ public class PositionService {
 	/*public void DeletePositionPerCompany(final Company c) {
 
 		final Collection<Position> positions = this.findByOwner(c);
+<<<<<<< HEAD
 		
 		for (final Position p : positions){
 			for (final Application app : this.applicationService.findByPosition(p)){
@@ -327,6 +328,12 @@ public class PositionService {
 				this.problemService.DeleteProblemPerCompany(app.getProblem());
 				
 			}
+=======
+
+		for (final Position p : positions) {
+			for (final Application app : this.applicationService.findByPosition(p))
+				this.applicationService.deleteAppPerPos(app);
+>>>>>>> 14eafaad001723110fe8f5cf42b058b13a45dec0
 			this.sponsorshipService.deleteSponsorshipPerCompany(p);
 			//this.problemService.DeleteProblemPerCompany(p.getProblems());
 			this.positionRepository.delete(p);
@@ -351,19 +358,21 @@ public class PositionService {
 		
 		//this.positionRepository.deleteInBatch(positions);
 	}
-	public Double[] statsSponsorshipsPerPosition(){
+
+
+	public Double[] statsSponsorshipsPerPosition() {
+
 		return this.positionRepository.statsSponsorshipsPerPosition();
 	}
-	
-	public String randomBanner(Collection<Sponsorship> sponsorships) {
+
+	public String randomBanner(final Collection<Sponsorship> sponsorships) {
 		String result;
 		final SecureRandom rnd = new SecureRandom();
-		List<Sponsorship> listSponsoships = new ArrayList<>(sponsorships);
+		final List<Sponsorship> listSponsoships = new ArrayList<>(sponsorships);
 
 		Integer a = (rnd.nextInt() % 10);
-		while (a < 0 || a > (sponsorships.size() - 1)) {
+		while (a < 0 || a > (sponsorships.size() - 1))
 			a = (rnd.nextInt() % 10);
-		}
 
 		result = listSponsoships.get(a).getBanner();
 

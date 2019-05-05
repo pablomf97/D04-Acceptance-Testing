@@ -19,7 +19,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-
 <div>
 	<a href="#"><img src="${banner}" alt="Acme-Hacker-Rank Co., Inc."
 		style="margin-bottom: 0.5em;" /></a>
@@ -104,11 +103,31 @@
 
 				</ul></li>
 		</security:authorize>
-		
+		<security:authorize access="hasRole('AUDITOR')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.audit" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="audit/list.do"><spring:message
+								code="master.page.audit.list" /></a></li>
+				</ul></li>
+		</security:authorize>
+
 		<security:authorize access="hasRole('PROVIDER')">
 
 			<li><a class="fNiv" href="sponsorship/list.do"><spring:message
 					code="master.page.sponsorship" /></a></li>
+					
+			<li><a class="fNiv"><spring:message
+						code="master.page.items" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="item/list.do"><spring:message
+								code="master.page.item.list" /></a></li>
+					<li><a href="item/create.do"><spring:message
+								code="master.page.item.create" /></a></li>
+				</ul></li>
+
 
 		</security:authorize>
 
@@ -222,25 +241,32 @@
 
 </div>
 
-<div style="float:right; ">
-	<a href="?language=en"><img style="width: 20px; height: 15px" src="http://www.ahb.es/m/100150RES.jpg"
-				alt="EN"></a> <span>|</span> 
-				
-	<a href="?language=es"><img style="width: 20px; height: 15px;" src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png"
-				alt="ES"></a>
+<div style="float: right;">
+	<a href="?language=en"><img style="width: 20px; height: 15px"
+		src="http://www.ahb.es/m/100150RES.jpg" alt="EN"></a> <span>|</span>
+
+	<a href="?language=es"><img style="width: 20px; height: 15px;"
+		src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png"
+		alt="ES"></a>
 </div>
 
 <security:authorize access="isAuthenticated()">
-	<jstl:if test="${pageContext.response.locale.language == 'es' && not empty breachNotification.get('Español')}">
+	<jstl:if
+		test="${pageContext.response.locale.language == 'es' && not empty breachNotification.get('Español')}">
 		<h2>
 			<strong style="color: red;"><jstl:out
-					value="${breachNotification.get('Español')}"><br></jstl:out></strong>
+					value="${breachNotification.get('Español')}">
+					<br>
+				</jstl:out></strong>
 		</h2>
 	</jstl:if>
-	<jstl:if test="${pageContext.response.locale.language == 'en' && not empty breachNotification.get('English')}">
+	<jstl:if
+		test="${pageContext.response.locale.language == 'en' && not empty breachNotification.get('English')}">
 		<h2>
 			<strong style="color: red;"> <jstl:out
-					value="${breachNotification.get('English')}"><br></jstl:out>
+					value="${breachNotification.get('English')}">
+					<br>
+				</jstl:out>
 			</strong>
 		</h2>
 	</jstl:if>

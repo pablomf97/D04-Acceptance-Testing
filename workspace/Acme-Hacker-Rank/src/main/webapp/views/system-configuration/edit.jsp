@@ -16,8 +16,10 @@
 		modelAttribute="sysConfig" methodParam="post">
 
 		<form:hidden path="id" />
+		<form:hidden path="alreadyRebranded" />
 
-		<acme:textbox code="system.name" path="systemName" />
+		<acme:textbox code="system.name" path="systemName"
+			readonly="${sysConfig.alreadyRebranded}" />
 		<br>
 		<br>
 
@@ -36,6 +38,11 @@
 		<br>
 
 		<acme:textbox code="system.countrycode" path="countryCode" />
+		<br>
+		<br>
+
+		<acme:textbox code="system.VATTax" path="VATTax" />
+		<form:errors path="VATTax" cssClass="error"/>
 		<br>
 		<br>
 
