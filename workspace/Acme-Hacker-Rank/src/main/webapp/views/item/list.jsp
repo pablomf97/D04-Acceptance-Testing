@@ -50,6 +50,10 @@
 				</display:column>
 				
 			</display:table>
+			
+			<a href="item/create.do"> <spring:message
+							code="item.create" />
+			</a>
 		</jstl:when>
 		<jstl:otherwise>
 			<p>

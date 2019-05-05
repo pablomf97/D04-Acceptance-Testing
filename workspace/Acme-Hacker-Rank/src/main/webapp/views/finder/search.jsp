@@ -119,22 +119,21 @@
 		
 		<br>
 	<jstl:if test="${not empty positions}">
-		<display:table name="positions" id="row"
-		requestURI="finder/hacker/list.do" pagesize="10" class="displaytag">
+		<display:table name="positions" id="row">
 
 		<!-- Attributes-->
 
-		<display:column titleKey="position.title" sortable="true">
+		<display:column titleKey="position.title" >
 			<jstl:out value="${row.title}" />
 		</display:column>
-		<display:column titleKey="position.deadline" sortable="true">
+		<display:column titleKey="position.deadline" >
 			<jstl:out value="${row.deadline}" />
 		</display:column>
 		<display:column property="salary"
-			titleKey="position.salary" sortable="true">
+			titleKey="position.salary" >
 			<jstl:out value="${row.description}" />
 		</display:column>
-		<display:column titleKey="position.ticker" sortable="true">
+		<display:column titleKey="position.ticker" >
 			<jstl:out value="${row.ticker}" />
 		</display:column>
 
