@@ -1681,7 +1681,7 @@
 				<entry key="English" value="" />
 			</util:map>
 		</property>
-		<property name="banner" value="https://i.imgur.com/7b8lu4b.png" />
+		<property name="banner" value="https://github.com/pablomf97/D04-Acceptance-Testing/blob/model/workspace/rookie.png" />
 		<property name="countryCode" value="+034" />
 		<property name="timeResultsCached" value="1" />
 		<property name="maxResults" value="10" />
