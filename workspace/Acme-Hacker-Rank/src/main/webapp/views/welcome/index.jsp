@@ -18,11 +18,18 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p>
-	<spring:message code="welcome.greeting.prefix" />
-	${name}
-	<spring:message code="welcome.greeting.suffix" />
-</p>
+<jstl:choose>
+	<jstl:when test="${pageContext.response.locale.language == 'es'}">
+		<p>
+			<jstl:out value="${welcomeMessage.get('Español')}" />
+		</p>
+	</jstl:when>
+	<jstl:otherwise>
+		<p>
+			<jstl:out value="${welcomeMessage.get('English')}" />
+		</p>
+	</jstl:otherwise>
+</jstl:choose>
 
 <p>
 	<spring:message code="welcome.greeting.current.time" />

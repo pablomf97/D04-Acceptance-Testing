@@ -7,6 +7,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- Listing grid -->
 
@@ -23,7 +24,7 @@
 		<jstl:out value="${row.profileRequired }"></jstl:out>
 	</display:column>
 	<display:column titleKey="position.salary" sortable="true">
-		<jstl:out value="${row.salary }"></jstl:out>
+		<fmt:formatNumber maxFractionDigits="2" value="${row.salary }" />
 	</display:column>
 	<display:column titleKey="position.ticker" sortable="true">
 		<jstl:out value="${row.ticker }"></jstl:out>
@@ -42,20 +43,20 @@
 		<jstl:out value="${row.isCancelled }"></jstl:out>
 	</display:column>
 
-	 <security:authorize access="hasRole('COMPANY')">
+	<security:authorize access="hasRole('COMPANY')">
 		<display:column titleKey="position.isDraft" sortable="true">
 			<jstl:out value="${row.isDraft }"></jstl:out>
 		</display:column>
-		
-	<!-- Action links -->
-	<display:column titleKey="position.edit" sortable="true">
-		<jstl:if
-			test="${row.isDraft eq true and row.company.userAccount.username == name}">
-			<a href="position/edit.do?Id=${row.id}"> <spring:message
-					code="position.edit" />
-			</a>
-		</jstl:if>
-	</display:column>
+
+		<!-- Action links -->
+		<display:column titleKey="position.edit" sortable="true">
+			<jstl:if
+				test="${row.isDraft eq true and row.company.userAccount.username == name}">
+				<a href="position/edit.do?Id=${row.id}"> <spring:message
+						code="position.edit" />
+				</a>
+			</jstl:if>
+		</display:column>
 	</security:authorize>
 
 	<display:column>

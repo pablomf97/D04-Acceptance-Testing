@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.util.Collection;
@@ -13,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.CurriculaService;
+import services.PersonalDataService;
+import domain.Actor;
 import domain.Curricula;
 import domain.EducationData;
 import domain.Hacker;
@@ -22,133 +25,143 @@ import domain.PositionData;
 
 @Controller
 @RequestMapping("/curricula/hacker")
-public class CurriculaController extends AbstractController{
+public class CurriculaController extends AbstractController {
 
 	//Services
 
 	@Autowired
-	private CurriculaService curriculaService;
+	private CurriculaService	curriculaService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
+
+	@Autowired
+	private PersonalDataService	personalService;
 
 
 	//Listing
 
-	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public ModelAndView list(){
-		final ModelAndView result;
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
 		Collection<Curricula> curriculas;
-		Hacker principal = (Hacker) this.actorService.findByPrincipal();
+		try {
+			final Hacker principal = (Hacker) this.actorService.findByPrincipal();
 
-		curriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+			curriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
 
-		result = new ModelAndView("curricula/list");
-		result.addObject("curriculas",curriculas);
-
+			result = new ModelAndView("curricula/list");
+			result.addObject("curriculas", curriculas);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:../welcome/index.do");
+			result.addObject("messageCode", "problem.commit.error");
+		}
 		return result;
 	}
 
 	//Edition
 
-	@RequestMapping(value="/create", method = RequestMethod.GET)
-	public ModelAndView create(){
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
 		ModelAndView result;
-		
-		try{
-			this.curriculaService.create();
 
-		}catch(IllegalArgumentException oopsi){
-			System.out.println(oopsi.getMessage());
+		try {
+			result = new ModelAndView("curricula/edit");
+			final PersonalData ps = this.personalService.create();
+			result.addObject("personalData", ps);
+		} catch (final IllegalArgumentException oopsi) {
+			result = new ModelAndView("redirect:list.do");
 		}
-		
-		result = new ModelAndView("redirect:list.do");
 
 		return result;
 
 	}
 
-
 	//Display
 
-	@RequestMapping(value="/display", method=RequestMethod.GET)
-	public ModelAndView display(@RequestParam int curriculaId){
-		Hacker principal;
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int curriculaId) {
+		final Hacker principal;
 		Curricula curricula;
 		Collection<MiscellaneousData> miscellaneousData;
 		Collection<EducationData> educationData;
 		Collection<PositionData> positionData;
 		PersonalData personalData;
 		ModelAndView result;
-		
-		boolean emptyMiscellaneous,emptyEducation,emptyPosition;
 
+		boolean emptyMiscellaneous, emptyEducation, emptyPosition;
+		try {
+			final Actor actor = this.actorService.findByPrincipal();
+			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "HACKER"));
+			principal = (Hacker) actor;
 
-		principal = (Hacker) this.actorService.findByPrincipal();
+			curricula = this.curriculaService.findOne(curriculaId);
+			Assert.notNull(curricula);
 
-		curricula = this.curriculaService.findOne(curriculaId);
-		Assert.notNull(curricula);
+			Assert.isTrue(curricula.getHacker() == principal);
 
-		Assert.isTrue(curricula.getHacker().getId() == principal.getId());
+			miscellaneousData = curricula.getMiscellaneousData();
+			educationData = curricula.getEducationData();
+			positionData = curricula.getPositionData();
+			personalData = curricula.getPersonalData();
 
-		miscellaneousData = curricula.getMiscellaneousData();
-		educationData = curricula.getEducationData();
-		positionData = curricula.getPositionData();
-		personalData = curricula.getPersonalData();
+			result = new ModelAndView("curricula/display");
 
-		result = new ModelAndView("curricula/display");
+			if (!(miscellaneousData.isEmpty())) {
+				emptyMiscellaneous = false;
+				result.addObject("miscellanousData", miscellaneousData.iterator().next());
+			} else {
+				emptyMiscellaneous = true;
+				result.addObject("miscellaneousData", miscellaneousData);
+			}
 
-		if(!(miscellaneousData.isEmpty())){
-			emptyMiscellaneous = false;
-			result.addObject("miscellanousData", miscellaneousData.iterator().next());
-		}else{
-			emptyMiscellaneous = true;
-			result.addObject("miscellaneousData", miscellaneousData);
+			if (!(educationData.isEmpty())) {
+				emptyEducation = false;
+				result.addObject("educationData", educationData.iterator().next());
+
+			} else {
+				emptyEducation = true;
+				result.addObject("educationData", educationData);
+			}
+
+			if (!(positionData.isEmpty())) {
+				emptyPosition = false;
+				result.addObject("positionData", positionData.iterator().next());
+			} else {
+				emptyPosition = true;
+				result.addObject("positionData", positionData);
+			}
+
+			result.addObject("emptyMiscellaneous", emptyMiscellaneous);
+			result.addObject("emptyEducation", emptyEducation);
+			result.addObject("emptyPosition", emptyPosition);
+			result.addObject("curricula", curricula);
+			result.addObject("personalData", personalData);
+
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:../welcome/index.do");
+			result.addObject("messageCode", "problem.commit.error");
 		}
-
-		if(!(educationData.isEmpty())){
-			emptyEducation = false;
-			result.addObject("educationData", educationData.iterator().next());
-			
-		}else{
-			emptyEducation = true;
-			result.addObject("educationData", educationData);
-		}
-
-		if(!(positionData.isEmpty())){
-			emptyPosition = false;
-			result.addObject("positionData", positionData.iterator().next());
-		}else{
-			emptyPosition = true;
-			result.addObject("positionData", positionData);
-		}
-		
-		result.addObject("emptyMiscellaneous",emptyMiscellaneous);
-		result.addObject("emptyEducation", emptyEducation);
-		result.addObject("emptyPosition", emptyPosition);
-		result.addObject("curricula", curricula);
-		result.addObject("personalData", personalData);
-
 		return result;
 
 	}
 
 	//Delete
 
-	@RequestMapping(value="/display", method = RequestMethod.POST, params="delete")
-	public ModelAndView delete(final Curricula curricula, BindingResult binding){
+	@RequestMapping(value = "/display", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Curricula curricula, final BindingResult binding) {
 		ModelAndView result = null;
-		
-		Curricula db = this.curriculaService.findOne(curricula.getId());
 
-		try{
+		final Curricula db = this.curriculaService.findOne(curricula.getId());
+
+		try {
 			this.curriculaService.delete(db);
 			result = new ModelAndView("redirect:list.do");
-		}catch(Throwable oops){
-			System.out.println(oops.getMessage());
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:../welcome/index.do");
+			result.addObject("messageCode", "problem.commit.error");
 		}
 		return result;
 	}
-
 
 }

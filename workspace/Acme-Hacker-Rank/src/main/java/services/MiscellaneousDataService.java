@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -20,29 +21,23 @@ public class MiscellaneousDataService {
 
 	//Repository
 	@Autowired
-	private MiscellaneousDataRepository miscellaneousDataRepository;
+	private MiscellaneousDataRepository	miscellaneousDataRepository;
 
 	//Services
 	@Autowired
-	private ActorService actorService;
+	private ActorService				actorService;
 
 	@Autowired
-	private CurriculaService curriculaService;
+	private CurriculaService			curriculaService;
+
 
 	//Create
-	public MiscellaneousData create(){
+	public MiscellaneousData create() {
 		Hacker principal;
 		MiscellaneousData result;
-		Collection<Curricula> principalCurriculas;
 
 		principal = (Hacker) this.actorService.findByPrincipal();
-
-		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
-
-		//Checking creating a data in an own curricula
-		for(Curricula c : principalCurriculas){
-			Assert.isTrue(c.getHacker().getId() == principal.getId());
-		}
+		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
 
 		result = new MiscellaneousData();
 
@@ -50,7 +45,7 @@ public class MiscellaneousDataService {
 	}
 
 	//Save
-	public MiscellaneousData save(MiscellaneousData data,int curriculaId){
+	public MiscellaneousData save(final MiscellaneousData data, final int curriculaId) {
 		Hacker principal;
 		MiscellaneousData dataDB = new MiscellaneousData();
 		Collection<Curricula> principalCurriculas;
@@ -58,26 +53,24 @@ public class MiscellaneousDataService {
 		MiscellaneousData result;
 
 		principal = (Hacker) this.actorService.findByPrincipal();
-		
-		
+
 		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
-		
+
 		//Checking creating a data in a own curricula
-		if(data.getId()!=0){
-			currentCurricula = this.curriculaService.getCurriculaByMiscellaneousData(data.getId());	
+		if (data.getId() != 0) {
+			currentCurricula = this.curriculaService.getCurriculaByMiscellaneousData(data.getId());
 			Assert.isTrue(principalCurriculas.contains(currentCurricula));
 			Assert.isTrue(currentCurricula.getHacker().getId() == principal.getId());
 			Assert.isTrue(currentCurricula.getMiscellaneousData().contains(data));
-			
+
 			dataDB = this.miscellaneousDataRepository.findOne(data.getId());
 
 			dataDB.setText(data.getText());
 			dataDB.setAttachements(data.getAttachements());
 
-
 			result = this.miscellaneousDataRepository.save(dataDB);
 
-		}else{
+		} else {
 			Assert.notNull(data.getText(), "md.commit.error");
 			Assert.notNull(data.getAttachements());
 
@@ -86,18 +79,17 @@ public class MiscellaneousDataService {
 			currentCurricula.getMiscellaneousData().add(data);
 		}
 
-
 		return result;
 
 	}
 
 	//Delete
-	public void delete(MiscellaneousData data){
+	public void delete(final MiscellaneousData data) {
 		Hacker principal;
 		Collection<Curricula> principalCurriculas;
 		Curricula currentCurricula;
 		MiscellaneousData db = new MiscellaneousData();
-		
+
 		db = this.miscellaneousDataRepository.findOne(data.getId());
 
 		principal = (Hacker) this.actorService.findByPrincipal();
@@ -109,27 +101,26 @@ public class MiscellaneousDataService {
 		Assert.isTrue(currentCurricula.getHacker().getId() == principal.getId());
 		Assert.isTrue(principalCurriculas.contains(currentCurricula));
 		Assert.isTrue(currentCurricula.getMiscellaneousData().contains(db));
-		
+
 		currentCurricula.getMiscellaneousData().remove(db);
-		
+
 		this.miscellaneousDataRepository.delete(db);
 	}
 
 	//Finds
-	public MiscellaneousData findOne(int dataId){
-		MiscellaneousData result = this.miscellaneousDataRepository.findOne(dataId);
+	public MiscellaneousData findOne(final int dataId) {
+		final MiscellaneousData result = this.miscellaneousDataRepository.findOne(dataId);
 
 		return result;
 	}
 
-	public Collection<MiscellaneousData> findAll(){
-		Collection<MiscellaneousData>result = this.miscellaneousDataRepository.findAll();
+	public Collection<MiscellaneousData> findAll() {
+		final Collection<MiscellaneousData> result = this.miscellaneousDataRepository.findAll();
 
 		return result;
 	}
-	
-	
-	public MiscellaneousData createCopy(){
+
+	public MiscellaneousData createCopy() {
 		Actor principal;
 		MiscellaneousData result;
 
@@ -140,8 +131,8 @@ public class MiscellaneousDataService {
 
 		return result;
 	}
-	
-	public MiscellaneousData saveCopy(MiscellaneousData data){
+
+	public MiscellaneousData saveCopy(final MiscellaneousData data) {
 		Actor principal;
 		MiscellaneousData result;
 
@@ -156,15 +147,19 @@ public class MiscellaneousDataService {
 		return result;
 	}
 
-	public void flush(){
+	public void flush() {
 		this.miscellaneousDataRepository.flush();
 	}
-	
-	public void deleteMiscHacker(Collection<MiscellaneousData> col){
-		
+
+	public void deleteMiscHacker(final Collection<MiscellaneousData> col) {
+
 		this.miscellaneousDataRepository.deleteInBatch(col);
-		
+
 	}
-	
-	
+	public void checkOwnerMiscellaneousData(final Integer id) {
+		final Actor principal = this.actorService.findByPrincipal();
+		final Curricula c = this.curriculaService.getCurriculaByMiscellaneousData(id);
+		Assert.isTrue(c.getHacker().equals(principal));
+	}
+
 }

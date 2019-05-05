@@ -1663,6 +1663,7 @@
 
 	<bean id="sysConf" class="domain.SystemConfiguration">
 		<property name="systemName" value=" Acme Rookies" />
+
 		<property name="welcomeMessage">
 			<util:map id="utilmap0" map-class="java.util.HashMap"
 				key-type="java.lang.String" value-type="java.lang.String">
@@ -1670,12 +1671,13 @@
 					value="¡Bienvenidos a Acme Rookies¡, ¡Somos el mercado de trabajo favorito de los profesionales de las TICs!" />
 				<entry key="English"
 					value="Welcome to Acme Rookies¡, We’re IT hacker’s favourite job marketplace!" />
+
 			</util:map>
 		</property>
 		<property name="breachNotification">
 			<util:map id="utilmap10" map-class="java.util.HashMap"
 				key-type="java.lang.String" value-type="java.lang.String">
-				<entry key="EspaÃ±ol" value="" />
+				<entry key="Español" value="" />
 				<entry key="English" value="" />
 			</util:map>
 		</property>

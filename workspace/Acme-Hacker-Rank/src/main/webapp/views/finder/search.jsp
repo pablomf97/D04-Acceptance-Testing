@@ -18,7 +18,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <security:authorize access="hasRole('HACKER')">
 
@@ -26,7 +26,7 @@
 
 		<form:hidden path="id" />
 		<form:hidden path="version" />
-		
+
 
 		<form:label path="keyWord">
 			<spring:message code="finder.keyWord" />:
@@ -41,8 +41,8 @@
 		</form:label>
 		<form:input path="deadline" placeholder="dd/MM/yyyy HH:mm" />
 		<form:errors cssClass="error" path="deadline" />
-		
-	
+
+
 
 		<form:label path="maximumDeadline">
 			<spring:message code="finder.maximumDeadline" />:
@@ -70,81 +70,84 @@
 		</jstl:if>
 
 	</form:form>
-	
+
 	<jstl:if test="${not empty positions}">
 		<display:table name="positions" id="row"
-		requestURI="finder/hacker/list.do" pagesize="10" class="displaytag">
+			requestURI="finder/hacker/list.do" pagesize="10" class="displaytag">
 
-		<!-- Attributes-->
+			<!-- Attributes-->
 
-		<display:column titleKey="position.title" sortable="true">
-			<jstl:out value="${row.title}" />
-		</display:column>
-		<display:column titleKey="position.deadline" sortable="true">
-			<jstl:out value="${row.deadline}" />
-		</display:column>
-		<display:column property="salary"
-			titleKey="position.salary" sortable="true">
-			<jstl:out value="${row.description}" />
-		</display:column>
-		<display:column titleKey="position.ticker" sortable="true">
-			<jstl:out value="${row.ticker}" />
-		</display:column>
+			<display:column titleKey="position.title" sortable="true">
+				<jstl:out value="${row.title}" />
+			</display:column>
+			<display:column titleKey="position.deadline" sortable="true">
+				<jstl:out value="${row.deadline}" />
+			</display:column>
+			<display:column titleKey="position.salary" sortable="true">
+				<fmt:formatNumber maxFractionDigits="2" value="${row.salary }" />
+			</display:column>
+			<display:column titleKey="position.description" sortable="true">
+				<jstl:out value="${row.description}" />
+			</display:column>
+			<display:column titleKey="position.ticker" sortable="true">
+				<jstl:out value="${row.ticker}" />
+			</display:column>
 
-		<!-- Action links -->
+			<!-- Action links -->
 
-		<display:column>
-			<a href="position/display.do?Id=${row.id}"> <spring:message
-					code="position.display" />
-			</a>
-		</display:column>
-	</display:table>
+			<display:column>
+				<a href="position/display.do?Id=${row.id}"> <spring:message
+						code="position.display" />
+				</a>
+			</display:column>
+		</display:table>
 	</jstl:if>
 </security:authorize>
 
 <security:authorize access="!hasRole('HACKER')">
 
-		<form>
-		<b>Enter a keyword to search by:&#160;</b>
-        <input id="test" type="text" name="keyWord" size="20" />
-        
-		<script>
-		    var keyWord = "";
-		    document.getElementById("test").value = keyWord;
-		</script>
-	
-        <input type="submit" value="Search" name="submit"/>
+	<form>
+		<b>Enter a keyword to search by:&#160;</b> <input id="test"
+			type="text" name="keyWord" size="20" />
 
-      	</form>
-		
-		<br>
+		<script>
+			var keyWord = "";
+			document.getElementById("test").value = keyWord;
+		</script>
+
+		<input type="submit" value="Search" name="submit" />
+
+	</form>
+
+	<br>
+	<br>
 	<jstl:if test="${not empty positions}">
 		<display:table name="positions" id="row"
-		requestURI="finder/hacker/list.do" pagesize="10" class="displaytag">
+			requestURI="finder/hacker/list.do" pagesize="10" class="displaytag">
 
-		<!-- Attributes-->
+			<!-- Attributes-->
 
-		<display:column titleKey="position.title" sortable="true">
-			<jstl:out value="${row.title}" />
-		</display:column>
-		<display:column titleKey="position.deadline" sortable="true">
-			<jstl:out value="${row.deadline}" />
-		</display:column>
-		<display:column property="salary"
-			titleKey="position.salary" sortable="true">
-			<jstl:out value="${row.description}" />
-		</display:column>
-		<display:column titleKey="position.ticker" sortable="true">
-			<jstl:out value="${row.ticker}" />
-		</display:column>
+			<display:column titleKey="position.title" sortable="true">
+				<jstl:out value="${row.title}" />
+			</display:column>
+			<display:column titleKey="position.deadline" sortable="true">
+				<jstl:out value="${row.deadline}" />
+			</display:column>
+			<display:column property="salary" titleKey="position.salary"
+				sortable="true">
+				<jstl:out value="${row.description}" />
+			</display:column>
+			<display:column titleKey="position.ticker" sortable="true">
+				<jstl:out value="${row.ticker}" />
+			</display:column>
 
-		<!-- Action links -->
+			<!-- Action links -->
 
-		<display:column>
-			<a href="position/display.do?Id=${row.id}"> <spring:message
-					code="position.display" />
-			</a>
-		</display:column>
-	</display:table>
+			<display:column>
+				<a href="position/display.do?Id=${row.id}"> <spring:message
+						code="position.display" />
+				</a>
+			</display:column>
+		</display:table>
 	</jstl:if>
 </security:authorize>

@@ -95,10 +95,8 @@ public class CurriculaService {
 
 		//Checking curricula owner
 		principal = (Hacker) this.actorService.findByPrincipal();
-		Assert.isTrue(curricula.getHacker().getId() == principal.getId());
-
+		Assert.isTrue(curricula.getHacker() == principal);
 		this.curriculaRepository.delete(curricula);
-
 	}
 
 	//Finds

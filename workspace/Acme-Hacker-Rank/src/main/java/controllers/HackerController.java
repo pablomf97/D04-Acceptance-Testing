@@ -1,3 +1,4 @@
+
 package controllers;
 
 import javax.servlet.http.HttpSession;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.FinderService;
 import services.HackerService;
+import domain.Finder;
 import domain.Hacker;
 import forms.EditionFormObject;
 import forms.RegisterFormObject;
@@ -23,12 +26,14 @@ import forms.RegisterFormObject;
 public class HackerController extends AbstractController {
 
 	/* Services */
+	@Autowired
+	private FinderService	finderService;
+	@Autowired
+	private HackerService	hackerService;
 
 	@Autowired
-	private HackerService hackerService;
+	private ActorService	actorService;
 
-	@Autowired
-	private ActorService actorService;
 
 	/* Methods */
 
@@ -41,7 +46,7 @@ public class HackerController extends AbstractController {
 	 * @return ModelAndView
 	 * **/
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam(required = false) Integer id) {
+	public ModelAndView display(@RequestParam(required = false) final Integer id) {
 		ModelAndView res;
 		Hacker toDisplay;
 		Boolean found = true;
@@ -51,14 +56,13 @@ public class HackerController extends AbstractController {
 				toDisplay = (Hacker) this.actorService.findOne(id);
 				if (toDisplay == null)
 					found = false;
-			} else {
+			} else
 				toDisplay = (Hacker) this.actorService.findByPrincipal();
-			}
 
 			res = new ModelAndView("hacker/display");
 			res.addObject("hacker", toDisplay);
 			res.addObject("found", found);
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			found = false;
 			res = new ModelAndView("hacker/display");
 			res.addObject("found", found);
@@ -79,7 +83,7 @@ public class HackerController extends AbstractController {
 		Hacker principal;
 
 		principal = (Hacker) this.actorService.findByPrincipal();
-		EditionFormObject editionFormObject = new EditionFormObject(principal);
+		final EditionFormObject editionFormObject = new EditionFormObject(principal);
 
 		res = this.createEditModelAndView(editionFormObject);
 
@@ -93,39 +97,33 @@ public class HackerController extends AbstractController {
 	 * @return ModelAndView
 	 **/
 	@RequestMapping(value = "/hacker/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView edit(@Valid EditionFormObject editionFormObject,
-			BindingResult binding) {
+	public ModelAndView edit(@Valid final EditionFormObject editionFormObject, final BindingResult binding) {
 
 		ModelAndView res;
 
 		try {
 
-			Assert.isTrue(this.actorService.findByPrincipal().getId() == editionFormObject
-					.getId()
-					&& this.actorService.findOne(this.actorService
-							.findByPrincipal().getId()) != null);
+			Assert.isTrue(this.actorService.findByPrincipal().getId() == editionFormObject.getId() && this.actorService.findOne(this.actorService.findByPrincipal().getId()) != null);
 
 			Hacker hacker = new Hacker();
 			hacker = this.hackerService.create();
 
 			hacker = this.hackerService.reconstruct(editionFormObject, binding);
 
-			if (binding.hasErrors()) {
+			if (binding.hasErrors())
 				res = this.createEditModelAndView(editionFormObject);
-			} else {
+			else
 				try {
 
 					this.hackerService.save(hacker);
 
 					res = new ModelAndView("redirect:/");
 
-				} catch (Throwable oops) {
-					res = this.createEditModelAndView(editionFormObject,
-							"hacker.commit.error");
+				} catch (final Throwable oops) {
+					res = this.createEditModelAndView(editionFormObject, "hacker.commit.error");
 
 				}
-			}
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/");
 		}
 		return res;
@@ -141,7 +139,7 @@ public class HackerController extends AbstractController {
 	public ModelAndView registerNewHacker() {
 		ModelAndView res;
 
-		RegisterFormObject registerFormObject = new RegisterFormObject();
+		final RegisterFormObject registerFormObject = new RegisterFormObject();
 		registerFormObject.setTermsAndConditions(false);
 
 		res = this.createRegisterModelAndView(registerFormObject);
@@ -156,8 +154,7 @@ public class HackerController extends AbstractController {
 	 * @return ModelAndView
 	 **/
 	@RequestMapping(value = "/hacker/register", method = RequestMethod.POST, params = "save")
-	public ModelAndView register(@Valid RegisterFormObject registerFormObject,
-			BindingResult binding) {
+	public ModelAndView register(@Valid final RegisterFormObject registerFormObject, final BindingResult binding) {
 
 		ModelAndView res;
 
@@ -166,28 +163,26 @@ public class HackerController extends AbstractController {
 
 		hacker = this.hackerService.reconstruct(registerFormObject, binding);
 
-		if (binding.hasErrors()) {
+		if (binding.hasErrors())
 			res = this.createRegisterModelAndView(registerFormObject);
-		} else {
+		else
 			try {
 
-				this.hackerService.save(hacker);
-
+				final Hacker hack = this.hackerService.save(hacker);
+				final Finder f = this.finderService.defaultFinder();
+				this.hackerService.saveFinder(hack, f);
 				res = new ModelAndView("redirect:/");
 
-			} catch (Throwable oops) {
-				res = this.createRegisterModelAndView(registerFormObject,
-						"hacker.commit.error");
+			} catch (final Throwable oops) {
+				oops.printStackTrace();
+				res = this.createRegisterModelAndView(registerFormObject, "hacker.commit.error");
 
 			}
-		}
 		return res;
 	}
-
 	/* Auxiliary methods */
 
-	protected ModelAndView createEditModelAndView(
-			EditionFormObject editionFormObject) {
+	protected ModelAndView createEditModelAndView(final EditionFormObject editionFormObject) {
 		ModelAndView result;
 
 		result = this.createEditModelAndView(editionFormObject, null);
@@ -195,8 +190,7 @@ public class HackerController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(
-			EditionFormObject editionFormObject, String messageCode) {
+	protected ModelAndView createEditModelAndView(final EditionFormObject editionFormObject, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("hacker/edit");
@@ -206,8 +200,7 @@ public class HackerController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createRegisterModelAndView(
-			RegisterFormObject registerFormObject) {
+	protected ModelAndView createRegisterModelAndView(final RegisterFormObject registerFormObject) {
 		ModelAndView result;
 
 		result = this.createRegisterModelAndView(registerFormObject, null);
@@ -215,8 +208,7 @@ public class HackerController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createRegisterModelAndView(
-			RegisterFormObject registerFormObject, String messageCode) {
+	protected ModelAndView createRegisterModelAndView(final RegisterFormObject registerFormObject, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("hacker/register");
@@ -227,25 +219,21 @@ public class HackerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/hacker/edit", method = RequestMethod.POST, params = "deleteHacker")
-	public ModelAndView deleteHacker(final EditionFormObject editionFormObject,
-			final BindingResult binding, final HttpSession session) {
+	public ModelAndView deleteHacker(final EditionFormObject editionFormObject, final BindingResult binding, final HttpSession session) {
 		ModelAndView result;
 		Hacker hacker;
 
 		hacker = this.hackerService.findOne(editionFormObject.getId());
 
-		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(editionFormObject,
-					"administrator.commit.error");
-
-		} else
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(editionFormObject, "administrator.commit.error");
+		else
 			try {
 				this.hackerService.delete(hacker);
 				session.invalidate();
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(editionFormObject,
-						"administrator.commit.error");
+				result = this.createEditModelAndView(editionFormObject, "administrator.commit.error");
 
 			}
 
