@@ -10,6 +10,8 @@
 
 <security:authorize access="hasAnyRole('ROOKIE','COMPANY')">
 
+	<jstl:choose>
+		<jstl:when test="${isPrincipal}">
 	<table class="displayStyle">
 		<tr>
 			<td><strong> <spring:message code="application.rookie" /> :
@@ -121,5 +123,14 @@
 	<input type="button" name="back"
 		value="<spring:message code="application.back" />"
 		onclick="window.history.back()" />
+		
+		</jstl:when>
+	
+	<jstl:otherwise>
+		<p>
+			<spring:message	code="application.not.allowed" /><br>
+		</p>
+	</jstl:otherwise>
+	</jstl:choose>
 
 </security:authorize>
