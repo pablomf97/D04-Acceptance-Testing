@@ -1766,6 +1766,7 @@
 		/> <property name="creditCard" ref="creditCard18" /> </bean> -->
 
 	<!-- ITEM -->
+		<!--ItemsProvider1  -->
 	<bean id="item1" class="domain.Item">
 		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
 		<property name="name" value="Item 1" />
@@ -1774,6 +1775,159 @@
 		<property name="provider" ref="provider1" />
 
 	</bean>
+		<bean id="item10" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 10" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item11" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 11" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item12" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 12" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item13" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 13" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item14" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 14" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item15" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 15" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item16" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 16" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item17" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 17" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item18" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 18" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item19" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 19" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item20" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 20" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item21" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 21" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item22" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 22" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item23" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 23" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item24" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 24" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item25" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 25" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item26" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 26" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item27" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 27" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+		<bean id="item28" class="domain.Item">
+		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="name" value="Item 28" />
+		<property name="description" value="Item default" />
+		<property name="pictures" value="https://www.eff.org/imggle-spy-eye.png" />
+		<property name="provider" ref="provider1" />
+
+	</bean>
+	<!--ItemsProvider1  -->
 	<bean id="item2" class="domain.Item">
 		<property name="links" value="https://www.eff.org/imggle-spy-eye.png" />
 		<property name="name" value="Item 2" />
