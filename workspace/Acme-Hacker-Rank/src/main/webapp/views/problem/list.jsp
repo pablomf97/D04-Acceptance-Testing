@@ -12,8 +12,7 @@
 
 <display:table pagesize="5" class="displaytag" name="problems"
 	requestURI="${requestURI}" id="row">
-	<jstl:if
-		test="${row.company.userAccount.username eq name}">
+	<jstl:if test="${row.company.userAccount.username eq name}">
 		<display:column titleKey="problem.company" sortable="true">
 			<jstl:out value="${row.company.userAccount.username}"></jstl:out>
 		</display:column>
@@ -24,9 +23,18 @@
 			<jstl:out value="${row.optionalHint }"></jstl:out>
 		</display:column>
 		<jstl:if test="${name == row.company.userAccount.username }">
-			<display:column titleKey="problem.isDraft" sortable="true">
-				<jstl:out value="${row.isDraft }"></jstl:out>
-			</display:column>
+			<jstl:choose>
+				<jstl:when test="${row.isDraft == true}">
+					<spring:message var="statusD" code='not.final.it.is' />
+				</jstl:when>
+				<jstl:otherwise>
+					<spring:message var="statusD" code='final.it.is' />
+				</jstl:otherwise>
+			</jstl:choose>
+
+			<display:column titleKey="position.isDraft" sortable="true">
+			${statusD}
+		</display:column>
 		</jstl:if>
 
 		<display:column>

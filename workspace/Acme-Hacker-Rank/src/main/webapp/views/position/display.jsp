@@ -119,9 +119,19 @@
 
 	<jstl:if test="${name == position.company.userAccount.username}">
 		<jstl:forEach items="${position.problems}" var="pro">
+
+			<jstl:choose>
+				<jstl:when test="${position.isDraft == true}">
+					<spring:message var="status" code='not.final.it.is' />
+				</jstl:when>
+				<jstl:otherwise>
+					<spring:message var="status" code='final.it.is' />
+				</jstl:otherwise>
+			</jstl:choose>
+
 			<tr>
 				<td>${pro.title}</td>
-				<td>${pro.isDraft}</td>
+				<td>${status}</td>
 				<td>
 					<button
 						onClick="window.location.href='problem/display.do?Id=${pro.id}'">
@@ -132,13 +142,15 @@
 		</jstl:forEach>
 	</jstl:if>
 </table>
-	<jstl:if test="${posBanner != ''}">
-		<div >
-		<h3><spring:message code="position.sponsored" /></h3>
-			<img style="width: 150px; height: 150px" src="${posBanner}"
-				alt="Banner">
-		</div>
-	</jstl:if>	
+<jstl:if test="${posBanner != ''}">
+	<div>
+		<h3>
+			<spring:message code="position.sponsored" />
+		</h3>
+		<img style="width: 150px; height: 150px" src="${posBanner}"
+			alt="Banner">
+	</div>
+</jstl:if>
 
 <jstl:if test="${name == position.company.userAccount.username }">
 

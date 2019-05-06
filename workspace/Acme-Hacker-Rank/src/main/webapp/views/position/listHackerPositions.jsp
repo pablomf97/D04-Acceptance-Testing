@@ -37,7 +37,7 @@
 	<jstl:if test="${name == row.company.userAccount.username }">
 
 		<jstl:choose>
-			<jstl:when test="${position.isDraft == true}">
+			<jstl:when test="${row.isDraft == true}">
 				<spring:message var="statusD" code='not.final.it.is' />
 			</jstl:when>
 			<jstl:otherwise>
@@ -51,7 +51,7 @@
 	</jstl:if>
 
 	<jstl:choose>
-		<jstl:when test="${position.isCancelled == true}">
+		<jstl:when test="${row.isCancelled == true}">
 			<spring:message var="status" code='cancelled.it.is' />
 		</jstl:when>
 		<jstl:otherwise>
@@ -64,10 +64,6 @@
 	</display:column>
 
 	<security:authorize access="hasRole('COMPANY')">
-		<display:column titleKey="position.isDraft" sortable="true">
-			${statusD}
-		</display:column>
-
 		<!-- Action links -->
 		<display:column titleKey="position.edit" sortable="true">
 			<jstl:if
