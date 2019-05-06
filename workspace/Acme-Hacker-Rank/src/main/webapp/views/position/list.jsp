@@ -34,18 +34,33 @@
 				value="${row.company.commercialName }"></jstl:out></a>
 	</display:column>
 
-	<jstl:if test="${name == row.company.userAccount.username }">
-		<display:column titleKey="position.isDraft" sortable="true">
-			<jstl:out value="${row.isDraft }"></jstl:out>
-		</display:column>
-	</jstl:if>
-	<display:column titleKey="position.isCancelled" sortable="true">
-		<jstl:out value="${row.isCancelled }"></jstl:out>
+	<jstl:choose>
+		<jstl:when test="${row.isDraft}">
+			<spring:message var="statusD" code='not.final.it.is' />
+		</jstl:when>
+		<jstl:otherwise>
+			<spring:message var="statusD" code='final.it.is' />
+		</jstl:otherwise>
+	</jstl:choose>
+
+	<display:column titleKey="position.isDraft" sortable="true">
+		<jstl:out value="${statusD}" />
 	</display:column>
 
+
+
 	<security:authorize access="hasRole('COMPANY')">
-		<display:column titleKey="position.isDraft" sortable="true">
-			<jstl:out value="${row.isDraft }"></jstl:out>
+		<jstl:choose>
+			<jstl:when test="${row.isCancelled}">
+				<spring:message var="status" code='cancelled.it.is' />
+			</jstl:when>
+			<jstl:otherwise>
+				<spring:message var="status" code='not.cancelled.it.is' />
+			</jstl:otherwise>
+		</jstl:choose>
+
+		<display:column titleKey="position.isCancelled" sortable="true">
+			<jstl:out value="${status}" />
 		</display:column>
 
 		<!-- Action links -->
@@ -64,17 +79,17 @@
 				code="position.display" />
 		</a>
 	</display:column>
-	
-	 <security:authorize access="hasRole('PROVIDER')">
-		
-		
-	<display:column>
+
+	<security:authorize access="hasRole('PROVIDER')">
+
+
+		<display:column>
 			<a href="sponsorship/create.do?positionId=${row.id}"> <spring:message
 					code="position.sponsor" />
 			</a>
-	</display:column>
+		</display:column>
 	</security:authorize>
-	
+
 	<display:column>
 		<jstl:if
 			test="${row.isDraft eq true and row.company.userAccount.username == name}">
@@ -91,13 +106,13 @@
 			</a>
 		</jstl:if>
 	</display:column>
-		<display:column>
-				<security:authorize access="hasRole('AUDITOR')">
-		
+	<display:column>
+		<security:authorize access="hasRole('AUDITOR')">
+
 			<a href="audit/create.do?Id=${row.id}"> <spring:message
 					code="position.audit" />
 			</a>
-			</security:authorize>
+		</security:authorize>
 	</display:column>
 
 </display:table>
