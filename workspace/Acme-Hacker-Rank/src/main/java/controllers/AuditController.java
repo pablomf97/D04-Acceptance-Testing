@@ -118,11 +118,12 @@ public class AuditController {
 		ModelAndView result;
 		Audit res = null;
 		try {
+			final Actor actor = this.actorService.findByPrincipal();
+
 			res = this.auditService.reconstruct(audit, binding);
 			if (binding.hasErrors()) {
 				result = new ModelAndView("audit/edit");
 				result.addObject("audit", audit);
-				final Actor actor = this.actorService.findByPrincipal();
 			} else
 				try {
 					this.auditService.save(res);
