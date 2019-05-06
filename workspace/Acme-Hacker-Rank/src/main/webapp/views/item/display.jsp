@@ -8,62 +8,58 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="hasAnyRole('PROVIDER')">
+<%-- <security:authorize access="hasAnyRole('PROVIDER')">
+ --%>		<h1>
+			<spring:message code="item.title.display" />
+		</h1>
+		<table class="displayStyle">
+			<tr>
+				<td><strong> <spring:message code="item.provider" />
+						:
+				</strong></td>
+				<td><jstl:out value="${item.provider.name}">
+					</jstl:out></td>
+			</tr>
 
-<jstl:choose>
-	<jstl:when test="${isPrincipal}">
-	<h1><spring:message	code="item.title.display" /></h1>
-	<table class="displayStyle">
-		<tr>
-			<td><strong> <spring:message code="item.provider" /> :
-			</strong></td>
-			<td><jstl:out value="${item.provider.name}">
-				</jstl:out></td>
-		</tr>
+			<tr>
+				<td><strong> <spring:message code="item.name" /> :
+				</strong></td>
+				<td><jstl:out value="${item.name}">
+					</jstl:out></td>
+			</tr>
 
-		<tr>
-			<td><strong> <spring:message code="item.name" />
-					:
-			</strong></td>
-			<td><jstl:out value="${item.name}">
-				</jstl:out></td>
-		</tr>
+			<tr>
+				<td><strong> <spring:message code="item.description" />
+						:
+				</strong></td>
+				<td><jstl:out value="${item.description}">
+					</jstl:out></td>
+			</tr>
 
-		<tr>
-			<td><strong> <spring:message code="item.description" /> :
-			</strong></td>
-			<td><jstl:out value="${item.description}">
-				</jstl:out></td>
-		</tr>
-		
-	<tr>
-		<td><strong> <spring:message code="item.links" />
-				:
-		</strong></td>
-		<jstl:forEach items="${links}" var="at">
-			<td><a href="${at }" target=blank><jstl:out value="${at }"></jstl:out></a></td>
-		</jstl:forEach>
-	</tr>
-	
-	<tr>
-		<td><strong> <spring:message code="item.pictures" />
-				:
-		</strong></td>
-		<jstl:forEach items="${pictures}" var="att">
-			<td><a href="${att }" target=blank><jstl:out value="${att }"></jstl:out></a></td>
-		</jstl:forEach>
-	</tr>
+			<tr>
+				<td><strong> <spring:message code="item.links" /> :
+				</strong></td>
+				<jstl:forEach items="${links}" var="at">
+					<td><a href="${at }" target=blank><jstl:out value="${at }"></jstl:out></a></td>
+				</jstl:forEach>
+			</tr>
 
-	</table>
-		
+			<tr>
+				<td><strong> <spring:message code="item.pictures" />
+						:
+				</strong></td>
+				<jstl:forEach items="${pictures}" var="att">
+					<td><a href="${att }" target=blank><jstl:out
+								value="${att }"></jstl:out></a></td>
+				</jstl:forEach>
+			</tr>
 
-	<input type="button" name="back"
-		value="<spring:message code="item.back" />"
-		onclick="window.history.back()" />
-	</jstl:when>
-	<jstl:otherwise>
-		<spring:message	code="item.not.allowed" /><br>
-	</jstl:otherwise>
-	</jstl:choose>
+		</table>
 
-</security:authorize>
+
+		<input type="button" name="back"
+			value="<spring:message code="item.back" />"
+			onclick="window.history.back()" />
+<%-- 		<spring:message code="item.not.allowed" />
+ --%><%-- </security:authorize>
+ --%>

@@ -17,7 +17,6 @@ import services.ActorService;
 import services.ItemService;
 import domain.Actor;
 import domain.Item;
-import domain.Provider;
 
 @Controller
 @RequestMapping("/item")
@@ -27,8 +26,9 @@ public class ItemController extends AbstractController {
 	private ActorService	actorService;
 
 	@Autowired
-	private ItemService	itemService;
-	
+	private ItemService		itemService;
+
+
 	public ItemController() {
 		super();
 	}
@@ -42,49 +42,55 @@ public class ItemController extends AbstractController {
 		boolean isPrincipal = false;
 		Actor principal;
 
-		principal = this.actorService.findByPrincipal();
-		item = this.itemService.findOne(itemId);
+		try {
+			item = this.itemService.findOne(itemId);
+			try {
+				principal = this.actorService.findByPrincipal();
+				if (item.getProvider().equals(principal))
+					isPrincipal = true;
+			} catch (final Throwable oops) {
+			}
 
-		if (item.getProvider().equals((Provider)principal))
-			isPrincipal = true;
-		
-		final BindingResult binding = null;
-		final Collection<String> links = this.itemService.checkSplitAttachments(item.getLinks(), binding);
-		final Collection<String> pictures = this.itemService.checkSplitAttachments(item.getPictures(), binding);
+			final BindingResult binding = null;
+			final Collection<String> links = this.itemService.checkSplitAttachments(item.getLinks(), binding);
+			final Collection<String> pictures = this.itemService.checkSplitAttachments(item.getPictures(), binding);
 
-		result = new ModelAndView("item/display");
-		result.addObject("item", item);
-		result.addObject("links", links);
-		result.addObject("pictures", pictures);
-		result.addObject("isPrincipal", isPrincipal);
-		result.addObject("requestURI", "item/display.do?itemId="
-				+ itemId);
-
+			result = new ModelAndView("item/display");
+			result.addObject("item", item);
+			result.addObject("links", links);
+			result.addObject("pictures", pictures);
+			result.addObject("isPrincipal", isPrincipal);
+			result.addObject("requestURI", "item/display.do?itemId=" + itemId);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:../welcome/index.do");
+			result.addObject("messageCode", "position.commit.error");
+			result.addObject("permission", false);
+		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
-		ModelAndView result = new ModelAndView("item/list");
+		final ModelAndView result = new ModelAndView("item/list");
 		Collection<Item> items;
 		Actor principal;
-		
+
 		try {
 			principal = this.actorService.findByPrincipal();
 			Assert.isTrue(this.actorService.checkAuthority(principal, "PROVIDER"));
-			
+
 			items = this.itemService.itemsPerProvider(principal.getId());
-			
+
 			result.addObject("items", items);
 			result.addObject("permission", true);
-			
-		} catch (Throwable oops) {
+
+		} catch (final Throwable oops) {
 			result.addObject("errMsg", oops);
 			result.addObject("permission", false);
 		}
 		return result;
 	}
-	
+
 	/* List of items */
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
 	public ModelAndView listAll(@RequestParam(required = false) final Integer providerId) {
@@ -92,11 +98,10 @@ public class ItemController extends AbstractController {
 		try {
 			Collection<Item> items = new ArrayList<>();
 			result = new ModelAndView("item/listAll");
-			if(providerId != null) {
+			if (providerId != null)
 				items = this.itemService.itemsPerProvider(providerId);
-			} else {
+			else
 				items = this.itemService.findAll();
-			}
 			result.addObject("requestURI", "/item/listAll.do");
 			result.addObject("items", items);
 			result.addObject("permission", true);
@@ -107,20 +112,20 @@ public class ItemController extends AbstractController {
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result = null;
 		try {
-			Item item = this.itemService.create();
-			
+			final Item item = this.itemService.create();
+
 			result = this.createEditModelAndView(item);
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 		}
 		return result;
 	}
-	
+
 	// Edition
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int itemId) {
@@ -129,49 +134,45 @@ public class ItemController extends AbstractController {
 		try {
 			item = this.itemService.findOne(itemId);
 			Assert.notNull(item);
-			
+
 			result = this.createEditModelAndView(item);
 			result.addObject("itemId", itemId);
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/welcome/index.do");
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Item item, BindingResult binding) {
+	public ModelAndView save(final Item item, final BindingResult binding) {
 		ModelAndView result;
 		Item aux;
 		try {
-			aux = this.itemService.reconstruct(item,
-					binding);
+			aux = this.itemService.reconstruct(item, binding);
 			if (binding.hasErrors()) {
 
 				result = new ModelAndView("item/edit");
 				result.addObject("item", item);
 				result.addObject("binding", binding);
 				result.addObject("isPrincipal", true);
-			} else {
+			} else
 				try {
 					this.itemService.save(aux);
-					result = new ModelAndView(
-							"redirect:list.do");
+					result = new ModelAndView("redirect:list.do");
 				} catch (final Throwable oops) {
 					result = new ModelAndView("item/edit");
 					result.addObject("item", aux);
 					result.addObject("messageCode", oops.getMessage());
 				}
-			}
 		} catch (final Throwable oops) {
-			if(binding.hasErrors()) {
+			if (binding.hasErrors())
 				result = this.createEditModelAndView(item, "jpa.error");
-			} else {
+			else
 				result = this.createEditModelAndView(item, "commit.error");
-			}
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam final int itemId) {
 		ModelAndView result;
@@ -195,19 +196,18 @@ public class ItemController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(
-			final Item item, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Item item, final String messageCode) {
 		final ModelAndView result;
 		Actor principal;
 		boolean isPrincipal = true;
-		
-		if(messageCode == null) {
+
+		if (messageCode == null) {
 			principal = this.actorService.findByPrincipal();
 
 			if (principal.getId() != item.getProvider().getId())
 				isPrincipal = false;
 		}
-		
+
 		result = new ModelAndView("item/edit");
 		result.addObject("item", item);
 		result.addObject("isPrincipal", isPrincipal);
