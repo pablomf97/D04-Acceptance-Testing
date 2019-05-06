@@ -159,15 +159,22 @@ public class AuditController {
 	public ModelAndView displayPosition(@RequestParam final int Id) {
 		ModelAndView result;
 		Audit audit;
+		Actor actor = null;
+		Boolean b = true;
 		try {
-			final Actor actor = this.actorService.findByPrincipal();
 			result = new ModelAndView("audit/display");
+			audit = this.auditService.findOne(Id);
 			try {
+				actor = this.actorService.findByPrincipal();
+				if ((audit.getAuditor() != ((Auditor) actor)) && (audit.getIsDraft() == true))
+					b = false;
 				result.addObject("name", actor.getUserAccount().getUsername());
 			} catch (final Throwable opps) {
+				if (audit.getIsDraft() == true)
+					b = false;
 			}
-			audit = this.auditService.findOne(Id);
-			if ((audit.getAuditor() != ((Auditor) actor)) && (audit.getIsDraft() == true))
+			Assert.isTrue(b);
+			if (actor != null && (audit.getAuditor() != ((Auditor) actor)) && (audit.getIsDraft() == true))
 				Assert.isTrue(false);
 			result.addObject(audit);
 		} catch (final Throwable opps) {

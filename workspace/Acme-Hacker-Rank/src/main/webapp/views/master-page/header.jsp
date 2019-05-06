@@ -71,7 +71,7 @@
 				</security:authorize>
 				<security:authorize access="hasRole('COMPANY')">
 					<li><a href="position/list.do"><spring:message
-								code="master.page.position.list" /></a></li>
+								code="master.page.position.mylist" /></a></li>
 
 
 					<li><a href="position/create.do"><spring:message

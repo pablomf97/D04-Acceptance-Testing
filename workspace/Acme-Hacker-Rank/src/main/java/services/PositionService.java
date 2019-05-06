@@ -63,6 +63,8 @@ public class PositionService {
 		result = new Position();
 		result.setCompany((Company) actor);
 		final Collection<Problem> problems = new ArrayList<>();
+		final Collection<Sponsorship> sponsors = new ArrayList<>();
+		result.setSponsorships(sponsors);
 		result.setProblems(problems);
 		result.setIsDraft(true);
 		return result;
@@ -223,6 +225,8 @@ public class PositionService {
 		final Collection<Problem> orig = this.problemService.findByOwner(actor);
 		Assert.isTrue(orig.containsAll(newProblems), "problems.error");
 		Assert.isTrue(newProblems.size() >= 2, "problems.error");
+		for (final Problem p : newProblems)
+			Assert.isTrue(p.getIsDraft() == false);
 	}
 
 	public String generateTicker(final Position position) {
@@ -316,48 +320,45 @@ public class PositionService {
 		return this.positionRepository.stddevPositionPerCompany();
 	}
 
-	/*public void DeletePositionPerCompany(final Company c) {
-
-		final Collection<Position> positions = this.findByOwner(c);
-<<<<<<< HEAD
-		
-		for (final Position p : positions){
-			for (final Application app : this.applicationService.findByPosition(p)){
-				
-				//this.problemService.DeleteProblemPerCompany(p.getProblems());
-				this.applicationService.deleteAppPerPos(app);
-				this.problemService.DeleteProblemPerCompany(app.getProblem());
-				
-			}
-=======
-
-		for (final Position p : positions) {
-			for (final Application app : this.applicationService.findByPosition(p))
-				this.applicationService.deleteAppPerPos(app);
->>>>>>> 14eafaad001723110fe8f5cf42b058b13a45dec0
-			this.sponsorshipService.deleteSponsorshipPerCompany(p);
-			//this.problemService.DeleteProblemPerCompany(p.getProblems());
-			this.positionRepository.delete(p);
-			
-		}
-		//this.positionRepository.deleteInBatch(positions);
-	}
-	*/
+	/*
+	 * public void DeletePositionPerCompany(final Company c) {
+	 * 
+	 * final Collection<Position> positions = this.findByOwner(c);
+	 * <<<<<<< HEAD
+	 * 
+	 * for (final Position p : positions){
+	 * for (final Application app : this.applicationService.findByPosition(p)){
+	 * 
+	 * //this.problemService.DeleteProblemPerCompany(p.getProblems());
+	 * this.applicationService.deleteAppPerPos(app);
+	 * this.problemService.DeleteProblemPerCompany(app.getProblem());
+	 * 
+	 * }
+	 * =======
+	 * 
+	 * for (final Position p : positions) {
+	 * for (final Application app : this.applicationService.findByPosition(p))
+	 * this.applicationService.deleteAppPerPos(app);
+	 * >>>>>>> 14eafaad001723110fe8f5cf42b058b13a45dec0
+	 * this.sponsorshipService.deleteSponsorshipPerCompany(p);
+	 * //this.problemService.DeleteProblemPerCompany(p.getProblems());
+	 * this.positionRepository.delete(p);
+	 * 
+	 * }
+	 * //this.positionRepository.deleteInBatch(positions);
+	 * }
+	 */
 	public void DeletePositionPerCompany(final Company c) {
 
 		final Collection<Position> positions = this.findByOwner(c);
 
-		for (final Position p : positions){
-			for (final Application app : this.applicationService.findByPosition(p)){
+		for (final Position p : positions) {
+			for (final Application app : this.applicationService.findByPosition(p))
 				this.applicationService.deleteAppPerPos(app);
-			}
 			this.positionRepository.delete(p);
 		}
-		
+
 	}
-
-
-
 
 	public Double[] statsSponsorshipsPerPosition() {
 
@@ -377,14 +378,14 @@ public class PositionService {
 
 		return result;
 	}
-	public Double avgSalaryPerPositionHighestScoreAudits(){
+	public Double avgSalaryPerPositionHighestScoreAudits() {
 		return this.positionRepository.avgSalaryPerPositionHighestScoreAudits();
 	}
 
-	public void DeletePositionsPerCompany(Collection<Position> positions) {
-	
+	public void DeletePositionsPerCompany(final Collection<Position> positions) {
+
 		this.positionRepository.deleteInBatch(positions);
-		
+
 	}
 
 }

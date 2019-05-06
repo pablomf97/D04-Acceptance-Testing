@@ -201,25 +201,30 @@ public class PositionController extends AbstractController {
 		ModelAndView result;
 		Position position;
 		String banner = "";
+		Actor actor = null;
+		Boolean b = true;
 		try {
 			result = new ModelAndView("position/display");
-			final Actor actor = this.actorService.findByPrincipal();
-			try {
-
-				result.addObject("name", actor.getUserAccount().getUsername());
-			} catch (final Throwable opps) {
-			}
 			position = this.positionService.findOne(Id);
-			if ((position.getCompany() != ((Company) actor)) && (position.getIsDraft() == true))
-				Assert.isTrue(false);
+			try {
+				actor = this.actorService.findByPrincipal();
+				result.addObject("name", actor.getUserAccount().getUsername());
+				if ((position.getCompany() != ((Company) actor)) && (position.getIsDraft() == true))
+					b = false;
+			} catch (final Throwable opps) {
+				if (position.getIsDraft() == true)
+					b = false;
+			}
+			Assert.isTrue(b);
 
 			if (position.getSponsorships().size() > 0)
 				banner = this.positionService.randomBanner(position.getSponsorships());
 			result.addObject(position);
 			result.addObject("posBanner", banner);
 		} catch (final Throwable opps) {
-			result = new ModelAndView("redirect:list.do");
-			result.addObject("messageCode", "position.commit.error");
+			opps.printStackTrace();
+			result = new ModelAndView("redirect:../welcome/index.do");
+			result.addObject("messageCode", "problem.commit.error");
 		}
 		return result;
 	}

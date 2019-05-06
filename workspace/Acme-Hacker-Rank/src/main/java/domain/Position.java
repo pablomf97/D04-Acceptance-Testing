@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -5,7 +6,9 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,20 +27,21 @@ public class Position extends DomainEntity {
 
 	// Attributes
 
-	private String title;
-	private String description;
-	private Date deadline;
-	private String profileRequired;
-	private String technologiesRequired;
-	private Double salary;
-	private String ticker;
-	private String skillsRequired;
-	private Company company;
-	private Boolean isDraft;
-	private Boolean isCancelled;
-	private Collection<Sponsorship> sponsorships;
+	private String					title;
+	private String					description;
+	private Date					deadline;
+	private String					profileRequired;
+	private String					technologiesRequired;
+	private Double					salary;
+	private String					ticker;
+	private String					skillsRequired;
+	private Company					company;
+	private Boolean					isDraft;
+	private Boolean					isCancelled;
+	private Collection<Sponsorship>	sponsorships;
 
-	private Collection<Problem> problems;
+	private Collection<Problem>		problems;
+
 
 	// Getters and setters
 
@@ -154,12 +158,12 @@ public class Position extends DomainEntity {
 	}
 
 	@Valid
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public Collection<Sponsorship> getSponsorships() {
-		return sponsorships;
+		return this.sponsorships;
 	}
 
-	public void setSponsorships(Collection<Sponsorship> sponsorships) {
+	public void setSponsorships(final Collection<Sponsorship> sponsorships) {
 		this.sponsorships = sponsorships;
 	}
 
