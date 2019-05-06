@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 import repositories.PositionDataRepository;
 import domain.Actor;
 import domain.Curricula;
-import domain.Hacker;
+import domain.Rookie;
 import domain.PositionData;
 
 @Transactional
@@ -33,11 +33,11 @@ public class PositionDataService {
 
 	//Create
 	public PositionData create() {
-		Hacker principal;
+		Rookie principal;
 		PositionData result;
 
-		principal = (Hacker) this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		principal = (Rookie) this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		result = new PositionData();
 
@@ -46,22 +46,22 @@ public class PositionDataService {
 
 	//Save
 	public PositionData save(final PositionData data, final int curriculaId) {
-		Hacker principal;
+		Rookie principal;
 		PositionData dataDB = new PositionData();
 		Collection<Curricula> principalCurriculas;
 		Curricula currentCurricula;
 		PositionData result;
 
-		principal = (Hacker) this.actorService.findByPrincipal();
+		principal = (Rookie) this.actorService.findByPrincipal();
 
-		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+		principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 
 		if (data.getId() != 0) {
 
 			currentCurricula = this.curriculaService.getCurriculaByPositionData(data.getId());
 
 			Assert.isTrue(principalCurriculas.contains(currentCurricula));
-			Assert.isTrue(currentCurricula.getHacker().getId() == principal.getId());
+			Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
 			Assert.isTrue(currentCurricula.getPositionData().contains(data));
 
 			dataDB = this.positionDataRepository.findOne(data.getId());
@@ -93,20 +93,20 @@ public class PositionDataService {
 
 	//Delete
 	public void delete(final PositionData data) {
-		Hacker principal;
+		Rookie principal;
 		Collection<Curricula> principalCurriculas;
 		Curricula currentCurricula;
 		PositionData db = new PositionData();
 
 		db = this.positionDataRepository.findOne(data.getId());
 
-		principal = (Hacker) this.actorService.findByPrincipal();
+		principal = (Rookie) this.actorService.findByPrincipal();
 
-		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+		principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 
 		currentCurricula = this.curriculaService.getCurriculaByPositionData(data.getId());
 
-		Assert.isTrue(currentCurricula.getHacker().getId() == principal.getId());
+		Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
 		Assert.isTrue(principalCurriculas.contains(currentCurricula));
 		Assert.isTrue(currentCurricula.getPositionData().contains(db));
 
@@ -132,7 +132,7 @@ public class PositionDataService {
 		this.positionDataRepository.flush();
 	}
 
-	public void deletePosHacker(final PositionData pd) {
+	public void deletePosRookie(final PositionData pd) {
 		this.positionDataRepository.delete(pd);
 	}
 	public PositionData createCopy() {
@@ -140,7 +140,7 @@ public class PositionDataService {
 		PositionData result;
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		result = new PositionData();
 
@@ -152,7 +152,7 @@ public class PositionDataService {
 		PositionData result;
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		Assert.notNull(data.getTitle());
 		Assert.notNull(data.getDescription());
@@ -168,6 +168,6 @@ public class PositionDataService {
 	public void checkOwnerPositionData(final Integer id) {
 		final Actor principal = this.actorService.findByPrincipal();
 		final Curricula c = this.curriculaService.getCurriculaByPositionData(id);
-		Assert.isTrue(c.getHacker().equals(principal));
+		Assert.isTrue(c.getRookie().equals(principal));
 	}
 }

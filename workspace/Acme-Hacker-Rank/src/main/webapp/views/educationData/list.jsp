@@ -9,11 +9,11 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<security:authorize access="hasRole('HACKER')">
+<security:authorize access="hasRole('ROOKIE')">
 
 	<display:table pagesize="10" class="displaytag"
 		name="educationData"
-		requestURI="educationData/hacker/list.do?curriculaId=${currentCurricula.id}" id="row">
+		requestURI="educationData/rookie/list.do?curriculaId=${currentCurricula.id}" id="row">
 
 		<display:column titleKey="educationData.degree">
 			<jstl:out value="${row.degree}"></jstl:out>
@@ -25,18 +25,18 @@
 
 		<display:column titleKey="educationData.display">
 			<a
-				href="educationData/hacker/display.do?dataId=${row.id}&curriculaId=${currentCurricula.id}">
+				href="educationData/rookie/display.do?dataId=${row.id}&curriculaId=${currentCurricula.id}">
 				<spring:message code="educationData.display" />
 			</a>
 		</display:column>
 	</display:table>
 
-	<a href="educationData/hacker/create.do?curriculaId=${currentCurricula.id}"> <spring:message
+	<a href="educationData/rookie/create.do?curriculaId=${currentCurricula.id}"> <spring:message
 			code="educationData.create" />
 
 	</a>&nbsp;&nbsp;&nbsp;
 		
-	<acme:cancel url="curricula/hacker/display.do?curriculaId=${currentCurricula.id}"
+	<acme:cancel url="curricula/rookie/display.do?curriculaId=${currentCurricula.id}"
 		code="educationData.cancel" />
 
 </security:authorize>

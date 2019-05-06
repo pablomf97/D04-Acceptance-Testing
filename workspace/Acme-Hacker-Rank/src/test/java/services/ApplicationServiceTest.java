@@ -64,13 +64,13 @@ public class ApplicationServiceTest extends AbstractTest{
 	public void driverCreateApplication() {
 		Object testingData[][] = {
 
-		/* 1. Attribute 'hacker' Testing */
+		/* 1. Attribute 'rookie' Testing */
 
 //		/* Test 1.1 ----------------------------------------------- */
-//		{ "hacker1", "position1c1",  null
+//		{ "rookie1", "position1c1",  null
 //		/*
 //		 * 
-//		 * There is no error expected here, a hacker creates an application with 
+//		 * There is no error expected here, a rookie creates an application with 
 //		 * valid data
 //		 */
 //		},
@@ -89,22 +89,22 @@ public class ApplicationServiceTest extends AbstractTest{
 //		/*
 //		 * 
 //		 * Expected a Illegal Argument Exception because
-//		 * the atribute hacker is empty
+//		 * the atribute rookie is empty
 //		 */
 //		},
 //
 //		/* 2. Attribute 'position' Testing */
 //		/* Test 2.1 ----------------------------------------------- */
-//		{ "hacker1", "position2c1",  null
+//		{ "rookie1", "position2c1",  null
 //		/*
 //		 * 
-//		 * There is no error expected here, a hacker creates an application with 
+//		 * There is no error expected here, a rookie creates an application with 
 //		 * valid data
 //		 */
 //		},
 //
 //		/* Test 2.2 ----------------------------------------------- */
-//		{ "hacker1", "position3c1", ConstraintViolationException.class
+//		{ "rookie1", "position3c1", ConstraintViolationException.class
 //		/*
 //		 * 
 //		 * Expected a Illegal Argument Exception because
@@ -112,7 +112,7 @@ public class ApplicationServiceTest extends AbstractTest{
 //		 */
 //		},
 //		/* Test 2.3 ----------------------------------------------- */
-//		{ "hacker1", "", ConstraintViolationException.class
+//		{ "rookie1", "", ConstraintViolationException.class
 //		/*
 //		 * 
 //		 * Expected a Illegal Argument Exception because
@@ -161,25 +161,25 @@ public class ApplicationServiceTest extends AbstractTest{
 	public void driverSubmitApp() {
 		final Object testingData[][] = {
 			{
-				"application2h1", "hacker1", "Explication test", "https://www.humblebundle.com/", "curricula6", null
+				"application2h1", "rookie1", "Explication test", "https://www.humblebundle.com/", "curricula6", null
 			},// Positivo:submit
 				// normal
 			{
-				"application2h1", "hacker1", "Explication test", "not a link", "curricula6", IllegalArgumentException.class
+				"application2h1", "rookie1", "Explication test", "not a link", "curricula6", IllegalArgumentException.class
 			},// Negativo:submit
 				// no es un link
 			{
-				"application1h1", "hacker1", "Explication test", "https://www.humblebundle.com/", "curricula6", IllegalArgumentException.class
+				"application1h1", "rookie1", "Explication test", "https://www.humblebundle.com/", "curricula6", IllegalArgumentException.class
 			},// Negativo:submit
 				// no una application en status pending
 			{
 				"application2h1", "company1", "Explication test", "https://www.humblebundle.com/", "curricula6", IllegalArgumentException.class
 			},// Negativo:submit
-				// no es un hacker
+				// no es un rookie
 			{
-				"application2h1", "hacker1", "Explication test", "https://www.humblebundle.com/", "curricula2", IllegalArgumentException.class
+				"application2h1", "rookie1", "Explication test", "https://www.humblebundle.com/", "curricula2", IllegalArgumentException.class
 			},// Negativo:submit
-				// la curricula no es del hacker 1
+				// la curricula no es del rookie 1
 		};
 
 		for (int i = 0; i < testingData.length; i++)
@@ -221,7 +221,7 @@ public class ApplicationServiceTest extends AbstractTest{
 			},// Positivo:accept/reject
 				// normal
 			{
-				"application4h1", "hacker2", "REJECTED",  IllegalArgumentException.class
+				"application4h1", "rookie2", "REJECTED",  IllegalArgumentException.class
 			},// Negativo:accept/reject
 				// no es una company
 			{

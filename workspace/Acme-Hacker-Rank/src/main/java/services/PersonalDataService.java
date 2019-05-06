@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 import repositories.PersonalDataRepository;
 import domain.Actor;
 import domain.Curricula;
-import domain.Hacker;
+import domain.Rookie;
 import domain.PersonalData;
 
 @Transactional
@@ -33,11 +33,11 @@ public class PersonalDataService {
 
 	//Create
 	public PersonalData create() {
-		Hacker principal;
+		Rookie principal;
 		PersonalData result;
 
-		principal = (Hacker) this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		principal = (Rookie) this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		result = new PersonalData();
 
@@ -45,22 +45,22 @@ public class PersonalDataService {
 	}
 	//Save
 	public PersonalData save(final PersonalData data, final int curriculaId) {
-		Hacker principal;
+		Rookie principal;
 		PersonalData dataDB = new PersonalData();
 		Collection<Curricula> principalCurriculas;
 		Curricula currentCurricula;
 		PersonalData result;
 
-		principal = (Hacker) this.actorService.findByPrincipal();
+		principal = (Rookie) this.actorService.findByPrincipal();
 
-		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+		principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 
 		if (data.getId() != 0) {
 			currentCurricula = this.curriculaService.getCurriculaByPersonalData(data.getId());
 
 			Assert.isTrue(currentCurricula.getPersonalData().getId() == data.getId());
 			Assert.isTrue(principalCurriculas.contains(currentCurricula));
-			Assert.isTrue(currentCurricula.getHacker().getId() == principal.getId());
+			Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
 
 			dataDB = this.personalDataRepository.findOne(data.getId());
 
@@ -123,7 +123,7 @@ public class PersonalDataService {
 		PersonalData result;
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		result = new PersonalData();
 
@@ -135,7 +135,7 @@ public class PersonalDataService {
 		PersonalData result;
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		Assert.notNull(data.getGithubProfile());
 		Assert.notNull(data.getLinkedIn());
@@ -156,7 +156,7 @@ public class PersonalDataService {
 		PersonalData result;
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 		Assert.isTrue(personalData.getId() == 0);
 		Assert.notNull(personalData.getGithubProfile());
 		Assert.notNull(personalData.getLinkedIn());
@@ -173,6 +173,6 @@ public class PersonalDataService {
 	public void checkOwnerPersonalData(final Integer id) {
 		final Actor principal = this.actorService.findByPrincipal();
 		final Curricula c = this.curriculaService.getCurriculaByPersonalData(id);
-		Assert.isTrue(c.getHacker().equals(principal));
+		Assert.isTrue(c.getRookie().equals(principal));
 	}
 }

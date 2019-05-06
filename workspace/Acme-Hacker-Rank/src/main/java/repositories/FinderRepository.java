@@ -23,7 +23,7 @@ public interface FinderRepository extends JpaRepository<Finder, Integer> {
 	@Query("select p from Position p where p.isDraft=0 ")
 	Collection<Position> AllPositions();
 	
-	@Query("select max(h.finder.results.size), min(h.finder.results.size), avg(h.finder.results.size),sqrt(sum(h.finder.results.size* h.finder.results.size) / count(h.finder.results.size) -(avg(h.finder.results.size) * avg(h.finder.results.size))) from Hacker h")
+	@Query("select max(h.finder.results.size), min(h.finder.results.size), avg(h.finder.results.size),sqrt(sum(h.finder.results.size* h.finder.results.size) / count(h.finder.results.size) -(avg(h.finder.results.size) * avg(h.finder.results.size))) from Rookie h")
 	Double[] StatsFinder();
 
 	@Query("select p from Position p where  ( p.deadline between ?1 and  ?1)and p.isDraft=0 ")
@@ -31,14 +31,14 @@ public interface FinderRepository extends JpaRepository<Finder, Integer> {
 	@Query("select (sum(case when m.results.size=0 then 1.0 else 0 end)/count(m)) from Finder m")
 	Double RatioFindersEmpty();
 	
-	@Query("select max(1.0*(select count(*) from Curricula a where a.hacker=h)) from Hacker h")
-	Integer MaxCurriculaPerHacker();
-	@Query("select min(1.0*(select count(*) from Curricula a where a.hacker=h)) from Hacker h")
-	Integer MinCurriculaPerHacker();
-	@Query("select avg(1.0*(select count(*) from Curricula a where a.hacker=h)) from Hacker h")
-	Double AvgCurriculaPerHacker();
-	@Query("select stddev(1.0*(select count(*) from Curricula a where a.hacker=h)) from Hacker h")
-	Double StddevCurriculaPerHacker();
+	@Query("select max(1.0*(select count(*) from Curricula a where a.rookie=h)) from Rookie h")
+	Integer MaxCurriculaPerRookie();
+	@Query("select min(1.0*(select count(*) from Curricula a where a.rookie=h)) from Rookie h")
+	Integer MinCurriculaPerRookie();
+	@Query("select avg(1.0*(select count(*) from Curricula a where a.rookie=h)) from Rookie h")
+	Double AvgCurriculaPerRookie();
+	@Query("select stddev(1.0*(select count(*) from Curricula a where a.rookie=h)) from Rookie h")
+	Double StddevCurriculaPerRookie();
 
 	
 }

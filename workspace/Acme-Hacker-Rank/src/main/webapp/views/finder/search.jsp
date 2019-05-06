@@ -20,9 +20,9 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<security:authorize access="hasRole('HACKER')">
+<security:authorize access="hasRole('ROOKIE')">
 
-	<form:form action="finder/hacker/search.do" modelAttribute="finder">
+	<form:form action="finder/rookie/search.do" modelAttribute="finder">
 
 		<form:hidden path="id" />
 		<form:hidden path="version" />
@@ -73,7 +73,7 @@
 
 	<jstl:if test="${not empty positions}">
 		<display:table name="positions" id="row"
-			requestURI="finder/hacker/list.do" pagesize="10" class="displaytag">
+			requestURI="finder/rookie/list.do" pagesize="10" class="displaytag">
 
 			<!-- Attributes-->
 
@@ -104,7 +104,7 @@
 	</jstl:if>
 </security:authorize>
 
-<security:authorize access="!hasRole('HACKER')">
+<security:authorize access="!hasRole('ROOKIE')">
 
 	<form>
 		<b>Enter a keyword to search by:&#160;</b> <input id="test"
@@ -123,7 +123,7 @@
 	<br>
 	<jstl:if test="${not empty positions}">
 		<display:table name="positions" id="row"
-			requestURI="finder/hacker/list.do" pagesize="10" class="displaytag">
+			requestURI="finder/rookie/list.do" pagesize="10" class="displaytag">
 
 			<!-- Attributes-->
 

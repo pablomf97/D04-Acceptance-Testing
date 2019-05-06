@@ -16,7 +16,7 @@ import services.ActorService;
 import services.AuditorService;
 import domain.Administrator;
 import domain.Auditor;
-import domain.Hacker;
+import domain.Rookie;
 import forms.EditionFormObject;
 import forms.RegisterFormObject;
 

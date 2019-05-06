@@ -15,9 +15,9 @@
 		<put-attribute name="body" value="/views/position/list.jsp" />
 	</definition>
 	
-	<definition name="position/listHackerPositions" extends="master.page">
+	<definition name="position/listRookiePositions" extends="master.page">
 		<put-attribute name="title" value="List position" />
-		<put-attribute name="body" value="/views/position/listHackerPositions.jsp" />
+		<put-attribute name="body" value="/views/position/listRookiePositions.jsp" />
 	</definition>
 
 	<definition name="position/display" extends="master.page">

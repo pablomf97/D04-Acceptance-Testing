@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import domain.Curricula;
-import domain.Hacker;
+import domain.Rookie;
 import domain.MiscellaneousData;
 
 import utilities.AbstractTest;
@@ -72,17 +72,17 @@ public class MiscellaneousDataServiceTest extends AbstractTest{
 				
 
 				/* Test 1.1 ----------------------------------------------- */
-				{ "hacker1", "text", "https://www.imgur.com/djkskdb", null //Positive
+				{ "rookie1", "text", "https://www.imgur.com/djkskdb", null //Positive
 
 				},
 
 				/* Test 1.2 ----------------------------------------------- */
-				{ "hacker1", null, "https://www.imgur.com/djkskdb", IllegalArgumentException.class //Negative: attribute text is null
+				{ "rookie1", null, "https://www.imgur.com/djkskdb", IllegalArgumentException.class //Negative: attribute text is null
 
 				},
 
 				/* Test 1.3 ----------------------------------------------- */
-				{ "hacker1", "text", "url", ConstraintViolationException.class//Negative: format error url
+				{ "rookie1", "text", "url", ConstraintViolationException.class//Negative: format error url
 
 				},
 
@@ -110,15 +110,15 @@ public class MiscellaneousDataServiceTest extends AbstractTest{
 
 	protected void templateCreateMiscellaneousData(String username,
 			String text, String attachement, Class<?> expected) {
-		Hacker principal;
+		Rookie principal;
 		Class<?> caught = null;
 
 		try {
 			this.authenticate(username);
 
-			principal = (Hacker) this.actorService.findByPrincipal();
+			principal = (Rookie) this.actorService.findByPrincipal();
 
-			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 
 			MiscellaneousData miscellaneousData = this.miscellaneousDataService
 					.create();
@@ -153,13 +153,13 @@ public class MiscellaneousDataServiceTest extends AbstractTest{
 
 
 				/* Test 1.1 ----------------------------------------------- */
-				{ "hacker3", "text", "https://gadsy.com/auifd"
+				{ "rookie3", "text", "https://gadsy.com/auifd"
 					, null //Positive
 
 				},
 
 				/* Test 1.3 ----------------------------------------------- */
-				{ "hacker3", "miscellaneousRecord1", "url",
+				{ "rookie3", "miscellaneousRecord1", "url",
 					ConstraintViolationException.class //Negative: formatt error url
 
 				},
@@ -178,14 +178,14 @@ public class MiscellaneousDataServiceTest extends AbstractTest{
 
 	protected void templateEditMiscellaneousData(String username,
 			 String text, String attachements, Class<?> expected) {
-		Hacker principal;
+		Rookie principal;
 		Class<?> caught = null;
 
 		try {
 			this.authenticate(username);
-			principal = (Hacker) this.actorService.findByPrincipal();
+			principal = (Rookie) this.actorService.findByPrincipal();
 
-			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 			MiscellaneousData miscellaneousRecord = principalCurriculas.iterator().next().getMiscellaneousData().iterator().next();
 
 			miscellaneousRecord.setText(text);
@@ -224,7 +224,7 @@ public class MiscellaneousDataServiceTest extends AbstractTest{
 			
 					
 				}, /* Test 1.1 ----------------------------------------------- */
-				{ "hacker5", "miscellaneousData5", null //Positive
+				{ "rookie5", "miscellaneousData5", null //Positive
 			
 				} };
 

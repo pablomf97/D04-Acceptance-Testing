@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import domain.Curricula;
-import domain.Hacker;
+import domain.Rookie;
 import domain.MiscellaneousData;
 import domain.PersonalData;
 
@@ -75,17 +75,17 @@ public class PersonalDataServiceTest  extends AbstractTest{
 				
 
 				/* Test 1.1 ----------------------------------------------- */
-				{ "hacker1", "https://github.com/fsfd", "https://linkedln.com/fswe12fd","Carlos Plaza","statement1","618922568", null //Positive
+				{ "rookie1", "https://github.com/fsfd", "https://linkedln.com/fswe12fd","Carlos Plaza","statement1","618922568", null //Positive
 
 				},
 
 				/* Test 1.2 ----------------------------------------------- */
-				{ "hacker1", null, "https://linkedln.com/fswe12fd","Carlos Plaza","statement1","618922568", IllegalArgumentException.class //Negative: attribute githubProfile is null
+				{ "rookie1", null, "https://linkedln.com/fswe12fd","Carlos Plaza","statement1","618922568", IllegalArgumentException.class //Negative: attribute githubProfile is null
 
 				},
 
 				/* Test 1.3 ----------------------------------------------- */
-				{ "hacker1","url", "url","Carlos Plaza","statement1","618922568", ConstraintViolationException.class//Negative: format error url
+				{ "rookie1","url", "url","Carlos Plaza","statement1","618922568", ConstraintViolationException.class//Negative: format error url
 
 				},
 
@@ -115,15 +115,15 @@ public class PersonalDataServiceTest  extends AbstractTest{
 
 	protected void templateCreatePersonalData(String username,
 			String githubProfile, String linkedIn, String fullName, String statement, String phoneNumber, Class<?> expected) {
-		Hacker principal;
+		Rookie principal;
 		Class<?> caught = null;
 
 		try {
 			this.authenticate(username);
 
-			principal = (Hacker) this.actorService.findByPrincipal();
+			principal = (Rookie) this.actorService.findByPrincipal();
 
-			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 
 			PersonalData pd= this.personalDataService
 					.create();
@@ -161,11 +161,11 @@ public class PersonalDataServiceTest  extends AbstractTest{
 
 
 				/* Test 1.1 ----------------------------------------------- */
-				{ "hacker2", "https://github.com/fsfd", "https://linkedln.com/fswe12fd","Jesús Plaza","statement1","618922568", null //Positive
+				{ "rookie2", "https://github.com/fsfd", "https://linkedln.com/fswe12fd","Jesús Plaza","statement1","618922568", null //Positive
 				},
 
 				/* Test 1.3 ----------------------------------------------- */
-				{ "hacker2", "url", "https://linkedln.com/fswe12fd","Jesús Plaza","statement1","618922568",
+				{ "rookie2", "url", "https://linkedln.com/fswe12fd","Jesús Plaza","statement1","618922568",
 					ConstraintViolationException.class //Negative: formatt error url
 
 				},
@@ -186,14 +186,14 @@ public class PersonalDataServiceTest  extends AbstractTest{
 
 	protected void templateEditPersonalData(String username,
 			String githubProfile, String linkedIn, String fullName, String statement, String phoneNumber, Class<?> expected) {
-		Hacker principal;
+		Rookie principal;
 		Class<?> caught = null;
 
 		try {
 			this.authenticate(username);
-			principal = (Hacker) this.actorService.findByPrincipal();
+			principal = (Rookie) this.actorService.findByPrincipal();
 
-			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 			PersonalData pd = principalCurriculas.iterator().next().getPersonalData();
 			
 			pd.setGithubProfile(githubProfile);

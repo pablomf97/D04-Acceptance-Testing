@@ -22,7 +22,7 @@ import services.ActorService;
 import services.FinderService;
 import services.SystemConfigurationService;
 import domain.Finder;
-import domain.Hacker;
+import domain.Rookie;
 import domain.Position;
 
 @Controller
@@ -49,29 +49,29 @@ public class FinderController extends AbstractController{
 	}
 	// /list
 
-	@RequestMapping(value = "/hacker/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/rookie/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		final ModelAndView result;
 		Finder finder;
 
-		Hacker principal;
+		Rookie principal;
 
-		principal = (Hacker) this.actorService.findByPrincipal();
+		principal = (Rookie) this.actorService.findByPrincipal();
 		finder = principal.getFinder();
 		Assert.isTrue(
-				this.actorService.checkAuthority(principal, "HACKER"),
+				this.actorService.checkAuthority(principal, "ROOKIE"),
 				"not.allowed");
 
 		final Collection<Position> positions = finder.getResults();
 
 		result = new ModelAndView("finder/list");
 		result.addObject("positions", positions);
-		result.addObject("requestUri", "finder/hacker/list.do");
+		result.addObject("requestUri", "finder/rookie/list.do");
 
 		return result;
 	}
 	// DELETE
-	@RequestMapping(value = "/hacker/search", method = RequestMethod.POST, params = "delete")
+	@RequestMapping(value = "/rookie/search", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Finder finder, final BindingResult binding) {
 
 		ModelAndView result;
@@ -86,17 +86,17 @@ public class FinderController extends AbstractController{
 		return result;
 	}
 	// search
-	@RequestMapping(value = "/hacker/search", method = RequestMethod.GET)
+	@RequestMapping(value = "/rookie/search", method = RequestMethod.GET)
 	public ModelAndView search() {
 		ModelAndView result;
 		Finder finder;
 
-		Hacker principal;
+		Rookie principal;
 
-		principal = (Hacker) this.actorService.findByPrincipal();
+		principal = (Rookie) this.actorService.findByPrincipal();
 		finder = principal.getFinder();
 		Assert.isTrue(
-				this.actorService.checkAuthority(principal, "HACKER"),
+				this.actorService.checkAuthority(principal, "ROOKIE"),
 				"not.allowed");
 		Date maxLivedMoment = new Date();
 
@@ -114,7 +114,7 @@ public class FinderController extends AbstractController{
 
 		result.addObject("positions", finder.getResults());
 
-		result.addObject("requestUri", "finder/hacker/search.do");
+		result.addObject("requestUri", "finder/rookie/search.do");
 		return result;
 	}
 	
@@ -133,7 +133,7 @@ public class FinderController extends AbstractController{
 
 				result.addObject("requestUri", "finder/anon/search.do");
 			} catch (Throwable oopsie) {
-				result = new ModelAndView("application/listHacker");
+				result = new ModelAndView("application/listRookie");
 
 				result.addObject("errMsg", oopsie);
 			}
@@ -142,7 +142,7 @@ public class FinderController extends AbstractController{
 		}
 		
 		
-	@RequestMapping(value = "/hacker/search", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/rookie/search", method = RequestMethod.POST, params = "save")
 	public ModelAndView search(@Valid final Finder finder, final BindingResult binding) {
 		ModelAndView result;
 
@@ -157,7 +157,7 @@ public class FinderController extends AbstractController{
 			try {
 
 				this.finderService.search(finder);
-				result = new ModelAndView("redirect:/finder/hacker/search.do");
+				result = new ModelAndView("redirect:/finder/rookie/search.do");
 
 			} catch (final Throwable oops) {
 				System.out.println(finder.getResults());

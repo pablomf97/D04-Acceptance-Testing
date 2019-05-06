@@ -23,7 +23,7 @@ import domain.Curricula;
 import domain.MiscellaneousData;
 
 @Controller
-@RequestMapping(value = "miscellaneousData/hacker")
+@RequestMapping(value = "miscellaneousData/rookie")
 public class MiscellaneousDataController extends AbstractController {
 
 	// Services
@@ -48,7 +48,7 @@ public class MiscellaneousDataController extends AbstractController {
 		Collection<MiscellaneousData> miscellaneousData;
 		try {
 			final Actor actor = this.actorService.findByPrincipal();
-			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "HACKER"));
+			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "ROOKIE"));
 
 			currentCurricula = this.curriculaService.findOne(curriculaId);
 
@@ -73,7 +73,7 @@ public class MiscellaneousDataController extends AbstractController {
 		MiscellaneousData data;
 		try {
 			final Actor actor = this.actorService.findByPrincipal();
-			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "HACKER"));
+			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "ROOKIE"));
 
 			data = this.miscellaneousDataService.findOne(dataId);
 

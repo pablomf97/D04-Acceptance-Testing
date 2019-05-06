@@ -85,7 +85,7 @@
 		</a>
 	</display:column>
 
-	<security:authorize access="hasRole('HACKER')">
+	<security:authorize access="hasRole('ROOKIE')">
 		<display:column>
 			<a href="application/create.do?positionId=${row.id}"> <spring:message
 					code="position.apply" />

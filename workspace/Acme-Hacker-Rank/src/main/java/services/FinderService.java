@@ -17,7 +17,7 @@ import org.springframework.util.Assert;
 
 import repositories.FinderRepository;
 import domain.Finder;
-import domain.Hacker;
+import domain.Rookie;
 import domain.Position;
 
 @Transactional
@@ -47,7 +47,7 @@ public class FinderService {
 		//
 		//		principal = this.actorService.findByPrincipal();
 		//		Assert.isTrue(
-		//				this.actorService.checkAuthority(principal, "HACKER"),
+		//				this.actorService.checkAuthority(principal, "ROOKIE"),
 		//				"not.allowed");
 		result = new Finder();
 		result.setResults(new ArrayList<Position>());
@@ -81,13 +81,13 @@ public class FinderService {
 	public Finder save(final Finder finder) {
 		Finder result;
 
-		Hacker principal;
+		Rookie principal;
 		Date currentMoment;
 		currentMoment = new Date(System.currentTimeMillis() - 1);
 
 		if (finder.getId() != 0) {
-			principal = (Hacker) this.actorService.findByPrincipal();
-			Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"), "not.allowed");
+			principal = (Rookie) this.actorService.findByPrincipal();
+			Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"), "not.allowed");
 			Assert.isTrue(principal.getFinder().equals(finder), "not.allowed");
 			Assert.notNull(finder, "not.allowed");
 			if (finder.getMinimumSalary() != null)
@@ -102,10 +102,10 @@ public class FinderService {
 	//DELETE 
 
 	public void delete(final Finder finder) {
-		Hacker principal;
+		Rookie principal;
 
-		principal = (Hacker) this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"), "not.allowed");
+		principal = (Rookie) this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"), "not.allowed");
 		Assert.isTrue(finder.getId() != 0);
 		Assert.isTrue(principal.getFinder().equals(finder), "not.allowed");
 		finder.setResults(null);
@@ -214,21 +214,21 @@ public class FinderService {
 
 	}
 
-	public Integer MaxCurriculaPerHacker() {
-		return this.finderRepository.MaxCurriculaPerHacker();
+	public Integer MaxCurriculaPerRookie() {
+		return this.finderRepository.MaxCurriculaPerRookie();
 	}
-	public Integer MinCurriculaPerHacker() {
+	public Integer MinCurriculaPerRookie() {
 
-		return this.finderRepository.MinCurriculaPerHacker();
+		return this.finderRepository.MinCurriculaPerRookie();
 	}
 
-	public Double AvgCurriculaPerHacker() {
+	public Double AvgCurriculaPerRookie() {
 
-		return this.finderRepository.AvgCurriculaPerHacker();
+		return this.finderRepository.AvgCurriculaPerRookie();
 	}
-	public Double stdevCurriculaPerHacker() {
+	public Double stdevCurriculaPerRookie() {
 
-		return this.finderRepository.StddevCurriculaPerHacker();
+		return this.finderRepository.StddevCurriculaPerRookie();
 
 	}
 	public Double[] StatsFinder() {
@@ -238,8 +238,8 @@ public class FinderService {
 		this.finderRepository.flush();
 	}
 
-	protected void deleteFinder(final Hacker hacker) {
+	protected void deleteFinder(final Rookie rookie) {
 
-		this.finderRepository.delete(hacker.getFinder());
+		this.finderRepository.delete(rookie.getFinder());
 	}
 }

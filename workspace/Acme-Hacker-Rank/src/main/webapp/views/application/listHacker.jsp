@@ -8,12 +8,12 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="hasRole('HACKER')">
+<security:authorize access="hasRole('ROOKIE')">
 
 	<jstl:choose>
 		<jstl:when test="${permission}">
 			<display:table class="displaytag" name="applications"
-				requestURI="application/listHacker.do" id="app">
+				requestURI="application/listRookie.do" id="app">
 
 				<display:column titleKey="application.applicationMoment"
 					sortable="true">

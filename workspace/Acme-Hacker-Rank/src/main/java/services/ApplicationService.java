@@ -21,7 +21,7 @@ import domain.Application;
 import domain.Company;
 import domain.Curricula;
 import domain.EducationData;
-import domain.Hacker;
+import domain.Rookie;
 import domain.MiscellaneousData;
 import domain.PersonalData;
 import domain.Position;
@@ -68,13 +68,13 @@ public class ApplicationService {
 		Application result;
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"), "not.allowed");
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"), "not.allowed");
 
 		result = new Application();
 
 		result.setApplicationMoment(new Date(System.currentTimeMillis() - 1));
 		result.setStatus("PENDING");
-		result.setHacker((Hacker) principal);
+		result.setRookie((Rookie) principal);
 
 		return result;
 	}
@@ -102,17 +102,17 @@ public class ApplicationService {
 		Assert.notNull(application);
 
 		Assert.notNull(application.getPosition());
-		Assert.notNull(application.getHacker());
+		Assert.notNull(application.getRookie());
 		Assert.notNull(application.getApplicationMoment());
 
-		if (this.actorService.checkAuthority(principal, "HACKER")) {
+		if (this.actorService.checkAuthority(principal, "ROOKIE")) {
 
-			Assert.isTrue(application.getHacker().equals(principal));
+			Assert.isTrue(application.getRookie().equals(principal));
 			Assert.isTrue(application.getStatus().equalsIgnoreCase("PENDING"));
 
 			if (application.getId() == 0) {
 
-				final Collection<Application> alreadyApplied = this.findApplicationsNotRejectedByHackerId(principal.getId());
+				final Collection<Application> alreadyApplied = this.findApplicationsNotRejectedByRookieId(principal.getId());
 				for (final Application app : alreadyApplied)
 					Assert.isTrue(!application.getPosition().equals(app.getPosition()), "already.applied");
 
@@ -215,9 +215,9 @@ public class ApplicationService {
 		Assert.isTrue(application.getId() != 0, "wrong.id");
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"), "not.allowed");
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"), "not.allowed");
 
-		Assert.isTrue(application.getHacker().equals(principal), "not.allowed");
+		Assert.isTrue(application.getRookie().equals(principal), "not.allowed");
 
 		this.applicationRepository.delete(application.getId());
 
@@ -264,18 +264,18 @@ public class ApplicationService {
 		return result;
 	}
 
-	public Collection<Application> findApplicationsByHackerId(final int hackerId) {
+	public Collection<Application> findApplicationsByRookieId(final int rookieId) {
 		Collection<Application> applications;
 
-		applications = this.applicationRepository.findApplicationsByHackerId(hackerId);
+		applications = this.applicationRepository.findApplicationsByRookieId(rookieId);
 
 		return applications;
 	}
 
-	public Collection<Application> findApplicationsNotRejectedByHackerId(final int hackerId) {
+	public Collection<Application> findApplicationsNotRejectedByRookieId(final int rookieId) {
 		Collection<Application> applications;
 
-		applications = this.applicationRepository.findApplicationsNotRejectedByHackerId(hackerId);
+		applications = this.applicationRepository.findApplicationsNotRejectedByRookieId(rookieId);
 
 		return applications;
 	}
@@ -319,29 +319,29 @@ public class ApplicationService {
 		return res;
 	}
 
-	public Integer maxApplicationsPerHacker() {
+	public Integer maxApplicationsPerRookie() {
 
-		return this.applicationRepository.maxApplicationsPerHacker();
+		return this.applicationRepository.maxApplicationsPerRookie();
 	}
 
-	public Integer minApplicationsPerHacker() {
+	public Integer minApplicationsPerRookie() {
 
-		return this.applicationRepository.minApplicationsPerHacker();
+		return this.applicationRepository.minApplicationsPerRookie();
 	}
 
-	public Double avgApplicationsPerHacker() {
+	public Double avgApplicationsPerRookie() {
 
-		return this.applicationRepository.avgApplicationsPerHacker();
+		return this.applicationRepository.avgApplicationsPerRookie();
 	}
 
-	public Double sttdevApplicationsPerHacker() {
+	public Double sttdevApplicationsPerRookie() {
 
-		return this.applicationRepository.stddevApplicationsPerHacker();
+		return this.applicationRepository.stddevApplicationsPerRookie();
 	}
 
-	protected void deleteApp(final Hacker hacker) {
+	protected void deleteApp(final Rookie rookie) {
 		Collection<Application> apps;
-		apps = this.applicationRepository.findApplicationPerHacker(hacker.getId());
+		apps = this.applicationRepository.findApplicationPerRookie(rookie.getId());
 
 		this.applicationRepository.deleteInBatch(apps);
 

@@ -59,7 +59,7 @@ public class DashboardServiceTest extends AbstractTest {
 	private PositionService positionService;
 
 	@Autowired
-	private HackerService hackerService;
+	private RookieService rookieService;
 	
 	@Autowired
 	private AuditService auditService;
@@ -81,7 +81,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin", 4, null },// Positive
 				{ "admin", 5, IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 3, IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 3, IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -126,7 +126,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin", 0, null },// Positive
 				{ "admin", 5, IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 0, IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 0, IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -173,7 +173,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin",2.33333, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 0., IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -220,7 +220,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin", 1.69967, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 0., IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -260,24 +260,24 @@ public class DashboardServiceTest extends AbstractTest {
 
 	}
 
-	//	RF.11.2		The standard deviation of the number of applications per hacker
+	//	RF.11.2		The standard deviation of the number of applications per rookie
 
 	@Test
-	public void sttdevApplicationsPerHackerDriver() {
+	public void sttdevApplicationsPerRookieDriver() {
 		Object testingData[][] = { { "admin", 1.6, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 0., IllegalArgumentException.class } //non authorized actor
 
 		};
 
 		for (int i = 0; i < testingData.length; i++) {
-			sttdevApplicationsPerHackerTemplate((String) testingData[i][0],
+			sttdevApplicationsPerRookieTemplate((String) testingData[i][0],
 					(Double) testingData[i][1], (Class<?>) testingData[i][2]);
 		}
 	}
 
-	protected void sttdevApplicationsPerHackerTemplate(String username,Double val,
+	protected void sttdevApplicationsPerRookieTemplate(String username,Double val,
 			Class<?> expected) {
 		Class<?> caught;
 
@@ -286,7 +286,7 @@ public class DashboardServiceTest extends AbstractTest {
 		try {
 			authenticate(username);
 
-			this.sttdevApplicationsPerHackerTest(val);
+			this.sttdevApplicationsPerRookieTest(val);
 
 			unauthenticate();
 
@@ -297,34 +297,34 @@ public class DashboardServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	public void sttdevApplicationsPerHackerTest(Double val) {
+	public void sttdevApplicationsPerRookieTest(Double val) {
 		final Actor principal = this.actorService.findByPrincipal();
 		Assert.isTrue(this.actorService.checkAuthority(principal,
 				"ADMIN"));
-		Double res =this.applicationService.sttdevApplicationsPerHacker();
+		Double res =this.applicationService.sttdevApplicationsPerRookie();
 		Assert.isTrue(res.doubleValue()==val);
 
 
 	}
 
-	//	RF.11.2		The average of the number of applications per hacker
+	//	RF.11.2		The average of the number of applications per rookie
 
 	@Test
-	public void avgdevApplicationsPerHackerDriver() {
+	public void avgdevApplicationsPerRookieDriver() {
 		Object testingData[][] = { { "admin", 0.8, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 0., IllegalArgumentException.class } //non authorized actor
 
 		};
 
 		for (int i = 0; i < testingData.length; i++) {
-			avgdevApplicationsPerHackerTemplate((String) testingData[i][0],
+			avgdevApplicationsPerRookieTemplate((String) testingData[i][0],
 					(Double) testingData[i][1], (Class<?>) testingData[i][2]);
 		}
 	}
 
-	protected void avgdevApplicationsPerHackerTemplate(String username,Double val,
+	protected void avgdevApplicationsPerRookieTemplate(String username,Double val,
 			Class<?> expected) {
 		Class<?> caught;
 
@@ -333,7 +333,7 @@ public class DashboardServiceTest extends AbstractTest {
 		try {
 			authenticate(username);
 
-			this.avgdevApplicationsPerHackerTest(val);
+			this.avgdevApplicationsPerRookieTest(val);
 
 			unauthenticate();
 
@@ -344,34 +344,34 @@ public class DashboardServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	public void avgdevApplicationsPerHackerTest(Double val) {
+	public void avgdevApplicationsPerRookieTest(Double val) {
 		final Actor principal = this.actorService.findByPrincipal();
 		Assert.isTrue(this.actorService.checkAuthority(principal,
 				"ADMIN"));
-		Double res =this.applicationService.avgApplicationsPerHacker();
+		Double res =this.applicationService.avgApplicationsPerRookie();
 		Assert.isTrue(res.doubleValue()==val);
 
 
 	}
 
-	//	RF.11.2		The maximum of the number of applications per hacker
+	//	RF.11.2		The maximum of the number of applications per rookie
 
 	@Test 
-	public void maxApplicationsPerHackerDriver() {
+	public void maxApplicationsPerRookieDriver() {
 		Object testingData[][] = { { "admin", 4, null },// Positive
 				{ "admin", 5, IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 3, IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 3, IllegalArgumentException.class } //non authorized actor
 
 		};
 
 		for (int i = 0; i < testingData.length; i++) {
-			maxApplicationsPerHackerTemplate((String) testingData[i][0],
+			maxApplicationsPerRookieTemplate((String) testingData[i][0],
 					(int) testingData[i][1], (Class<?>) testingData[i][2]);
 		}
 	}
 
-	protected void maxApplicationsPerHackerTemplate(String username,Integer max,
+	protected void maxApplicationsPerRookieTemplate(String username,Integer max,
 			Class<?> expected) {
 		Class<?> caught;
 
@@ -380,7 +380,7 @@ public class DashboardServiceTest extends AbstractTest {
 		try {
 			authenticate(username);
 
-			this.maxApplicationsPerHackerTest(max);
+			this.maxApplicationsPerRookieTest(max);
 
 			unauthenticate();
 
@@ -391,34 +391,34 @@ public class DashboardServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	public void maxApplicationsPerHackerTest(Integer max) {
+	public void maxApplicationsPerRookieTest(Integer max) {
 		final Actor principal = this.actorService.findByPrincipal();
 		Assert.isTrue(this.actorService.checkAuthority(principal,
 				"ADMIN"));
-		Integer res=this.applicationService.maxApplicationsPerHacker();
+		Integer res=this.applicationService.maxApplicationsPerRookie();
 		Assert.isTrue(res.intValue()==max);
 
 
 	}
 
-	//	RF.11.2		The minimum of the number of applications per hacker
+	//	RF.11.2		The minimum of the number of applications per rookie
 
 	@Test 
-	public void minApplicationsPerHackerDriver() {
+	public void minApplicationsPerRookieDriver() {
 		Object testingData[][] = { { "admin", 0, null },// Positive
 				{ "admin", 5, IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 3, IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 3, IllegalArgumentException.class } //non authorized actor
 
 		};
 
 		for (int i = 0; i < testingData.length; i++) {
-			minApplicationsPerHackerTemplate((String) testingData[i][0],
+			minApplicationsPerRookieTemplate((String) testingData[i][0],
 					(int) testingData[i][1], (Class<?>) testingData[i][2]);
 		}
 	}
 
-	protected void minApplicationsPerHackerTemplate(String username,Integer min,
+	protected void minApplicationsPerRookieTemplate(String username,Integer min,
 			Class<?> expected) {
 		Class<?> caught;
 
@@ -427,7 +427,7 @@ public class DashboardServiceTest extends AbstractTest {
 		try {
 			authenticate(username);
 
-			this.minApplicationsPerHackerTest(min);
+			this.minApplicationsPerRookieTest(min);
 
 			unauthenticate();
 
@@ -438,7 +438,7 @@ public class DashboardServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	public void minApplicationsPerHackerTest(Integer min) {
+	public void minApplicationsPerRookieTest(Integer min) {
 		final Actor principal = this.actorService.findByPrincipal();
 		Assert.isTrue(this.actorService.checkAuthority(principal,
 				"ADMIN"));
@@ -455,7 +455,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin", 4.0, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 0., IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -500,7 +500,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin", 150.1, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 0., IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -545,7 +545,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin",59.142857142857146, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 0., IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -591,7 +591,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin", 59.24568355929538, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 0., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 0., IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -637,7 +637,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin","Gustavos S.A.", null },// Positive
 				{ "admin", "Aliexpress", IllegalArgumentException.class },//non expected
 
-				{ "hacker1", "El corte ingles", IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", "El corte ingles", IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -676,24 +676,24 @@ public class DashboardServiceTest extends AbstractTest {
 
 	}
 
-	//	RF.11.4		The hacker who have made more applications
+	//	RF.11.4		The rookie who have made more applications
 
 	@Test
-	public void hackerWithMoreApplicationsTest() {
+	public void rookieWithMoreApplicationsTest() {
 		Object testingData[][] = { { "admin","Alberto", null },// Positive
 				{ "admin", "Aliexpress", IllegalArgumentException.class },//non expected
 
-				{ "hacker1", "El corte ingles", IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", "El corte ingles", IllegalArgumentException.class } //non authorized actor
 
 		};
 
 		for (int i = 0; i < testingData.length; i++) {
-			hackerWithMoreApplicationsTemplate((String) testingData[i][0],
+			rookieWithMoreApplicationsTemplate((String) testingData[i][0],
 					(String) testingData[i][1], (Class<?>) testingData[i][2]);
 		}
 	}
 
-	protected void hackerWithMoreApplicationsTemplate(String username,String min,
+	protected void rookieWithMoreApplicationsTemplate(String username,String min,
 			Class<?> expected) {
 		Class<?> caught;
 
@@ -702,7 +702,7 @@ public class DashboardServiceTest extends AbstractTest {
 		try {
 			authenticate(username);
 
-			this.hackerWithMoreApplicationsTest(min);
+			this.rookieWithMoreApplicationsTest(min);
 
 			unauthenticate();
 
@@ -713,11 +713,11 @@ public class DashboardServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	public void hackerWithMoreApplicationsTest(String min) {
+	public void rookieWithMoreApplicationsTest(String min) {
 		final Actor principal = this.actorService.findByPrincipal();
 		Assert.isTrue(this.actorService.checkAuthority(principal,
 				"ADMIN"));
-		String res =this.hackerService.hackerWithMoreApplications();
+		String res =this.rookieService.rookieWithMoreApplications();
 		Assert.isTrue(res.contentEquals(min));
 
 	}
@@ -730,7 +730,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin","Position 3 of company 1", null },// Positive
 				{ "admin", "Aliexpress", IllegalArgumentException.class },//non expected
 
-				{ "hacker1", "El corte ingles", IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", "El corte ingles", IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -777,7 +777,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin","Position 3 of company 2", null },// Positive
 				{ "admin", "Aliexpress", IllegalArgumentException.class },//non expected
 
-				{ "hacker1", "El corte ingles", IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", "El corte ingles", IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -824,7 +824,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin", 0.0, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 3., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 3., IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -874,7 +874,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin", 0.0, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 3., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 3., IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -923,7 +923,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin", 0.0, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 3., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 3., IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -970,7 +970,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin", 0.0, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 3., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 3., IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -1018,7 +1018,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin", 1.0, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 3., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 3., IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -1062,24 +1062,24 @@ public class DashboardServiceTest extends AbstractTest {
 
 
 
-	//	RF.18.1	Average of the number of curricula per hacker
+	//	RF.18.1	Average of the number of curricula per rookie
 
 	@Test 
-	public void stdevCurriculaPerHackerDriver() {
+	public void stdevCurriculaPerRookieDriver() {
 		Object testingData[][] = { { "admin", 1.54919, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 3., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 3., IllegalArgumentException.class } //non authorized actor
 
 		};
 
 		for (int i = 0; i < testingData.length; i++) {
-			stdevCurriculaPerHackerTemplate((String) testingData[i][0],
+			stdevCurriculaPerRookieTemplate((String) testingData[i][0],
 					(Double) testingData[i][1], (Class<?>) testingData[i][2]);
 		}
 	}
 
-	protected void stdevCurriculaPerHackerTemplate(String username,Double max,
+	protected void stdevCurriculaPerRookieTemplate(String username,Double max,
 			Class<?> expected) {
 		Class<?> caught;
 
@@ -1088,7 +1088,7 @@ public class DashboardServiceTest extends AbstractTest {
 		try {
 			authenticate(username);
 
-			this.stdevCurriculaPerHackerTest(max);
+			this.stdevCurriculaPerRookieTest(max);
 
 			unauthenticate();
 
@@ -1099,11 +1099,11 @@ public class DashboardServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	public void stdevCurriculaPerHackerTest(Double max) {
+	public void stdevCurriculaPerRookieTest(Double max) {
 		final Actor principal = this.actorService.findByPrincipal();
 		Assert.isTrue(this.actorService.checkAuthority(principal,
 				"ADMIN"));
-		Double res=this.finderService.stdevCurriculaPerHacker();
+		Double res=this.finderService.stdevCurriculaPerRookie();
 		Assert.isTrue(res.doubleValue()==max);
 
 
@@ -1111,24 +1111,24 @@ public class DashboardServiceTest extends AbstractTest {
 
 
 
-	//	RF.18.1	Maximum of the number of curricula per hacker
+	//	RF.18.1	Maximum of the number of curricula per rookie
 
 	@Test 
-	public void MaxCurriculaPerHackerDriver() {
+	public void MaxCurriculaPerRookieDriver() {
 		Object testingData[][] = { { "admin", 5, null },// Positive
 				{ "admin", 54, IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 4, IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 4, IllegalArgumentException.class } //non authorized actor
 
 		};
 
 		for (int i = 0; i < testingData.length; i++) {
-			MaxCurriculaPerHackerTemplate((String) testingData[i][0],
+			MaxCurriculaPerRookieTemplate((String) testingData[i][0],
 					(Integer) testingData[i][1], (Class<?>) testingData[i][2]);
 		}
 	}
 
-	protected void MaxCurriculaPerHackerTemplate(String username,Integer max,
+	protected void MaxCurriculaPerRookieTemplate(String username,Integer max,
 			Class<?> expected) {
 		Class<?> caught;
 
@@ -1137,7 +1137,7 @@ public class DashboardServiceTest extends AbstractTest {
 		try {
 			authenticate(username);
 
-			this.MaxCurriculaPerHackerTest(max);
+			this.MaxCurriculaPerRookieTest(max);
 
 			unauthenticate();
 
@@ -1148,11 +1148,11 @@ public class DashboardServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	public void MaxCurriculaPerHackerTest(Integer max) {
+	public void MaxCurriculaPerRookieTest(Integer max) {
 		final Actor principal = this.actorService.findByPrincipal();
 		Assert.isTrue(this.actorService.checkAuthority(principal,
 				"ADMIN"));
-		Integer res=this.finderService.MaxCurriculaPerHacker();
+		Integer res=this.finderService.MaxCurriculaPerRookie();
 		Assert.isTrue(res.doubleValue()==max);
 
 
@@ -1160,24 +1160,24 @@ public class DashboardServiceTest extends AbstractTest {
 
 
 
-	//	RF.18.1	Minimum of the number of curricula per hacker
+	//	RF.18.1	Minimum of the number of curricula per rookie
 
 	@Test 
-	public void minCurriculaPerHackerDriver() {
+	public void minCurriculaPerRookieDriver() {
 		Object testingData[][] = { { "admin", 1, null },// Positive
 				{ "admin", 54, IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 4, IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 4, IllegalArgumentException.class } //non authorized actor
 
 		};
 
 		for (int i = 0; i < testingData.length; i++) {
-			minCurriculaPerHackerTemplate((String) testingData[i][0],
+			minCurriculaPerRookieTemplate((String) testingData[i][0],
 					(Integer) testingData[i][1], (Class<?>) testingData[i][2]);
 		}
 	}
 
-	protected void minCurriculaPerHackerTemplate(String username,Integer max,
+	protected void minCurriculaPerRookieTemplate(String username,Integer max,
 			Class<?> expected) {
 		Class<?> caught;
 
@@ -1186,7 +1186,7 @@ public class DashboardServiceTest extends AbstractTest {
 		try {
 			authenticate(username);
 
-			this.minCurriculaPerHackerTest(max);
+			this.minCurriculaPerRookieTest(max);
 
 			unauthenticate();
 
@@ -1197,35 +1197,35 @@ public class DashboardServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	public void minCurriculaPerHackerTest(Integer max) {
+	public void minCurriculaPerRookieTest(Integer max) {
 		final Actor principal = this.actorService.findByPrincipal();
 		Assert.isTrue(this.actorService.checkAuthority(principal,
 				"ADMIN"));
-		Integer res=this.finderService.MinCurriculaPerHacker();
+		Integer res=this.finderService.MinCurriculaPerRookie();
 		Assert.isTrue(res.intValue()==max);
 
 
 	}
 
 
-	//	RF.18.1	Deviation standard of the number of curricula per hacker
+	//	RF.18.1	Deviation standard of the number of curricula per rookie
 
 	@Test 
-	public void avgCurriculaPerHackerDriver() {
+	public void avgCurriculaPerRookieDriver() {
 		Object testingData[][] = { { "admin", 2.0, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
-				{ "hacker1", 3., IllegalArgumentException.class } //non authorized actor
+				{ "rookie1", 3., IllegalArgumentException.class } //non authorized actor
 
 		};
 
 		for (int i = 0; i < testingData.length; i++) {
-			avgCurriculaPerHackerTemplate((String) testingData[i][0],
+			avgCurriculaPerRookieTemplate((String) testingData[i][0],
 					(Double) testingData[i][1], (Class<?>) testingData[i][2]);
 		}
 	}
 
-	protected void avgCurriculaPerHackerTemplate(String username,Double max,
+	protected void avgCurriculaPerRookieTemplate(String username,Double max,
 			Class<?> expected) {
 		Class<?> caught;
 
@@ -1234,7 +1234,7 @@ public class DashboardServiceTest extends AbstractTest {
 		try {
 			authenticate(username);
 
-			this.avgCurriculaPerHackerTest(max);
+			this.avgCurriculaPerRookieTest(max);
 
 			unauthenticate();
 
@@ -1245,11 +1245,11 @@ public class DashboardServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	public void avgCurriculaPerHackerTest(Double max) {
+	public void avgCurriculaPerRookieTest(Double max) {
 		final Actor principal = this.actorService.findByPrincipal();
 		Assert.isTrue(this.actorService.checkAuthority(principal,
 				"ADMIN"));
-		Double res=this.finderService.AvgCurriculaPerHacker();
+		Double res=this.finderService.AvgCurriculaPerRookie();
 		Assert.isTrue(res.doubleValue()==max);
 
 
@@ -1263,7 +1263,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin", 10.0,3.0,6.5,2.5, null },// Positive
 				{ "admin", 1.8,1.9,1.9,1.8, IllegalArgumentException.class },//non expected
 
-				{ "hacker1",1.8,1.9,1.9,1.8, IllegalArgumentException.class } //non authorized actor
+				{ "rookie1",1.8,1.9,1.9,1.8, IllegalArgumentException.class } //non authorized actor
 
 		};
 
@@ -1313,7 +1313,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Object testingData[][] = { { "admin", 1.0,0.2,0.6333333333333333,0.3299831645537222, null },// Positive
 				{ "admin", 1.8,1.9,1.9,1.8, IllegalArgumentException.class },//non expected
 
-				{ "hacker1",1.8,1.9,1.9,1.8, IllegalArgumentException.class } //non authorized actor
+				{ "rookie1",1.8,1.9,1.9,1.8, IllegalArgumentException.class } //non authorized actor
 
 		};
 

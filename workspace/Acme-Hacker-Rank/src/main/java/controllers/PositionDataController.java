@@ -23,7 +23,7 @@ import domain.Curricula;
 import domain.PositionData;
 
 @Controller
-@RequestMapping(value = "positionData/hacker")
+@RequestMapping(value = "positionData/rookie")
 public class PositionDataController extends AbstractController {
 
 	//Services
@@ -70,7 +70,7 @@ public class PositionDataController extends AbstractController {
 		PositionData data;
 		try {
 			final Actor actor = this.actorService.findByPrincipal();
-			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "HACKER"));
+			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "ROOKIE"));
 
 			data = this.positionDataService.findOne(dataId);
 

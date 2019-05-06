@@ -11,12 +11,12 @@ import domain.Curricula;
 @Repository
 public interface CurriculaRepository extends JpaRepository<Curricula, Integer> {
 	
-	@Query("select c from Curricula c where c.hacker.id = ?1 and c.isCopy = 'false'")
-	Collection<Curricula> findCurriculasByHackerId(int hackerId);
+	@Query("select c from Curricula c where c.rookie.id = ?1 and c.isCopy = 'false'")
+	Collection<Curricula> findCurriculasByRookieId(int rookieId);
 
 
-	@Query("select c from Curricula c where c.hacker.id=?1")
-	Collection<Curricula> getCurriculasByHacker(int hackerId);
+	@Query("select c from Curricula c where c.rookie.id=?1")
+	Collection<Curricula> getCurriculasByRookie(int rookieId);
 	
 	@Query("select c from Curricula c join c.miscellaneousData m where m.id=?1")
 	Curricula getCurriculaByMiscellaneousData(int dataId);
@@ -32,8 +32,8 @@ public interface CurriculaRepository extends JpaRepository<Curricula, Integer> {
 
 
 	
-	@Query("select c from Curricula c where c.hacker.id= ?1")
-	Collection<Curricula> findCVPerHacker(int hackerId);
+	@Query("select c from Curricula c where c.rookie.id= ?1")
+	Collection<Curricula> findCVPerRookie(int rookieId);
 	
 
 }

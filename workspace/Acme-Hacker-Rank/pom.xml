@@ -12,7 +12,7 @@
 	<!-- Artifact identification and properties -->
 
 	<groupId>Acme.com</groupId>
-	<artifactId>Acme-Hacker-Rank</artifactId>
+	<artifactId>Acme-Rookie</artifactId>
 	<version>0.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -22,8 +22,8 @@
 
 	<!-- Indexing information -->
 
-	<name>Acme Hacker Rank</name>
-	<url>http://www.acme-hacker-rank.com</url>
+	<name>Acme Rookie Rank</name>
+	<url>http://www.acme-rookie-rank.com</url>
 
 	<!-- Build commands -->
 
@@ -315,5 +315,5 @@
 
 	</dependencies>
 
-	<description>This system allows people solve their problems by our hackers.</description>
+	<description>This system allows people solve their problems by our rookies.</description>
 </project> 

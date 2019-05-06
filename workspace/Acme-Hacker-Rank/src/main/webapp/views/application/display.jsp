@@ -8,13 +8,13 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="hasAnyRole('HACKER','COMPANY')">
+<security:authorize access="hasAnyRole('ROOKIE','COMPANY')">
 
 	<table class="displayStyle">
 		<tr>
-			<td><strong> <spring:message code="application.hacker" /> :
+			<td><strong> <spring:message code="application.rookie" /> :
 			</strong></td>
-			<td><jstl:out value="${application.hacker.name}">
+			<td><jstl:out value="${application.rookie.name}">
 				</jstl:out></td>
 		</tr>
 
@@ -75,7 +75,7 @@
 			<tr>
 				<td><strong> <spring:message code="application.copyCurricula" /> :
 				</strong></td>
-				<td><a href="curricula/hacker/display.do?curriculaId=${application.copyCurricula.id}"> <spring:message
+				<td><a href="curricula/rookie/display.do?curriculaId=${application.copyCurricula.id}"> <spring:message
 						code="curricula.display" /></a></td>
 
 			</tr>

@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import domain.Curricula;
 
-import domain.Hacker;
+import domain.Rookie;
 import domain.PositionData;
 
 import utilities.AbstractTest;
@@ -76,12 +76,12 @@ public class PositionDataServiceTest  extends AbstractTest{
 				
 
 				
-				{ "hacker1", "title1", "description1",new GregorianCalendar(2010, Calendar.JANUARY, 1)
+				{ "rookie1", "title1", "description1",new GregorianCalendar(2010, Calendar.JANUARY, 1)
 				.getTime(),new GregorianCalendar(2011, Calendar.JANUARY, 1)
 				.getTime(), null //Positive
 
 				},
-				{ "hacker1", null, "description1",new GregorianCalendar(2010, Calendar.JANUARY, 1)
+				{ "rookie1", null, "description1",new GregorianCalendar(2010, Calendar.JANUARY, 1)
 				.getTime(),new GregorianCalendar(2011, Calendar.JANUARY, 1)
 				.getTime(), IllegalArgumentException.class //Negative: degree dont be null
 
@@ -110,15 +110,15 @@ public class PositionDataServiceTest  extends AbstractTest{
 
 	protected void templateCreatePositionData(String username,
 			String title, String description,  Date startDate, Date endDate, Class<?> expected) {
-		Hacker principal;
+		Rookie principal;
 		Class<?> caught = null;
 
 		try {
 			this.authenticate(username);
 
-			principal = (Hacker) this.actorService.findByPrincipal();
+			principal = (Rookie) this.actorService.findByPrincipal();
 
-			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 
 			PositionData ed = this.positionDataService
 					.create();
@@ -156,14 +156,14 @@ public class PositionDataServiceTest  extends AbstractTest{
 
 
 				/* Test 1.1 ----------------------------------------------- */
-				{ "hacker1", "title1", "description1",new GregorianCalendar(2010, Calendar.JANUARY, 1)
+				{ "rookie1", "title1", "description1",new GregorianCalendar(2010, Calendar.JANUARY, 1)
 				.getTime(),new GregorianCalendar(2011, Calendar.JANUARY, 1)
 				.getTime(), null //Positive
 
 				},
 
 				/* Test 1.3 ----------------------------------------------- */
-				{ "hacker1", "title1", "description1",new GregorianCalendar(2010, Calendar.JANUARY, 1)
+				{ "rookie1", "title1", "description1",new GregorianCalendar(2010, Calendar.JANUARY, 1)
 				.getTime(),new GregorianCalendar(2011, Calendar.JANUARY, 1)
 				.getTime(), null //Positive
 
@@ -184,14 +184,14 @@ public class PositionDataServiceTest  extends AbstractTest{
 
 	protected void templateEditPositionData(String username,
 			 String title, String description, Date startDate, Date endDate, Class<?> expected) {
-		Hacker principal;
+		Rookie principal;
 		Class<?> caught = null;
 
 		try {
 			this.authenticate(username);
-			principal = (Hacker) this.actorService.findByPrincipal();
+			principal = (Rookie) this.actorService.findByPrincipal();
 
-			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 			PositionData ed = principalCurriculas.iterator().next().getPositionData().iterator().next();
 
 			ed.setTitle(title);
@@ -232,7 +232,7 @@ public class PositionDataServiceTest  extends AbstractTest{
 			
 					
 				}, /* Test 1.1 ----------------------------------------------- */
-				{ "hacker1", "positionData1", null //Positive
+				{ "rookie1", "positionData1", null //Positive
 			
 				} };
 

@@ -53,9 +53,9 @@
 				</display:column>
 
 				<display:column titleKey="application.applicant">
-					<a href="hacker/display.do?id=${app.hacker.id}"> <jstl:out
-							value="${app.hacker.name}" /> <jstl:out
-							value="${app.hacker.surname}" />
+					<a href="rookie/display.do?id=${app.rookie.id}"> <jstl:out
+							value="${app.rookie.name}" /> <jstl:out
+							value="${app.rookie.surname}" />
 					</a>
 				</display:column>
 

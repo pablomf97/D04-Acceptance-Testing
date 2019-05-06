@@ -9,9 +9,9 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<security:authorize access="hasRole('HACKER')">
+<security:authorize access="hasRole('ROOKIE')">
 	<form:form modelAttribute="curricula"
-		action="curricula/hacker/display.do" id="form">
+		action="curricula/rookie/display.do" id="form">
 		<form:hidden path="id"/>
 		<table class="displayStyle">
 
@@ -22,7 +22,7 @@
 
 				<td><jstl:out value="${personalData.fullName}"></jstl:out></td>
 				<td><a
-					href="personalData/hacker/display.do?dataId=${personalData.id}&curriculaId=${curricula.id}">
+					href="personalData/rookie/display.do?dataId=${personalData.id}&curriculaId=${curricula.id}">
 						<spring:message code="curricula.personalData.display" />
 				</a></td>
 
@@ -35,13 +35,13 @@
 					<td><jstl:out value="${miscellanousData.text}"></jstl:out></td>
 
 					<td><a
-						href="miscellaneousData/hacker/list.do?curriculaId=${curricula.id}">
+						href="miscellaneousData/rookie/list.do?curriculaId=${curricula.id}">
 							<spring:message code="curricula.miscellaneousData.list" />
 					</a></td>
 				</jstl:if>
 				<jstl:if test="${emptyMiscellaneous}">
 					<td><spring:message code="curricula.empty.data" /></td>
-					<td><a href="miscellaneousData/hacker/create.do?curriculaId=${curricula.id}"> <spring:message
+					<td><a href="miscellaneousData/rookie/create.do?curriculaId=${curricula.id}"> <spring:message
 								code="curricula.miscellaneousData.create" />
 					</a></td>
 				</jstl:if>
@@ -54,13 +54,13 @@
 					<td><jstl:out value="${educationData.degree}"></jstl:out></td>
 
 					<td><a
-						href="educationData/hacker/list.do?curriculaId=${curricula.id}"> <spring:message
+						href="educationData/rookie/list.do?curriculaId=${curricula.id}"> <spring:message
 								code="curricula.educationData.list" />
 					</a></td>
 				</jstl:if>
 				<jstl:if test="${emptyEducation}">
 					<td><spring:message code="curricula.empty.data" /></td>
-					<td><a href="educationData/hacker/create.do?curriculaId=${curricula.id}"> <spring:message
+					<td><a href="educationData/rookie/create.do?curriculaId=${curricula.id}"> <spring:message
 								code="curricula.educationData.create" />
 					</a></td>
 				</jstl:if>
@@ -72,13 +72,13 @@
 				<jstl:if test="${!emptyPosition}">
 					<td><jstl:out value="${positionData.title}"></jstl:out></td>
 
-					<td><a href="positionData/hacker/list.do?curriculaId=${curricula.id}">
+					<td><a href="positionData/rookie/list.do?curriculaId=${curricula.id}">
 							<spring:message code="curricula.positionData.list" />
 					</a></td>
 				</jstl:if>
 				<jstl:if test="${emptyPosition}">
 					<td><spring:message code="curricula.empty.data" /></td>
-					<td><a href="positionData/hacker/create.do?curriculaId=${curricula.id}"> <spring:message
+					<td><a href="positionData/rookie/create.do?curriculaId=${curricula.id}"> <spring:message
 								code="curricula.positionData.create" />
 					</a></td>
 				</jstl:if>

@@ -18,13 +18,13 @@ import services.PersonalDataService;
 import domain.Actor;
 import domain.Curricula;
 import domain.EducationData;
-import domain.Hacker;
+import domain.Rookie;
 import domain.MiscellaneousData;
 import domain.PersonalData;
 import domain.PositionData;
 
 @Controller
-@RequestMapping("/curricula/hacker")
+@RequestMapping("/curricula/rookie")
 public class CurriculaController extends AbstractController {
 
 	//Services
@@ -46,9 +46,9 @@ public class CurriculaController extends AbstractController {
 		ModelAndView result;
 		Collection<Curricula> curriculas;
 		try {
-			final Hacker principal = (Hacker) this.actorService.findByPrincipal();
+			final Rookie principal = (Rookie) this.actorService.findByPrincipal();
 
-			curriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+			curriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 
 			result = new ModelAndView("curricula/list");
 			result.addObject("curriculas", curriculas);
@@ -81,7 +81,7 @@ public class CurriculaController extends AbstractController {
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int curriculaId) {
-		final Hacker principal;
+		final Rookie principal;
 		Curricula curricula;
 		Collection<MiscellaneousData> miscellaneousData;
 		Collection<EducationData> educationData;
@@ -92,13 +92,13 @@ public class CurriculaController extends AbstractController {
 		boolean emptyMiscellaneous, emptyEducation, emptyPosition;
 		try {
 			final Actor actor = this.actorService.findByPrincipal();
-			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "HACKER"));
-			principal = (Hacker) actor;
+			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "ROOKIE"));
+			principal = (Rookie) actor;
 
 			curricula = this.curriculaService.findOne(curriculaId);
 			Assert.notNull(curricula);
 
-			Assert.isTrue(curricula.getHacker() == principal);
+			Assert.isTrue(curricula.getRookie() == principal);
 
 			miscellaneousData = curricula.getMiscellaneousData();
 			educationData = curricula.getEducationData();

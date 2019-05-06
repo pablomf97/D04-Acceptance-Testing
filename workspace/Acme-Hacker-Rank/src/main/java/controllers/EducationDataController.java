@@ -21,7 +21,7 @@ import domain.Curricula;
 import domain.EducationData;
 
 @Controller
-@RequestMapping(value = "educationData/hacker")
+@RequestMapping(value = "educationData/rookie")
 public class EducationDataController extends AbstractController {
 
 	// Services
@@ -46,7 +46,7 @@ public class EducationDataController extends AbstractController {
 		Collection<EducationData> educationData;
 		try {
 			final Actor actor = this.actorService.findByPrincipal();
-			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "HACKER"));
+			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "ROOKIE"));
 
 			currentCurricula = this.curriculaService.findOne(curriculaId);
 
@@ -71,7 +71,7 @@ public class EducationDataController extends AbstractController {
 		EducationData data;
 		try {
 			final Actor actor = this.actorService.findByPrincipal();
-			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "HACKER"));
+			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "ROOKIE"));
 
 			data = this.educationDataService.findOne(dataId);
 

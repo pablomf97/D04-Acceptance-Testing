@@ -56,7 +56,7 @@ public class ApplicationController extends AbstractController {
 		principal = this.actorService.findByPrincipal();
 		application = this.applicationService.findOne(applicationId);
 
-		if (application.getHacker().getId() == principal.getId())
+		if (application.getRookie().getId() == principal.getId())
 			isPrincipal = true;
 
 		result = new ModelAndView("application/display");
@@ -71,8 +71,8 @@ public class ApplicationController extends AbstractController {
 	// List
 
 	/* List of enrollments of a member */
-	@RequestMapping(value = "/listHacker", method = RequestMethod.GET)
-	public ModelAndView listHacker() {
+	@RequestMapping(value = "/listRookie", method = RequestMethod.GET)
+	public ModelAndView listRookie() {
 		ModelAndView res;
 		Actor principal;
 		Collection<Application> applications;
@@ -80,20 +80,20 @@ public class ApplicationController extends AbstractController {
 
 		try {
 			principal = this.actorService.findByPrincipal();
-			Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+			Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 			applications = this.applicationService
-					.findApplicationsByHackerId(principal.getId());
+					.findApplicationsByRookieId(principal.getId());
 
 			permission = true;
 
-			res = new ModelAndView("application/listHacker");
+			res = new ModelAndView("application/listRookie");
 			res.addObject("applications", applications);
 			res.addObject("permission", permission);
 		} catch (IllegalArgumentException oops) {
 			res = new ModelAndView("misc/403");
 		} catch (Throwable oopsie) {
-			res = new ModelAndView("application/listHacker");
+			res = new ModelAndView("application/listRookie");
 			permission = false;
 
 			res.addObject("errMsg", oopsie);
@@ -150,7 +150,7 @@ public class ApplicationController extends AbstractController {
 
 		try {
 			principal = this.actorService.findByPrincipal();
-			Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+			Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 			application = this.applicationService.create();
 
@@ -164,12 +164,12 @@ public class ApplicationController extends AbstractController {
 
 			application = this.applicationService.save(application);
 
-			result = new ModelAndView("redirect:/application/listHacker.do");
+			result = new ModelAndView("redirect:/application/listRookie.do");
 		} catch (final IllegalArgumentException oops) {
 			result = new ModelAndView("misc/403");
 		} catch (final Throwable oopsie) {
 
-			result = new ModelAndView("redirect:/application/listHacker.do");
+			result = new ModelAndView("redirect:/application/listRookie.do");
 			error = true;
 
 			result.addObject("oopsie", oopsie);
@@ -188,8 +188,8 @@ public class ApplicationController extends AbstractController {
 
 		application = this.applicationService.findOne(applicationId);
 		Assert.notNull(application);
-		curriculas = this.curriculaService.findCurriculasByHackerId(application
-				.getHacker().getId());
+		curriculas = this.curriculaService.findCurriculasByRookieId(application
+				.getRookie().getId());
 		result = this.createEditModelAndView(application);
 		result.addObject("curriculas", curriculas);
 
@@ -207,7 +207,7 @@ public class ApplicationController extends AbstractController {
 				Application recuperada = (this.applicationService
 						.findOne(application.getId()));
 				Collection<Curricula> curriculas = this.curriculaService
-						.findCurriculasByHackerId(recuperada.getHacker()
+						.findCurriculasByRookieId(recuperada.getRookie()
 								.getId());
 
 				result = new ModelAndView("application/edit");
@@ -219,7 +219,7 @@ public class ApplicationController extends AbstractController {
 
 					this.applicationService.save(application2);
 					result = new ModelAndView(
-							"redirect:/application/listHacker.do");
+							"redirect:/application/listRookie.do");
 				} catch (final Throwable oops) {
 					result = new ModelAndView("application/edit");
 					result.addObject("application", application2);
@@ -287,10 +287,10 @@ public class ApplicationController extends AbstractController {
 		this.applicationService.delete(toDelete);
 
 		applications = this.applicationService
-				.findApplicationsNotRejectedByHackerId(principal.getId());
+				.findApplicationsNotRejectedByRookieId(principal.getId());
 
-		final String requestURI = "application/listHacker.do";
-		result = new ModelAndView("application/listHacker");
+		final String requestURI = "application/listRookie.do";
+		result = new ModelAndView("application/listRookie");
 		result.addObject("requestURI", requestURI);
 		result.addObject("applications", applications);
 
@@ -315,11 +315,11 @@ public class ApplicationController extends AbstractController {
 
 		principal = this.actorService.findByPrincipal();
 
-		if (principal.getId() == application.getHacker().getId())
+		if (principal.getId() == application.getRookie().getId())
 			isPrincipal = true;
 
-		curriculas = this.curriculaService.findCurriculasByHackerId(application
-				.getHacker().getId());
+		curriculas = this.curriculaService.findCurriculasByRookieId(application
+				.getRookie().getId());
 
 		result = new ModelAndView("application/edit");
 		result.addObject("application", application);

@@ -24,7 +24,7 @@ public class Curricula extends DomainEntity {
 	private Collection<PositionData> positionData;
 	private PersonalData personalData;
 	private Boolean isCopy;
-	private Hacker hacker;
+	private Rookie rookie;
 
 	// Getters and setters
 
@@ -79,12 +79,12 @@ public class Curricula extends DomainEntity {
 
 	@Valid
 	@ManyToOne(optional=false)
-	public Hacker getHacker() {
-		return hacker;
+	public Rookie getRookie() {
+		return rookie;
 	}
 
-	public void setHacker(Hacker hacker) {
-		this.hacker = hacker;
+	public void setRookie(Rookie rookie) {
+		this.rookie = rookie;
 	}
 
 	

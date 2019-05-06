@@ -10,10 +10,10 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<security:authorize access="hasRole('HACKER')">
+<security:authorize access="hasRole('ROOKIE')">
 
 	<form:form modelAttribute="miscellaneousData"
-		action="miscellaneousData/hacker/edit.do?dataId=${miscellaneousData.id}&curriculaId=${currentCurricula.id}"
+		action="miscellaneousData/rookie/edit.do?dataId=${miscellaneousData.id}&curriculaId=${currentCurricula.id}"
 		id="form">
 
 		<form:hidden path="id" />
@@ -38,7 +38,7 @@
 		<acme:submit code="miscellaneousData.save" name="save" />&nbsp;
 		
 		<acme:cancel
-			url="miscellaneousData/hacker/list.do?curriculaId=${currentCurricula.id}"
+			url="miscellaneousData/rookie/list.do?curriculaId=${currentCurricula.id}"
 			code="miscellaneousData.cancel" />
 
 		<jstl:if test="${miscellaneousData.id != 0 }">

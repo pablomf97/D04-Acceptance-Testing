@@ -16,7 +16,7 @@ import services.ApplicationService;
 import services.AuditService;
 import services.CompanyService;
 import services.FinderService;
-import services.HackerService;
+import services.RookieService;
 import services.PositionService;
 import services.ProviderService;
 
@@ -32,7 +32,7 @@ public class DashboardAdministratorController extends AbstractController{
 	@Autowired
 	private ApplicationService applicationService;
 	@Autowired
-	private HackerService hackerService;
+	private RookieService rookieService;
 	@Autowired
 	private AuditService auditService;
 	@Autowired
@@ -44,12 +44,12 @@ public class DashboardAdministratorController extends AbstractController{
 	public ModelAndView display() {
 		ModelAndView result;
 		//LEVEL B
-		Double AvgCurriculaPerHacker=this.finderService.AvgCurriculaPerHacker();
+		Double AvgCurriculaPerRookie=this.finderService.AvgCurriculaPerRookie();
 		Double ratioFinders=this.finderService.ratioFinders();
-		Integer MaxCurriculaPerHacker=this.finderService.MaxCurriculaPerHacker();
-		Double stdevCurriculaPerHacker =this.finderService.stdevCurriculaPerHacker();
+		Integer MaxCurriculaPerRookie=this.finderService.MaxCurriculaPerRookie();
+		Double stdevCurriculaPerRookie =this.finderService.stdevCurriculaPerRookie();
 		Double []statsFinder=this.finderService.StatsFinder();
-		Integer MinCurriculaPerHacker =this.finderService.MinCurriculaPerHacker();
+		Integer MinCurriculaPerRookie =this.finderService.MinCurriculaPerRookie();
 
 		//LEVEL C
 		Double minSalarayPositions=this.positionService.minSalarayPositions();
@@ -64,12 +64,12 @@ public class DashboardAdministratorController extends AbstractController{
 		Double avgPositionPerCompany=this.positionService.avgPositionPerCompany();
 		Double sttdevPositionPerCompany=this.positionService.sttdevPositionPerCompany();
 
-		Integer maxApplicationsPerHacker=this.applicationService.maxApplicationsPerHacker();
-		Integer minApplicationsPerHacker=this.applicationService.minApplicationsPerHacker();
-		Double avgApplicationsPerHacker=this.applicationService.avgApplicationsPerHacker();
-		Double sttdevApplicationsPerHacker=this.applicationService.sttdevApplicationsPerHacker();
+		Integer maxApplicationsPerRookie=this.applicationService.maxApplicationsPerRookie();
+		Integer minApplicationsPerRookie=this.applicationService.minApplicationsPerRookie();
+		Double avgApplicationsPerRookie=this.applicationService.avgApplicationsPerRookie();
+		Double sttdevApplicationsPerRookie=this.applicationService.sttdevApplicationsPerRookie();
 
-		String hackerWithMoreApplications=this.hackerService.hackerWithMoreApplications();
+		String rookieWithMoreApplications=this.rookieService.rookieWithMoreApplications();
 
 		//ACME ROOKIES
 		//LEVEL C
@@ -95,11 +95,11 @@ public class DashboardAdministratorController extends AbstractController{
 		result.addObject("statsScoreCompanies",statsScoreCompanies);
 		result.addObject("CompaniesHighestScores",CompaniesHighestScores);
 
-		result.addObject("hackerWithMoreApplications",hackerWithMoreApplications);
-		result.addObject("sttdevApplicationsPerHacker",sttdevApplicationsPerHacker);
-		result.addObject("avgApplicationsPerHacker",avgApplicationsPerHacker);
-		result.addObject("minApplicationsPerHacker",minApplicationsPerHacker);
-		result.addObject("maxApplicationsPerHacker",maxApplicationsPerHacker);
+		result.addObject("rookieWithMoreApplications",rookieWithMoreApplications);
+		result.addObject("sttdevApplicationsPerRookie",sttdevApplicationsPerRookie);
+		result.addObject("avgApplicationsPerRookie",avgApplicationsPerRookie);
+		result.addObject("minApplicationsPerRookie",minApplicationsPerRookie);
+		result.addObject("maxApplicationsPerRookie",maxApplicationsPerRookie);
 		result.addObject("sttdevPositionPerCompany",sttdevPositionPerCompany);
 		result.addObject("avgPositionPerCompany",avgPositionPerCompany);
 		result.addObject("minPositionPerCompany",minPositionPerCompany);
@@ -114,12 +114,12 @@ public class DashboardAdministratorController extends AbstractController{
 
 
 
-		result.addObject("AvgCurriculaPerHacker",AvgCurriculaPerHacker);
+		result.addObject("AvgCurriculaPerRookie",AvgCurriculaPerRookie);
 		result.addObject("ratioFinders",ratioFinders);
 		result.addObject("statsFinder",statsFinder);
-		result.addObject("MinCurriculaPerHacker",MinCurriculaPerHacker);
-		result.addObject("MaxCurriculaPerHacker",MaxCurriculaPerHacker);
-		result.addObject("stdevCurriculaPerHacker",stdevCurriculaPerHacker);
+		result.addObject("MinCurriculaPerRookie",MinCurriculaPerRookie);
+		result.addObject("MaxCurriculaPerRookie",MaxCurriculaPerRookie);
+		result.addObject("stdevCurriculaPerRookie",stdevCurriculaPerRookie);
 		result.addObject("requestURI", "statistics/administrator/display.do");
 		return result;
 	}

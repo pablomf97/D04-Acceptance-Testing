@@ -9,10 +9,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<security:authorize access="hasRole('HACKER')">
+<security:authorize access="hasRole('ROOKIE')">
 
 	<display:table pagesize="10" class="displaytag" name="curriculas"
-		requestURI="curricula/hacker/list.do" id="row">
+		requestURI="curricula/rookie/list.do" id="row">
 
 		
 			<display:column titleKey="curricula.personal.name">
@@ -20,14 +20,14 @@
 			</display:column>
 
 			<display:column titleKey="curricula.display">
-				<a href="curricula/hacker/display.do?curriculaId=${row.id}"> <spring:message
+				<a href="curricula/rookie/display.do?curriculaId=${row.id}"> <spring:message
 						code="curricula.display" />
 				</a>
 			</display:column>
 
 	</display:table>
 
-	<a href="curricula/hacker/create.do"> <spring:message
+	<a href="curricula/rookie/create.do"> <spring:message
 			code="curricula.create" />
 
 	</a>

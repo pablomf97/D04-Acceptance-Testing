@@ -12,7 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import domain.Curricula;
-import domain.Hacker;
+import domain.Rookie;
 import domain.MiscellaneousData;
 
 import utilities.AbstractTest;
@@ -64,7 +64,7 @@ public class CurriculaServiceTest extends AbstractTest{
 				
 
 				/* Test 1.1 ----------------------------------------------- */
-				{ "hacker1", null //Positive
+				{ "rookie1", null //Positive
 					
 				},
 				{ "company1", ClassCastException.class //Negative:Actor non authorized
@@ -118,7 +118,7 @@ public class CurriculaServiceTest extends AbstractTest{
 				
 
 				/* Test 1.1 ----------------------------------------------- */
-				{ "hacker1", null //Positive
+				{ "rookie1", null //Positive
 					
 				},
 				{ "company1", ClassCastException.class //Negative:Actor non authorized
@@ -139,15 +139,15 @@ public class CurriculaServiceTest extends AbstractTest{
 
 	protected void templateDeletecv(String username,
 			Class<?> expected) {
-		Hacker principal;
+		Rookie principal;
 		Class<?> caught = null;
 
 		try {
 			this.authenticate(username);
 
-			principal = (Hacker) this.actorService.findByPrincipal();
+			principal = (Rookie) this.actorService.findByPrincipal();
 
-			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+			Collection<Curricula>principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 			
 			this.curriculaService.delete(principalCurriculas.iterator().next());
 			

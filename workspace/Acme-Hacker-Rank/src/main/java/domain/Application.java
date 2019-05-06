@@ -29,7 +29,7 @@ public class Application extends DomainEntity {
 	private Date submitMoment;
 	private String status;
 	private Problem problem;
-	private Hacker hacker;
+	private Rookie rookie;
 	private Position position;
 	private Curricula copyCurricula;
 
@@ -97,12 +97,12 @@ public class Application extends DomainEntity {
 	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
-	public Hacker getHacker() {
-		return hacker;
+	public Rookie getRookie() {
+		return rookie;
 	}
 
-	public void setHacker(Hacker hacker) {
-		this.hacker = hacker;
+	public void setRookie(Rookie rookie) {
+		this.rookie = rookie;
 	}
 
 	@Valid

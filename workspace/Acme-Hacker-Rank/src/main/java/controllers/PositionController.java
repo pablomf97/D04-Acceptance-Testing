@@ -63,17 +63,17 @@ public class PositionController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/hacker/listAll", method = RequestMethod.GET)
-	public ModelAndView listAllHacker() {
+	@RequestMapping(value = "/rookie/listAll", method = RequestMethod.GET)
+	public ModelAndView listAllRookie() {
 		ModelAndView result;
 		try {
 			Collection<Position> applied, positions = new ArrayList<>();
 			final Actor principal = this.actorService.findByPrincipal();
-			applied = this.positionService.findAllAppliedPositionsByHackerId(principal.getId());
+			applied = this.positionService.findAllAppliedPositionsByRookieId(principal.getId());
 			positions = this.positionService.findAllToApply();
 			positions.removeAll(applied);
-			result = new ModelAndView("position/listHackerPositions");
-			result.addObject("requestURI", "/position/listHackerPositions.do");
+			result = new ModelAndView("position/listRookiePositions");
+			result.addObject("requestURI", "/position/listRookiePositions.do");
 
 			result.addObject("positions", positions);
 		} catch (final Throwable opps) {

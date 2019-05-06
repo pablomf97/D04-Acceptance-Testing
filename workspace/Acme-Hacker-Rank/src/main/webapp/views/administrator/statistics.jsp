@@ -74,24 +74,24 @@
 				<td style="text-align: right">${sttdevPositionPerCompany}</td>
 			</tr>
 				<tr>
-				<td><spring:message code="administrator.maxApplicationsPerHacker" /></td>
-				<td style="text-align: right">${maxApplicationsPerHacker}</td>
+				<td><spring:message code="administrator.maxApplicationsPerRookie" /></td>
+				<td style="text-align: right">${maxApplicationsPerRookie}</td>
 			</tr>
 			<tr>
-				<td><spring:message code="administrator.minApplicationsPerHacker" /></td>
-				<td style="text-align: right">${minApplicationsPerHacker}</td>
+				<td><spring:message code="administrator.minApplicationsPerRookie" /></td>
+				<td style="text-align: right">${minApplicationsPerRookie}</td>
 			</tr>
 			<tr>
-				<td><spring:message code="administrator.avgApplicationsPerHacker" /></td>
-				<td style="text-align: right">${avgApplicationsPerHacker}</td>
+				<td><spring:message code="administrator.avgApplicationsPerRookie" /></td>
+				<td style="text-align: right">${avgApplicationsPerRookie}</td>
 			</tr>
 			<tr>
-				<td><spring:message code="administrator.sttdevApplicationsPerHacker" /></td>
-				<td style="text-align: right">${sttdevApplicationsPerHacker}</td>
+				<td><spring:message code="administrator.sttdevApplicationsPerRookie" /></td>
+				<td style="text-align: right">${sttdevApplicationsPerRookie}</td>
 			</tr>
 			<tr>
-			<td><spring:message code="administrator.hackerWithMoreApplications" /></td>
-				<td style="text-align: right">${hackerWithMoreApplications}</td>
+			<td><spring:message code="administrator.rookieWithMoreApplications" /></td>
+				<td style="text-align: right">${rookieWithMoreApplications}</td>
 			</tr>
 			
 			
@@ -105,20 +105,20 @@
 						code="administrator.statistics.B" /></th>
 			</tr>
 			<tr>
-				<td><spring:message code="administrator.AvgCurriculaPerHacker" /></td>
-				<td style="text-align: right">${AvgCurriculaPerHacker}</td>
+				<td><spring:message code="administrator.AvgCurriculaPerRookie" /></td>
+				<td style="text-align: right">${AvgCurriculaPerRookie}</td>
 			</tr>
 			<tr>
-				<td><spring:message code="administrator.MaxCurriculaPerHacker" /></td>
-				<td style="text-align: right">${MaxCurriculaPerHacker}</td>
+				<td><spring:message code="administrator.MaxCurriculaPerRookie" /></td>
+				<td style="text-align: right">${MaxCurriculaPerRookie}</td>
 			</tr>
 				<tr>
-				<td><spring:message code="administrator.MinCurriculaPerHacker" /></td>
-				<td style="text-align: right">${MinCurriculaPerHacker}</td>
+				<td><spring:message code="administrator.MinCurriculaPerRookie" /></td>
+				<td style="text-align: right">${MinCurriculaPerRookie}</td>
 			</tr>
 			<tr>
-				<td><spring:message code="administrator.stdevCurriculaPerHacker" /></td>
-				<td style="text-align: right">${stdevCurriculaPerHacker}</td>
+				<td><spring:message code="administrator.stdevCurriculaPerRookie" /></td>
+				<td style="text-align: right">${stdevCurriculaPerRookie}</td>
 			</tr>
 			
 			

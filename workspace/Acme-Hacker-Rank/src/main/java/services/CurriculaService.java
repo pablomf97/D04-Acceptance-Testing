@@ -14,7 +14,7 @@ import repositories.CurriculaRepository;
 import domain.Actor;
 import domain.Curricula;
 import domain.EducationData;
-import domain.Hacker;
+import domain.Rookie;
 import domain.MiscellaneousData;
 import domain.PositionData;
 
@@ -48,28 +48,28 @@ public class CurriculaService {
 	//Create
 	public Curricula create() {
 		Curricula result;
-		Hacker principal;
+		Rookie principal;
 
-		principal = (Hacker) this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		principal = (Rookie) this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		result = new Curricula();
 		result.setEducationData(new ArrayList<EducationData>());
 		result.setPositionData(new ArrayList<PositionData>());
 		result.setPersonalData(this.personalDataService.defaultData());
 		result.setIsCopy(false);
-		result.setHacker(principal);
+		result.setRookie(principal);
 		return result;
 	}
 
 	//Save
 	public Curricula save(final Curricula curricula) {
 		Curricula result, aux = null;
-		Hacker principal;
+		Rookie principal;
 
 		//Checking curricula owner
-		principal = (Hacker) this.actorService.findByPrincipal();
-		Assert.isTrue(curricula.getHacker().getId() == principal.getId());
+		principal = (Rookie) this.actorService.findByPrincipal();
+		Assert.isTrue(curricula.getRookie().getId() == principal.getId());
 
 		//Checking persistence
 		if (curricula.getId() == 0)
@@ -91,11 +91,11 @@ public class CurriculaService {
 	}
 
 	public void delete(final Curricula curricula) {
-		Hacker principal;
+		Rookie principal;
 
 		//Checking curricula owner
-		principal = (Hacker) this.actorService.findByPrincipal();
-		Assert.isTrue(curricula.getHacker() == principal);
+		principal = (Rookie) this.actorService.findByPrincipal();
+		Assert.isTrue(curricula.getRookie() == principal);
 		this.curriculaRepository.delete(curricula);
 	}
 
@@ -114,9 +114,9 @@ public class CurriculaService {
 		return result;
 	}
 
-	public Collection<Curricula> getCurriculasByHacker(final int hackerId) {
+	public Collection<Curricula> getCurriculasByRookie(final int rookieId) {
 
-		final Collection<Curricula> result = this.curriculaRepository.getCurriculasByHacker(hackerId);
+		final Collection<Curricula> result = this.curriculaRepository.getCurriculasByRookie(rookieId);
 
 		return result;
 	}
@@ -150,14 +150,14 @@ public class CurriculaService {
 		Actor principal;
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		result = new Curricula();
 		result.setEducationData(new ArrayList<EducationData>());
 		result.setPositionData(new ArrayList<PositionData>());
 		result.setMiscellaneousData(new ArrayList<MiscellaneousData>());
 		result.setIsCopy(true);
-		result.setHacker((Hacker) principal);
+		result.setRookie((Rookie) principal);
 
 		return result;
 	}
@@ -168,8 +168,8 @@ public class CurriculaService {
 		Actor principal;
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
-		Assert.isTrue(curricula.getHacker().getId() == principal.getId());
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
+		Assert.isTrue(curricula.getRookie().getId() == principal.getId());
 
 		//Checking persistence
 		if (curricula.getId() == 0)
@@ -184,10 +184,10 @@ public class CurriculaService {
 		return result;
 	}
 
-	public Collection<Curricula> findCurriculasByHackerId(final int hackerId) {
+	public Collection<Curricula> findCurriculasByRookieId(final int rookieId) {
 		Collection<Curricula> curriculas;
 
-		curriculas = this.curriculaRepository.findCurriculasByHackerId(hackerId);
+		curriculas = this.curriculaRepository.findCurriculasByRookieId(rookieId);
 
 		return curriculas;
 	}
@@ -196,17 +196,17 @@ public class CurriculaService {
 		this.curriculaRepository.delete(entity);
 	}
 
-	protected void deleteCV(final Hacker hacker) {
+	protected void deleteCV(final Rookie rookie) {
 		Collection<Curricula> cvs;
-		cvs = this.curriculaRepository.findCVPerHacker(hacker.getId());
+		cvs = this.curriculaRepository.findCVPerRookie(rookie.getId());
 
 		for (final Curricula cv : cvs) {
 
-			this.miscellaneousDataService.deleteMiscHacker(cv.getMiscellaneousData());
+			this.miscellaneousDataService.deleteMiscRookie(cv.getMiscellaneousData());
 			for (final EducationData ed : cv.getEducationData())
-				this.educationDataService.deleteEDHacker(ed);
+				this.educationDataService.deleteEDRookie(ed);
 			for (final PositionData pd : cv.getPositionData())
-				this.positionDataService.deletePosHacker(pd);
+				this.positionDataService.deletePosRookie(pd);
 
 			this.curriculaRepository.delete(cv);
 		}

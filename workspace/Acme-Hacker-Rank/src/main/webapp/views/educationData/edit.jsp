@@ -9,10 +9,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<security:authorize access="hasRole('HACKER')">
+<security:authorize access="hasRole('ROOKIE')">
 
 	<form:form modelAttribute="educationData"
-		action="educationData/hacker/edit.do?dataId=${educationData.id}&curriculaId=${currentCurricula.id}"
+		action="educationData/rookie/edit.do?dataId=${educationData.id}&curriculaId=${currentCurricula.id}"
 		id="form">
 
 		<form:hidden path="id" />
@@ -63,7 +63,7 @@
 		<acme:submit code="educationData.save" name="save" />&nbsp;
 		
 		<acme:cancel
-			url="educationData/hacker/list.do?curriculaId=${currentCurricula.id}"
+			url="educationData/rookie/list.do?curriculaId=${currentCurricula.id}"
 			code="educationData.cancel" />
 
 		<jstl:if test="${educationData.id != 0 }">

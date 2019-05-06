@@ -55,8 +55,8 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 	@Query("select p from Position p where p.isDraft = false and p.isCancelled = false")
 	Collection<Position> findAllToApply();
 
-	@Query("select p from Application a join a.position p where a.hacker.id = ?1 and a.status != 'REJECTED'")
-	Collection<Position> findAllAppliedPositionsByHackerId(int hackerId);
+	@Query("select p from Application a join a.position p where a.rookie.id = ?1 and a.status != 'REJECTED'")
+	Collection<Position> findAllAppliedPositionsByRookieId(int rookieId);
 
 	@Query("select max(p.sponsorships.size), min(p.sponsorships.size), avg(p.sponsorships.size), stddev(p.sponsorships.size) from Position p")
 	Double[] statsSponsorshipsPerPosition();

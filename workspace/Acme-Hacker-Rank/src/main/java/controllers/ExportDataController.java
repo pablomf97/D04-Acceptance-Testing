@@ -28,7 +28,7 @@ import domain.Auditor;
 import domain.Company;
 import domain.Curricula;
 import domain.EducationData;
-import domain.Hacker;
+import domain.Rookie;
 import domain.Item;
 import domain.MiscellaneousData;
 import domain.Position;
@@ -98,13 +98,13 @@ public class ExportDataController extends AbstractController {
 
 	}
 
-	@RequestMapping(value = "hacker/export.do", method = RequestMethod.GET)
+	@RequestMapping(value = "rookie/export.do", method = RequestMethod.GET)
 	public @ResponseBody
-	void downloadFileHacker(HttpServletResponse resp) {
+	void downloadFileRookie(HttpServletResponse resp) {
 		String downloadFileName = "dataUser";
 		String res;
 
-		Hacker actor = (Hacker) this.actorService.findByPrincipal();
+		Rookie actor = (Rookie) this.actorService.findByPrincipal();
 
 		res = "Data of your user account:";
 		res += "\r\n\r\n";
@@ -138,7 +138,7 @@ public class ExportDataController extends AbstractController {
 		res += "Curriculas:";
 		res += "\r\n\r\n";
 		Collection<Curricula> cvs = this.curriculaService
-				.findCurriculasByHackerId(actor.getId());
+				.findCurriculasByRookieId(actor.getId());
 
 		for (Curricula cv : cvs) {
 			res += "----------------------------------------";
@@ -185,7 +185,7 @@ public class ExportDataController extends AbstractController {
 		res += "Applications:";
 		res += "\r\n\r\n";
 		Collection<Application> apps = this.applicationService
-				.findApplicationsByHackerId(actor.getId());
+				.findApplicationsByRookieId(actor.getId());
 		for (Application app : apps) {
 			res += "Application: " + "\r\n\r\n";
 			res += "Application moment: " + app.getApplicationMoment()
@@ -195,7 +195,7 @@ public class ExportDataController extends AbstractController {
 			res += "Submit moment: " + app.getSubmitMoment() + "\r\n\r\n";
 			res += "Status: " + app.getStatus() + "\r\n\r\n";
 			res += "Problem: " + app.getProblem().getTitle() + "\r\n\r\n";
-			res += "Hacker: " + app.getHacker().getName() + "\r\n\r\n";
+			res += "Rookie: " + app.getRookie().getName() + "\r\n\r\n";
 			res += "Position: " + app.getPosition().getTitle() + "\r\n\r\n";
 			res += "-----------";
 

@@ -9,7 +9,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<security:authorize access="hasRole('HACKER')">
+<security:authorize access="hasRole('ROOKIE')">
 
 	<form:form modelAttribute="application" action="application/edit.do"
 		id="form">
@@ -35,7 +35,7 @@
 
 		<acme:submit code="application.save" name="save" />&nbsp;
 		
-		<acme:cancel url="application/listHacker.do" code="application.cancel" />
+		<acme:cancel url="application/listRookie.do" code="application.cancel" />
 
 		<br />
 

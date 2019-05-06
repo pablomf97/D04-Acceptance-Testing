@@ -13,7 +13,7 @@ import repositories.EducationDataRepository;
 import domain.Actor;
 import domain.Curricula;
 import domain.EducationData;
-import domain.Hacker;
+import domain.Rookie;
 
 @Transactional
 @Service
@@ -36,11 +36,11 @@ public class EducationDataService {
 	//Create
 
 	public EducationData create() {
-		Hacker principal;
+		Rookie principal;
 		EducationData result;
 
-		principal = (Hacker) this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		principal = (Rookie) this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		result = new EducationData();
 
@@ -49,15 +49,15 @@ public class EducationDataService {
 
 	//Save
 	public EducationData save(final EducationData data, final int curriculaId) {
-		Hacker principal;
+		Rookie principal;
 		EducationData dataDB = new EducationData();
 		Collection<Curricula> principalCurriculas;
 		Curricula currentCurricula;
 		EducationData result;
 
-		principal = (Hacker) this.actorService.findByPrincipal();
+		principal = (Rookie) this.actorService.findByPrincipal();
 
-		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+		principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 
 		//Checking creating a data in a own curricula
 
@@ -66,7 +66,7 @@ public class EducationDataService {
 
 			Assert.isTrue(currentCurricula.getEducationData().contains(data));
 			Assert.isTrue(principalCurriculas.contains(currentCurricula));
-			Assert.isTrue(currentCurricula.getHacker().getId() == principal.getId());
+			Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
 
 			dataDB = this.educationDataRepository.findOne(data.getId());
 
@@ -95,20 +95,20 @@ public class EducationDataService {
 
 	//Delete
 	public void delete(final EducationData data) {
-		Hacker principal;
+		Rookie principal;
 		Collection<Curricula> principalCurriculas;
 		Curricula currentCurricula;
 		EducationData db = new EducationData();
 
 		db = this.educationDataRepository.findOne(data.getId());
 
-		principal = (Hacker) this.actorService.findByPrincipal();
+		principal = (Rookie) this.actorService.findByPrincipal();
 
-		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+		principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 
 		currentCurricula = this.curriculaService.getCurriculaByEducationData(data.getId());
 
-		Assert.isTrue(currentCurricula.getHacker().getId() == principal.getId());
+		Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
 		Assert.isTrue(principalCurriculas.contains(currentCurricula));
 		Assert.isTrue(currentCurricula.getEducationData().contains(db));
 
@@ -135,7 +135,7 @@ public class EducationDataService {
 		EducationData result;
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		result = new EducationData();
 
@@ -147,7 +147,7 @@ public class EducationDataService {
 		EducationData result;
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		Assert.notNull(data.getDegree());
 		Assert.notNull(data.getInstitution());
@@ -164,14 +164,14 @@ public class EducationDataService {
 		this.educationDataRepository.flush();
 	}
 
-	public void deleteEDHacker(final EducationData ed) {
+	public void deleteEDRookie(final EducationData ed) {
 		this.educationDataRepository.delete(ed);
 
 	}
 	public void checkOwnerEducationData(final Integer id) {
 		final Actor principal = this.actorService.findByPrincipal();
 		final Curricula c = this.curriculaService.getCurriculaByEducationData(id);
-		Assert.isTrue(c.getHacker().equals(principal));
+		Assert.isTrue(c.getRookie().equals(principal));
 	}
 
 }

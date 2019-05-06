@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 import repositories.MiscellaneousDataRepository;
 import domain.Actor;
 import domain.Curricula;
-import domain.Hacker;
+import domain.Rookie;
 import domain.MiscellaneousData;
 
 @Transactional
@@ -33,11 +33,11 @@ public class MiscellaneousDataService {
 
 	//Create
 	public MiscellaneousData create() {
-		Hacker principal;
+		Rookie principal;
 		MiscellaneousData result;
 
-		principal = (Hacker) this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		principal = (Rookie) this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		result = new MiscellaneousData();
 
@@ -46,21 +46,21 @@ public class MiscellaneousDataService {
 
 	//Save
 	public MiscellaneousData save(final MiscellaneousData data, final int curriculaId) {
-		Hacker principal;
+		Rookie principal;
 		MiscellaneousData dataDB = new MiscellaneousData();
 		Collection<Curricula> principalCurriculas;
 		Curricula currentCurricula = null;
 		MiscellaneousData result;
 
-		principal = (Hacker) this.actorService.findByPrincipal();
+		principal = (Rookie) this.actorService.findByPrincipal();
 
-		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+		principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 
 		//Checking creating a data in a own curricula
 		if (data.getId() != 0) {
 			currentCurricula = this.curriculaService.getCurriculaByMiscellaneousData(data.getId());
 			Assert.isTrue(principalCurriculas.contains(currentCurricula));
-			Assert.isTrue(currentCurricula.getHacker().getId() == principal.getId());
+			Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
 			Assert.isTrue(currentCurricula.getMiscellaneousData().contains(data));
 
 			dataDB = this.miscellaneousDataRepository.findOne(data.getId());
@@ -85,20 +85,20 @@ public class MiscellaneousDataService {
 
 	//Delete
 	public void delete(final MiscellaneousData data) {
-		Hacker principal;
+		Rookie principal;
 		Collection<Curricula> principalCurriculas;
 		Curricula currentCurricula;
 		MiscellaneousData db = new MiscellaneousData();
 
 		db = this.miscellaneousDataRepository.findOne(data.getId());
 
-		principal = (Hacker) this.actorService.findByPrincipal();
+		principal = (Rookie) this.actorService.findByPrincipal();
 
-		principalCurriculas = this.curriculaService.getCurriculasByHacker(principal.getId());
+		principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 
 		currentCurricula = this.curriculaService.getCurriculaByMiscellaneousData(data.getId());
 
-		Assert.isTrue(currentCurricula.getHacker().getId() == principal.getId());
+		Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
 		Assert.isTrue(principalCurriculas.contains(currentCurricula));
 		Assert.isTrue(currentCurricula.getMiscellaneousData().contains(db));
 
@@ -125,7 +125,7 @@ public class MiscellaneousDataService {
 		MiscellaneousData result;
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		result = new MiscellaneousData();
 
@@ -137,7 +137,7 @@ public class MiscellaneousDataService {
 		MiscellaneousData result;
 
 		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(this.actorService.checkAuthority(principal, "HACKER"));
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
 		Assert.notNull(data.getText());
 
@@ -151,7 +151,7 @@ public class MiscellaneousDataService {
 		this.miscellaneousDataRepository.flush();
 	}
 
-	public void deleteMiscHacker(final Collection<MiscellaneousData> col) {
+	public void deleteMiscRookie(final Collection<MiscellaneousData> col) {
 
 		this.miscellaneousDataRepository.deleteInBatch(col);
 
@@ -159,7 +159,7 @@ public class MiscellaneousDataService {
 	public void checkOwnerMiscellaneousData(final Integer id) {
 		final Actor principal = this.actorService.findByPrincipal();
 		final Curricula c = this.curriculaService.getCurriculaByMiscellaneousData(id);
-		Assert.isTrue(c.getHacker().equals(principal));
+		Assert.isTrue(c.getRookie().equals(principal));
 	}
 
 }

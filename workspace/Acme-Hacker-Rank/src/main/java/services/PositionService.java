@@ -249,10 +249,10 @@ public class PositionService {
 		this.positionRepository.flush();
 	}
 
-	public Collection<Position> findAllAppliedPositionsByHackerId(final int hackerId) {
+	public Collection<Position> findAllAppliedPositionsByRookieId(final int rookieId) {
 		Collection<Position> result;
 
-		result = this.positionRepository.findAllAppliedPositionsByHackerId(hackerId);
+		result = this.positionRepository.findAllAppliedPositionsByRookieId(rookieId);
 
 		return result;
 	}

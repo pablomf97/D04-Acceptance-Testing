@@ -19,7 +19,7 @@ import org.springframework.util.Assert;
 
 
 import domain.Finder;
-import domain.Hacker;
+import domain.Rookie;
 
 import utilities.AbstractTest;
 
@@ -62,13 +62,13 @@ public class FinderServiceTest extends AbstractTest{
 	@Test
 	public void searchDriver(){
 		Object testingData[][]={
-				{"hacker1",3,"position",null,null,null,null},//positive
-				{"hacker1",0,"rwer",null,null,null,null},//positive
+				{"rookie1",3,"position",null,null,null,null},//positive
+				{"rookie1",0,"rwer",null,null,null,null},//positive
 				{null,3,"position",null,null,null,IllegalArgumentException.class},//negative: non authorize
 				{"admin",3,"position",null,null,null,ClassCastException.class},//negative: non authorize 
-				{"hacker1",1,null,null,100.0,null,null},//positive
-				{"hacker2",3,null,null,null,null,null},//positive
-				{"hacker1",3,null,null,null,new GregorianCalendar(2050, Calendar.JANUARY, 1)
+				{"rookie1",1,null,null,100.0,null,null},//positive
+				{"rookie2",3,null,null,null,null,null},//positive
+				{"rookie1",3,null,null,null,new GregorianCalendar(2050, Calendar.JANUARY, 1)
 				.getTime(),null}//positive
 			
 				
@@ -92,9 +92,9 @@ public class FinderServiceTest extends AbstractTest{
 		 
 		try{
 			authenticate(username);
-			final Hacker principal = (Hacker)this.actorService.findByPrincipal();
+			final Rookie principal = (Rookie)this.actorService.findByPrincipal();
 			Assert.isTrue(this.actorService.checkAuthority(principal,
-					"HACKER"));
+					"ROOKIE"));
 			
 			Finder finder=principal.getFinder();
 			finder.setDeadline(deadline);
@@ -123,8 +123,8 @@ public class FinderServiceTest extends AbstractTest{
 		
 		Object testingData[][]={
 				
-				{"hacker1", new Date(),null},//positive
-				{"hacker1", date,IllegalArgumentException.class},//Negative:date past
+				{"rookie1", new Date(),null},//positive
+				{"rookie1", date,IllegalArgumentException.class},//Negative:date past
 			
 		};
 		
@@ -145,9 +145,9 @@ public class FinderServiceTest extends AbstractTest{
 		 
 		try{
 			authenticate(username);
-			final Hacker principal = (Hacker)this.actorService.findByPrincipal();
+			final Rookie principal = (Rookie)this.actorService.findByPrincipal();
 			Assert.isTrue(this.actorService.checkAuthority(principal,
-					"HACKER"));
+					"ROOKIE"));
 			Finder finder=principal.getFinder();
 			finder.setSearchMoment(date);
 			this.finderService.deleteExpiredFinder(finder);

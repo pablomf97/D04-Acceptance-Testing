@@ -10,7 +10,7 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<security:authorize access="hasRole('HACKER')">
+<security:authorize access="hasRole('ROOKIE')">
 
 	<table class="displayStyle">
 		<tr>
@@ -39,7 +39,7 @@
 
 	<input type="button" name="edit"
 		value="<spring:message code="miscellaneousData.edit"	/>"
-		onclick="redirect: location.href = 'miscellaneousData/hacker/edit.do?dataId=${data.id}&curriculaId=${curriculaId}';" />
+		onclick="redirect: location.href = 'miscellaneousData/rookie/edit.do?dataId=${data.id}&curriculaId=${curriculaId}';" />
 
 
 	<input type="button" name="back"

@@ -21,7 +21,7 @@ import domain.Curricula;
 import domain.PersonalData;
 
 @Controller
-@RequestMapping(value = "personalData/hacker")
+@RequestMapping(value = "personalData/rookie")
 public class PersonalDataController extends AbstractController {
 
 	//Services
@@ -48,7 +48,7 @@ public class PersonalDataController extends AbstractController {
 		try {
 			data = this.personalDataService.findOne(dataId);
 			final Actor actor = this.actorService.findByPrincipal();
-			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "HACKER"));
+			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "ROOKIE"));
 			result = new ModelAndView("personalData/display");
 
 			result.addObject("data", data);
@@ -159,7 +159,7 @@ public class PersonalDataController extends AbstractController {
 			try {
 				this.personalDataService.saveNewCurricula(personalData);
 
-				result = new ModelAndView("redirect:../../curricula/hacker/list.do");
+				result = new ModelAndView("redirect:../../curricula/rookie/list.do");
 			} catch (final Throwable oops) {
 				result = new ModelAndView("redirect:../welcome/index.do");
 				result.addObject("messageCode", "problem.commit.error");

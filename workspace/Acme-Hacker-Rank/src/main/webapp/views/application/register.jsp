@@ -10,7 +10,7 @@
 
 <security:authorize access="isAnonymous()">
 	<form:form modelAttribute="registerFormObject"
-		action="hacker/hacker/register.do">
+		action="rookie/rookie/register.do">
 
 		<!-- User Account Attributes -->
 		<fieldset>
