@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.ProblemService;
 import domain.Actor;
+import domain.Company;
 import domain.Problem;
 
 @Controller
@@ -151,15 +152,17 @@ public class ProblemController extends AbstractController {
 		Problem problem;
 		try {
 			problem = this.problemService.findOne(Id);
+			final Actor actor = this.actorService.findByPrincipal();
 
 			result = new ModelAndView("problem/display");
 			final BindingResult binding = null;
 			final Collection<String> attachments = this.problemService.checkSplitPictures(problem.getAttachments(), binding);
 			result.addObject("attachments", attachments);
 			result.addObject(problem);
+			if ((problem.getCompany() != ((Company) actor)) && (problem.getIsDraft() == true))
+				Assert.isTrue(false);
 			try {
-				final Actor actor2 = this.actorService.findByPrincipal();
-				result.addObject("name", actor2.getUserAccount().getUsername());
+				result.addObject("name", actor.getUserAccount().getUsername());
 			} catch (final Throwable opps) {
 			}
 		} catch (final Throwable opps) {

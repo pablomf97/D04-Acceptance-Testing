@@ -17,6 +17,7 @@ import services.AuditService;
 import services.PositionService;
 import domain.Actor;
 import domain.Audit;
+import domain.Auditor;
 import domain.Position;
 
 @Controller
@@ -159,13 +160,15 @@ public class AuditController {
 		ModelAndView result;
 		Audit audit;
 		try {
+			final Actor actor = this.actorService.findByPrincipal();
 			result = new ModelAndView("audit/display");
 			try {
-				final Actor actor = this.actorService.findByPrincipal();
 				result.addObject("name", actor.getUserAccount().getUsername());
 			} catch (final Throwable opps) {
 			}
 			audit = this.auditService.findOne(Id);
+			if ((audit.getAuditor() != ((Auditor) actor)) && (audit.getIsDraft() == true))
+				Assert.isTrue(false);
 			result.addObject(audit);
 		} catch (final Throwable opps) {
 			result = new ModelAndView("redirect:list.do");

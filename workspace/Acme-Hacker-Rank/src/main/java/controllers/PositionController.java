@@ -17,6 +17,7 @@ import services.ActorService;
 import services.PositionService;
 import services.ProblemService;
 import domain.Actor;
+import domain.Company;
 import domain.Position;
 import domain.Problem;
 
@@ -138,18 +139,8 @@ public class PositionController extends AbstractController {
 					this.positionService.save(res);
 					result = new ModelAndView("redirect:list.do");
 				} catch (final Throwable opps) {
-					//					if (opps.getMessage().equals("problems.error")) {
-					//						result = new ModelAndView("position/edit");
-					//						result.addObject("position", position);
-					//						final Actor actor = this.actorService.findByPrincipal();
-					//						final Collection<Problem> problems = this.problemService.findByOwnerFinal(actor);
-					//						result.addObject("problems", problems);
-					//						final boolean b = true;
-					//						result.addObject("problemUsed", b);
-					//					} else {
 					result = new ModelAndView("redirect:../welcome/index.do");
 					result.addObject("messageCode", "problem.commit.error");
-					//					}
 				}
 		} catch (final Throwable opps) {
 			//TODO: pantalla de error
@@ -176,19 +167,8 @@ public class PositionController extends AbstractController {
 					this.positionService.save(res);
 					result = new ModelAndView("redirect:list.do");
 				} catch (final Throwable opps) {
-					//					result = new ModelAndView("position/edit");
-					//					final Actor actor = this.actorService.findByPrincipal();
-					//					final Collection<Problem> problems = this.problemService.findByOwnerFinal(actor);
-					//					result.addObject("problems", problems);
-					//					if (opps.getMessage().equals("problems.error")) {
-					//						result = new ModelAndView("position/edit");
-					//						result.addObject("problemUsed", true);
-					//						result.addObject(position);
-					//						result.addObject("problems", problems);
-					//					} else {
 					result = new ModelAndView("redirect:../welcome/index.do");
 					result.addObject("messageCode", "problem.commit.error");
-					//					}
 				}
 		} catch (final Throwable opps) {
 			//TODO: pantalla de error
@@ -223,16 +203,18 @@ public class PositionController extends AbstractController {
 		String banner = "";
 		try {
 			result = new ModelAndView("position/display");
+			final Actor actor = this.actorService.findByPrincipal();
 			try {
 
-				final Actor actor = this.actorService.findByPrincipal();
 				result.addObject("name", actor.getUserAccount().getUsername());
 			} catch (final Throwable opps) {
 			}
 			position = this.positionService.findOne(Id);
-			if(position.getSponsorships().size() > 0) {
+			if ((position.getCompany() != ((Company) actor)) && (position.getIsDraft() == true))
+				Assert.isTrue(false);
+
+			if (position.getSponsorships().size() > 0)
 				banner = this.positionService.randomBanner(position.getSponsorships());
-			}
 			result.addObject(position);
 			result.addObject("posBanner", banner);
 		} catch (final Throwable opps) {
