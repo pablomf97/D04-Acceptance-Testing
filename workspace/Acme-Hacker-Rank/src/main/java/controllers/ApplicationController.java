@@ -56,8 +56,9 @@ public class ApplicationController extends AbstractController {
 		principal = this.actorService.findByPrincipal();
 		application = this.applicationService.findOne(applicationId);
 
-		if (application.getRookie().getId() == principal.getId())
+		if (application.getRookie().getId() == principal.getId() || application.getPosition().getCompany().getId() == principal.getId())
 			isPrincipal = true;
+		
 
 		result = new ModelAndView("application/display");
 		result.addObject("application", application);
@@ -90,8 +91,6 @@ public class ApplicationController extends AbstractController {
 			res = new ModelAndView("application/listRookie");
 			res.addObject("applications", applications);
 			res.addObject("permission", permission);
-		} catch (IllegalArgumentException oops) {
-			res = new ModelAndView("misc/403");
 		} catch (Throwable oopsie) {
 			res = new ModelAndView("application/listRookie");
 			permission = false;
@@ -123,8 +122,6 @@ public class ApplicationController extends AbstractController {
 			res = new ModelAndView("application/listCompany");
 			res.addObject("applications", applications);
 			res.addObject("permission", permission);
-		} catch (IllegalArgumentException oops) {
-			res = new ModelAndView("misc/403");
 		} catch (Throwable oopsie) {
 			res = new ModelAndView("application/listCompany");
 			permission = false;
@@ -165,8 +162,6 @@ public class ApplicationController extends AbstractController {
 			application = this.applicationService.save(application);
 
 			result = new ModelAndView("redirect:/application/listRookie.do");
-		} catch (final IllegalArgumentException oops) {
-			result = new ModelAndView("misc/403");
 		} catch (final Throwable oopsie) {
 
 			result = new ModelAndView("redirect:/application/listRookie.do");
@@ -266,8 +261,6 @@ public class ApplicationController extends AbstractController {
 				res = new ModelAndView("misc/403");
 
 			}
-		} catch (IllegalArgumentException oops) {
-			res = new ModelAndView("misc/403");
 		} catch (Throwable oopsie) {
 			res = new ModelAndView("redirect:/application/listCompany.do");
 		}

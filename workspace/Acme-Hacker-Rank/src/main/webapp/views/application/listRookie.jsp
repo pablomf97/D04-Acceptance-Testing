@@ -20,7 +20,7 @@
 					<jstl:out value="${app.applicationMoment}" />
 				</display:column>
 
-				<display:column titleKey="application.position.title">
+				<display:column titleKey="application.position.title" sortable="true">
 					<jstl:out value="${app.position.title}" />
 				</display:column>
 
@@ -46,7 +46,7 @@
 					</jstl:choose>
 				</display:column>
 
-				<display:column titleKey="application.submitMoment">
+				<display:column titleKey="application.submitMoment" sortable="true">
 					<jstl:if test="${application.status != 'PENDING'}">
 						<jstl:out value="${app.submitMoment}" />
 					</jstl:if>

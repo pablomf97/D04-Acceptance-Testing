@@ -11,6 +11,8 @@
 
 <security:authorize access="hasRole('ROOKIE')">
 
+	<jstl:choose>
+		<jstl:when test="${isPrincipal}">
 	<form:form modelAttribute="application" action="application/edit.do"
 		id="form">
 
@@ -40,5 +42,14 @@
 		<br />
 
 	</form:form>
+	
+		</jstl:when>
+	
+	<jstl:otherwise>
+		<p>
+			<spring:message	code="application.not.allowed" /><br>
+		</p>
+	</jstl:otherwise>
+	</jstl:choose>
 
 </security:authorize>
