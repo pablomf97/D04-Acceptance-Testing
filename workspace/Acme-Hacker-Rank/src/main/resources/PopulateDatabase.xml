@@ -1713,7 +1713,7 @@
 		<property name="text" value="Your next position" />
 		<property name="score" value="6" />
 		<property name="auditor" ref="auditor1" />
-		<property name="position" ref="position3c1" />
+		<property name="position" ref="position4c1" />
 		<property name="isDraft" value="False" />
 
 	</bean>
@@ -1993,7 +1993,7 @@
 		<property name="sponsorships">
 			<!-- <list> <ref bean="sponsorship1" /> <ref bean="sponsorship2" /> <ref 
 				bean="sponsorship3" /> </list> -->
-			<null></null>
+			<list></list>
 		</property>
 	</bean>
 
@@ -2020,7 +2020,7 @@
 		<property name="sponsorships">
 			<!-- <list> <ref bean="sponsorship4" /> </list> -->
 
-			<null></null>
+			<list></list>
 		</property>
 	</bean>
 
@@ -2041,6 +2041,11 @@
 			<list>
 				<ref bean="problem2c1" />
 			</list>
+		</property>
+		<property name="sponsorships">
+			<!-- <list> <ref bean="sponsorship4" /> </list> -->
+
+			<list></list>
 		</property>
 	</bean>
 
@@ -2064,6 +2069,11 @@
 				<ref bean="problem5c1" />
 			</list>
 		</property>
+		<property name="sponsorships">
+			<!-- <list> <ref bean="sponsorship4" /> </list> -->
+
+			<list></list>
+		</property>
 	</bean>
 
 	<bean id="position1c2" class="domain.Position">
@@ -2083,6 +2093,11 @@
 			<list>
 				<ref bean="problem3c2" />
 			</list>
+		</property>
+		<property name="sponsorships">
+			<!-- <list> <ref bean="sponsorship4" /> </list> -->
+
+			<list></list>
 		</property>
 	</bean>
 
@@ -2105,6 +2120,11 @@
 				<ref bean="problem4c2" />
 			</list>
 		</property>
+		<property name="sponsorships">
+			<!-- <list> <ref bean="sponsorship4" /> </list> -->
+
+			<list></list>
+		</property>
 	</bean>
 
 	<bean id="position3c2" class="domain.Position">
@@ -2126,6 +2146,11 @@
 				<ref bean="problem3c2" />
 				<ref bean="problem4c2" />
 			</list>
+		</property>
+		<property name="sponsorships">
+			<!-- <list> <ref bean="sponsorship4" /> </list> -->
+
+			<list></list>
 		</property>
 	</bean>
 

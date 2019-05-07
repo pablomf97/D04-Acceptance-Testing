@@ -9,16 +9,16 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<security:authorize access="hasRole('ROOKIE')">
+<security:authorize access="hasAnyRole('ROOKIE','COMPANY')">
 
-	<display:table pagesize="10" class="displaytag"
-		name="positionData"
-		requestURI="positionData/rookie/list.do?curriculaId=${currentCurricula.id}" id="row">
+	<display:table pagesize="10" class="displaytag" name="positionData"
+		requestURI="positionData/rookie/list.do?curriculaId=${currentCurricula.id}"
+		id="row">
 
 		<display:column titleKey="positionData.title">
 			<jstl:out value="${row.title}"></jstl:out>
 		</display:column>
-		
+
 		<display:column titleKey="positionData.description">
 			<jstl:out value="${row.description}"></jstl:out>
 		</display:column>
@@ -30,13 +30,16 @@
 			</a>
 		</display:column>
 	</display:table>
+	<security:authorize access="hasRole('ROOKIE')">
 
-	<a href="positionData/rookie/create.do?curriculaId=${currentCurricula.id}"> <spring:message
-			code="positionData.create" />
+		<a
+			href="positionData/rookie/create.do?curriculaId=${currentCurricula.id}">
+			<spring:message code="positionData.create" />
 
-	</a>&nbsp;&nbsp;&nbsp;
-		
-	<acme:cancel url="curricula/rookie/display.do?curriculaId=${currentCurricula.id}"
+		</a>&nbsp;&nbsp;&nbsp;
+</security:authorize>
+	<acme:cancel
+		url="curricula/rookie/display.do?curriculaId=${currentCurricula.id}"
 		code="positionData.cancel" />
 
 </security:authorize>

@@ -10,7 +10,7 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<security:authorize access="hasRole('ROOKIE')">
+<security:authorize access="hasAnyRole('ROOKIE','COMPANY')">
 
 	<table class="displayStyle">
 		<tr>
@@ -36,13 +36,15 @@
 		</tr>
 
 	</table>
+	<security:authorize access="hasRole('ROOKIE')">
 
-	<input type="button" name="edit"
-		value="<spring:message code="miscellaneousData.edit"	/>"
-		onclick="redirect: location.href = 'miscellaneousData/rookie/edit.do?dataId=${data.id}&curriculaId=${curriculaId}';" />
+		<input type="button" name="edit"
+			value="<spring:message code="miscellaneousData.edit"	/>"
+			onclick="redirect: location.href = 'miscellaneousData/rookie/edit.do?dataId=${data.id}&curriculaId=${curriculaId}';" />
 
 
-	<input type="button" name="back"
-		value="<spring:message code="miscellaneousData.cancel" />"
-		onclick="window.history.back()" />
+		<input type="button" name="back"
+			value="<spring:message code="miscellaneousData.cancel" />"
+			onclick="window.history.back()" />
+	</security:authorize>
 </security:authorize>

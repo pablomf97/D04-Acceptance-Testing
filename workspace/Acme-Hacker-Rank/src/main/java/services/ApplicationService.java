@@ -21,12 +21,12 @@ import domain.Application;
 import domain.Company;
 import domain.Curricula;
 import domain.EducationData;
-import domain.Rookie;
 import domain.MiscellaneousData;
 import domain.PersonalData;
 import domain.Position;
 import domain.PositionData;
 import domain.Problem;
+import domain.Rookie;
 
 @Transactional
 @Service
@@ -226,7 +226,7 @@ public class ApplicationService {
 	// Other business methods -------------------------------
 
 	public Application reconstruct(final Application application, final BindingResult binding) {
-		Application result;
+		Application result = this.create();
 
 		if (application.getId() == 0) {
 			result = new Application();
@@ -234,8 +234,14 @@ public class ApplicationService {
 			result.setPosition(application.getPosition());
 
 		} else {
-			result = this.findOne(application.getId());
-
+			final Application orig = this.findOne(application.getId());
+			result.setApplicationMoment(orig.getApplicationMoment());
+			result.setCopyCurricula(orig.getCopyCurricula());
+			result.setId(orig.getId());
+			result.setPosition(orig.getPosition());
+			result.setProblem(orig.getProblem());
+			result.setRookie(orig.getRookie());
+			result.setStatus(orig.getStatus());
 			try {
 				Assert.isTrue(!application.getExplanation().isEmpty(), "explanation.needed");
 			} catch (final Exception e) {
@@ -355,5 +361,11 @@ public class ApplicationService {
 		final Collection<Application> applys = this.applicationRepository.findApplicationsNotRejectedByCompanyId(company.getId());
 		for (final Application a : applys)
 			a.setStatus("REJECTED");
+	}
+	public Collection<Application> findApplicationByCurricula(final Curricula cur) {
+		Assert.notNull(cur);
+		final Collection<Application> app = this.applicationRepository.findApplicationByCurricula(cur.getId());
+		Assert.notNull(app);
+		return app;
 	}
 }

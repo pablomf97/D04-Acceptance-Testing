@@ -139,13 +139,8 @@ public class PositionService {
 		final Position orig = this.findOne(position.getId());
 		Assert.isTrue(position.getCompany().getId() == principal.getId(), "not.allowed");
 		Assert.isTrue(orig.getId() == position.getId());
-		final Collection<Application> applies = this.applicationService.findByPosition(position);
-		for (final Application a : applies) {
-			this.applicationService.delete(a);
-			this.curriculaService.delete(a.getCopyCurricula().getId());
-		}
 
-		this.positionRepository.delete(position.getId());
+		this.positionRepository.delete(orig);
 
 	}
 	public void cancel(final Position position) {

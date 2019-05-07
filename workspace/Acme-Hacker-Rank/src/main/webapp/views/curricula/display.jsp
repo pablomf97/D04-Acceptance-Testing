@@ -9,10 +9,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<security:authorize access="hasRole('ROOKIE')">
+<security:authorize access="hasAnyRole('ROOKIE','COMPANY')">
 	<form:form modelAttribute="curricula"
 		action="curricula/rookie/display.do" id="form">
-		<form:hidden path="id"/>
+		<form:hidden path="id" />
 		<table class="displayStyle">
 
 			<tr>
@@ -40,10 +40,15 @@
 					</a></td>
 				</jstl:if>
 				<jstl:if test="${emptyMiscellaneous}">
-					<td><spring:message code="curricula.empty.data" /></td>
-					<td><a href="miscellaneousData/rookie/create.do?curriculaId=${curricula.id}"> <spring:message
-								code="curricula.miscellaneousData.create" />
-					</a></td>
+					<security:authorize access="hasRole('ROOKIE')">
+
+						<td><spring:message code="curricula.empty.data" /></td>
+						<td><a
+							href="miscellaneousData/rookie/create.do?curriculaId=${curricula.id}">
+								<spring:message code="curricula.miscellaneousData.create" />
+						</a></td>
+					</security:authorize>
+
 				</jstl:if>
 			</tr>
 
@@ -54,15 +59,20 @@
 					<td><jstl:out value="${educationData.degree}"></jstl:out></td>
 
 					<td><a
-						href="educationData/rookie/list.do?curriculaId=${curricula.id}"> <spring:message
-								code="curricula.educationData.list" />
+						href="educationData/rookie/list.do?curriculaId=${curricula.id}">
+							<spring:message code="curricula.educationData.list" />
 					</a></td>
 				</jstl:if>
 				<jstl:if test="${emptyEducation}">
-					<td><spring:message code="curricula.empty.data" /></td>
-					<td><a href="educationData/rookie/create.do?curriculaId=${curricula.id}"> <spring:message
-								code="curricula.educationData.create" />
-					</a></td>
+					<security:authorize access="hasRole('ROOKIE')">
+
+						<td><spring:message code="curricula.empty.data" /></td>
+						<td><a
+							href="educationData/rookie/create.do?curriculaId=${curricula.id}">
+								<spring:message code="curricula.educationData.create" />
+						</a></td>
+					</security:authorize>
+
 				</jstl:if>
 			</tr>
 
@@ -72,24 +82,31 @@
 				<jstl:if test="${!emptyPosition}">
 					<td><jstl:out value="${positionData.title}"></jstl:out></td>
 
-					<td><a href="positionData/rookie/list.do?curriculaId=${curricula.id}">
+					<td><a
+						href="positionData/rookie/list.do?curriculaId=${curricula.id}">
 							<spring:message code="curricula.positionData.list" />
 					</a></td>
 				</jstl:if>
+
 				<jstl:if test="${emptyPosition}">
-					<td><spring:message code="curricula.empty.data" /></td>
-					<td><a href="positionData/rookie/create.do?curriculaId=${curricula.id}"> <spring:message
-								code="curricula.positionData.create" />
-					</a></td>
+					<security:authorize access="hasRole('ROOKIE')">
+
+						<td><spring:message code="curricula.empty.data" /></td>
+						<td><a
+							href="positionData/rookie/create.do?curriculaId=${curricula.id}">
+								<spring:message code="curricula.positionData.create" />
+						</a></td>
+					</security:authorize>
+
 				</jstl:if>
 			</tr>
 
 
 		</table>
+		<security:authorize access="hasRole('ROOKIE')">
 
-
-
-		<input type="submit" name="delete" value="<spring:message code="curricula.delete"/>" />
-
+			<input type="submit" name="delete"
+				value="<spring:message code="curricula.delete"/>" />
+		</security:authorize>
 	</form:form>
 </security:authorize>

@@ -10,13 +10,13 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<security:authorize access="hasRole('ROOKIE')">
+<security:authorize access="hasAnyRole('ROOKIE','COMPANY')">
 
 	<table class="displayStyle">
 		<tr>
 
-			<td><strong><spring:message
-						code="positionData.title" /> : </strong></td>
+			<td><strong><spring:message code="positionData.title" />
+					: </strong></td>
 			<td><jstl:out value="${data.title}">
 
 				</jstl:out></td>
@@ -34,34 +34,35 @@
 				</jstl:out></td>
 
 		</tr>
-		
+
 		<tr>
 
 			<td><strong><spring:message
 						code="positionData.startDate" /> : </strong></td>
 			<td><jstl:out value="${data.startDate}">
-				
+
 				</jstl:out></td>
 
 		</tr>
-		
+
 		<tr>
 
-			<td><strong><spring:message
-						code="positionData.endDate" /> : </strong></td>
+			<td><strong><spring:message code="positionData.endDate" />
+					: </strong></td>
 			<td><jstl:out value="${data.endDate}">
-				
+
 				</jstl:out></td>
 
 		</tr>
 
 	</table>
+	<security:authorize access="hasRole('ROOKIE')">
 
-	<input type="button" name="edit"
-		value="<spring:message code="positionData.edit"	/>"
-		onclick="redirect: location.href = 'positionData/rookie/edit.do?dataId=${data.id}&curriculaId=${curriculaId}';" />
+		<input type="button" name="edit"
+			value="<spring:message code="positionData.edit"	/>"
+			onclick="redirect: location.href = 'positionData/rookie/edit.do?dataId=${data.id}&curriculaId=${curriculaId}';" />
 
-
+	</security:authorize>
 	<input type="button" name="back"
 		value="<spring:message code="positionData.cancel" />"
 		onclick="window.history.back()" />

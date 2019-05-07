@@ -24,8 +24,9 @@
 		<form:errors path="explanation" cssClass="error"/>
 		<br>
 		<br>
-
-		<acme:textbox code="application.linkCode" path="linkCode" />
+		<spring:message code="application.linkCode" />
+		<form:input code="application.linkCode" path="linkCode" />
+		<form:errors path="linkCode" cssClass="error"/>
 		<br>
 		<br>
 

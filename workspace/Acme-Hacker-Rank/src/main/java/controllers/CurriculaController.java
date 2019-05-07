@@ -13,15 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.ApplicationService;
 import services.CurriculaService;
 import services.PersonalDataService;
 import domain.Actor;
+import domain.Application;
 import domain.Curricula;
 import domain.EducationData;
-import domain.Rookie;
 import domain.MiscellaneousData;
 import domain.PersonalData;
 import domain.PositionData;
+import domain.Rookie;
 
 @Controller
 @RequestMapping("/curricula/rookie")
@@ -37,6 +39,8 @@ public class CurriculaController extends AbstractController {
 
 	@Autowired
 	private PersonalDataService	personalService;
+	@Autowired
+	private ApplicationService	applicationService;
 
 
 	//Listing
@@ -93,12 +97,15 @@ public class CurriculaController extends AbstractController {
 		try {
 			final Actor actor = this.actorService.findByPrincipal();
 			Assert.isTrue(this.actorService.checkAuthority(actor, "COMPANY") || this.actorService.checkAuthority(actor, "ROOKIE"));
-			principal = (Rookie) actor;
 
 			curricula = this.curriculaService.findOne(curriculaId);
 			Assert.notNull(curricula);
+			if (curricula.getIsCopy()) {
+				final Collection<Application> apply = this.applicationService.findApplicationByCurricula(curricula);
+				Assert.isTrue(actor.getId() == apply.iterator().next().getPosition().getCompany().getId());
 
-			Assert.isTrue(curricula.getRookie() == principal);
+			} else
+				Assert.isTrue(curricula.getRookie().getId() == actor.getId());
 
 			miscellaneousData = curricula.getMiscellaneousData();
 			educationData = curricula.getEducationData();

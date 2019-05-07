@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.util.Collection;
@@ -29,19 +30,20 @@ public class ApplicationController extends AbstractController {
 	// Services
 
 	@Autowired
-	private ApplicationService applicationService;
+	private ApplicationService	applicationService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private CurriculaService curriculaService;
+	private CurriculaService	curriculaService;
 
 	@Autowired
-	private ProblemService problemService;
+	private ProblemService		problemService;
 
 	@Autowired
-	private PositionService positionService;
+	private PositionService		positionService;
+
 
 	// Display
 
@@ -56,14 +58,13 @@ public class ApplicationController extends AbstractController {
 		principal = this.actorService.findByPrincipal();
 		application = this.applicationService.findOne(applicationId);
 
-		if (application.getRookie().getId() == principal.getId())
+		if (application.getRookie().getId() == principal.getId() || application.getPosition().getCompany().getId() == principal.getId())
 			isPrincipal = true;
 
 		result = new ModelAndView("application/display");
 		result.addObject("application", application);
 		result.addObject("isPrincipal", isPrincipal);
-		result.addObject("requestURI", "application/display.do?applicationId="
-				+ applicationId);
+		result.addObject("requestURI", "application/display.do?applicationId=" + applicationId);
 
 		return result;
 	}
@@ -82,17 +83,14 @@ public class ApplicationController extends AbstractController {
 			principal = this.actorService.findByPrincipal();
 			Assert.isTrue(this.actorService.checkAuthority(principal, "ROOKIE"));
 
-			applications = this.applicationService
-					.findApplicationsByRookieId(principal.getId());
+			applications = this.applicationService.findApplicationsByRookieId(principal.getId());
 
 			permission = true;
 
 			res = new ModelAndView("application/listRookie");
 			res.addObject("applications", applications);
 			res.addObject("permission", permission);
-		} catch (IllegalArgumentException oops) {
-			res = new ModelAndView("misc/403");
-		} catch (Throwable oopsie) {
+		} catch (final Throwable oopsie) {
 			res = new ModelAndView("application/listRookie");
 			permission = false;
 
@@ -112,20 +110,16 @@ public class ApplicationController extends AbstractController {
 
 		try {
 			principal = this.actorService.findByPrincipal();
-			Assert.isTrue(this.actorService
-					.checkAuthority(principal, "COMPANY"));
+			Assert.isTrue(this.actorService.checkAuthority(principal, "COMPANY"));
 
-			applications = this.applicationService
-					.findApplicationsByCompanyId(principal.getId());
+			applications = this.applicationService.findApplicationsByCompanyId(principal.getId());
 
 			permission = true;
 
 			res = new ModelAndView("application/listCompany");
 			res.addObject("applications", applications);
 			res.addObject("permission", permission);
-		} catch (IllegalArgumentException oops) {
-			res = new ModelAndView("misc/403");
-		} catch (Throwable oopsie) {
+		} catch (final Throwable oopsie) {
 			res = new ModelAndView("application/listCompany");
 			permission = false;
 
@@ -157,16 +151,13 @@ public class ApplicationController extends AbstractController {
 			position = this.positionService.findOne(positionId);
 			application.setPosition(position);
 
-			problems = this.problemService.findProblemsByPositionId(application
-					.getPosition().getId());
+			problems = this.problemService.findProblemsByPositionId(application.getPosition().getId());
 			toSolve = this.applicationService.selectProblem(problems);
 			application.setProblem(toSolve);
 
 			application = this.applicationService.save(application);
 
 			result = new ModelAndView("redirect:/application/listRookie.do");
-		} catch (final IllegalArgumentException oops) {
-			result = new ModelAndView("misc/403");
 		} catch (final Throwable oopsie) {
 
 			result = new ModelAndView("redirect:/application/listRookie.do");
@@ -188,8 +179,7 @@ public class ApplicationController extends AbstractController {
 
 		application = this.applicationService.findOne(applicationId);
 		Assert.notNull(application);
-		curriculas = this.curriculaService.findCurriculasByRookieId(application
-				.getRookie().getId());
+		curriculas = this.curriculaService.findCurriculasByRookieId(application.getRookie().getId());
 		result = this.createEditModelAndView(application);
 		result.addObject("curriculas", curriculas);
 
@@ -197,29 +187,20 @@ public class ApplicationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Application application, BindingResult binding) {
+	public ModelAndView save(Application application, final BindingResult binding) {
 		ModelAndView result;
 		Application application2;
 		try {
-			application2 = this.applicationService.reconstruct(application,
-					binding);
+			application2 = this.applicationService.reconstruct(application, binding);
 			if (binding.hasErrors()) {
-				Application recuperada = (this.applicationService
-						.findOne(application.getId()));
-				Collection<Curricula> curriculas = this.curriculaService
-						.findCurriculasByRookieId(recuperada.getRookie()
-								.getId());
-
-				result = new ModelAndView("application/edit");
-				result.addObject("application", application);
+				final Application recuperada = (this.applicationService.findOne(application.getId()));
+				final Collection<Curricula> curriculas = this.curriculaService.findCurriculasByRookieId(recuperada.getRookie().getId());
+				result = this.createEditModelAndView(application);
 				result.addObject("curriculas", curriculas);
-				result.addObject("binding", binding);
 			} else
 				try {
-
 					this.applicationService.save(application2);
-					result = new ModelAndView(
-							"redirect:/application/listRookie.do");
+					result = new ModelAndView("redirect:/application/listRookie.do");
 				} catch (final Throwable oops) {
 					result = new ModelAndView("application/edit");
 					result.addObject("application", application2);
@@ -227,27 +208,24 @@ public class ApplicationController extends AbstractController {
 				}
 		} catch (final Throwable oops) {
 			application = this.applicationService.findOne(application.getId());
-			result = this
-					.createEditModelAndView(application, oops.getMessage());
+			result = this.createEditModelAndView(application, oops.getMessage());
 		}
 		return result;
 	}
 
 	/* Accept or reject an application */
 	@RequestMapping(value = "/company/action", method = RequestMethod.GET)
-	public ModelAndView actionsEnrolments(@RequestParam String action,
-			@RequestParam int applicationId) {
+	public ModelAndView actionsEnrolments(@RequestParam final String action, @RequestParam final int applicationId) {
 		ModelAndView res;
 		Actor principal;
 		Application application;
 
 		try {
 			principal = this.actorService.findByPrincipal();
-			Assert.isTrue((this.actorService.checkAuthority(principal,
-					"COMPANY")));
+			Assert.isTrue((this.actorService.checkAuthority(principal, "COMPANY")));
 
 			application = this.applicationService.findOne(applicationId);
-			
+
 			Assert.isTrue(application.getStatus().equals("SUBMITTED"));
 
 			if (action.equals("accept")) {
@@ -261,14 +239,9 @@ public class ApplicationController extends AbstractController {
 				application.setStatus("REJECTED");
 				this.applicationService.save(application);
 				res = new ModelAndView("redirect:/application/listCompany.do");
-			} else {
-
-				res = new ModelAndView("misc/403");
-
-			}
-		} catch (IllegalArgumentException oops) {
-			res = new ModelAndView("misc/403");
-		} catch (Throwable oopsie) {
+			} else
+				res = new ModelAndView("redirect:/application/listCompany.do");
+		} catch (final Throwable oopsie) {
 			res = new ModelAndView("redirect:/application/listCompany.do");
 		}
 		return res;
@@ -286,8 +259,7 @@ public class ApplicationController extends AbstractController {
 		toDelete = this.applicationService.findOne(applicationId);
 		this.applicationService.delete(toDelete);
 
-		applications = this.applicationService
-				.findApplicationsNotRejectedByRookieId(principal.getId());
+		applications = this.applicationService.findApplicationsNotRejectedByRookieId(principal.getId());
 
 		final String requestURI = "application/listRookie.do";
 		result = new ModelAndView("application/listRookie");
@@ -306,8 +278,7 @@ public class ApplicationController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(
-			final Application application, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Application application, final String messageCode) {
 		final ModelAndView result;
 		Actor principal;
 		boolean isPrincipal = false;
@@ -318,8 +289,7 @@ public class ApplicationController extends AbstractController {
 		if (principal.getId() == application.getRookie().getId())
 			isPrincipal = true;
 
-		curriculas = this.curriculaService.findCurriculasByRookieId(application
-				.getRookie().getId());
+		curriculas = this.curriculaService.findCurriculasByRookieId(application.getRookie().getId());
 
 		result = new ModelAndView("application/edit");
 		result.addObject("application", application);

@@ -10,13 +10,13 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<security:authorize access="hasRole('ROOKIE')">
+<security:authorize access="hasAnyRole('ROOKIE','COMPANY')">
 
 	<table class="displayStyle">
 		<tr>
 
-			<td><strong><spring:message
-						code="educationData.degree" /> : </strong></td>
+			<td><strong><spring:message code="educationData.degree" />
+					: </strong></td>
 			<td><jstl:out value="${data.degree}">
 
 				</jstl:out></td>
@@ -34,43 +34,44 @@
 				</jstl:out></td>
 
 		</tr>
-		
+
 		<tr>
 
-			<td><strong><spring:message
-						code="educationData.mark" /> : </strong></td>
+			<td><strong><spring:message code="educationData.mark" />
+					: </strong></td>
 			<td><jstl:out value="${data.mark}">
 
 				</jstl:out></td>
 
 		</tr>
-		
+
 		<tr>
 
 			<td><strong><spring:message
 						code="educationData.startDate" /> : </strong></td>
 			<td><jstl:out value="${data.startDate}">
-				
+
 				</jstl:out></td>
 
 		</tr>
-		
+
 		<tr>
 
 			<td><strong><spring:message
 						code="educationData.endDate" /> : </strong></td>
 			<td><jstl:out value="${data.endDate}">
-				
+
 				</jstl:out></td>
 
 		</tr>
 
 	</table>
+	<security:authorize access="hasRole('ROOKIE')">
 
-	<input type="button" name="edit"
-		value="<spring:message code="educationData.edit"	/>"
-		onclick="redirect: location.href = 'educationData/rookie/edit.do?dataId=${data.id}&curriculaId=${curriculaId}';" />
-
+		<input type="button" name="edit"
+			value="<spring:message code="educationData.edit"	/>"
+			onclick="redirect: location.href = 'educationData/rookie/edit.do?dataId=${data.id}&curriculaId=${curriculaId}';" />
+	</security:authorize>
 
 	<input type="button" name="back"
 		value="<spring:message code="educationData.cancel" />"

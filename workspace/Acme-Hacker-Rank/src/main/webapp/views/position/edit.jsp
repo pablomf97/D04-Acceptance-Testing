@@ -48,7 +48,7 @@
 		<br />
 
 		<form:label path="salary">
-			<spring:message code="position.salary" />:*</form:label>
+			<spring:message code="position.salary" />: </form:label>
 		<form:input type="number" step="0.01" path="salary" min="0.00" />
 		<form:errors path="salary" cssClass="error" />
 		<br />
