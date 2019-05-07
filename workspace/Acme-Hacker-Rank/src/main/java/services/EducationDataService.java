@@ -81,6 +81,10 @@ public class EducationDataService {
 			Assert.notNull(data.getDegree());
 			Assert.notNull(data.getInstitution());
 			Assert.notNull(data.getStartDate());
+			
+			if(!(data.getEndDate() == null)){
+				Assert.isTrue(data.getStartDate().before(data.getEndDate()));
+			}
 
 			result = this.educationDataRepository.save(data);
 

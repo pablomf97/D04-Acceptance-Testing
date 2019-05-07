@@ -126,7 +126,7 @@ public class EducationDataController extends AbstractController {
 
 				result = new ModelAndView("redirect:list.do?curriculaId=" + currentCurricula.getId());
 			} catch (final Throwable oops) {
-				result = new ModelAndView("redirect:../welcome/index.do");
+				result = new ModelAndView("redirect:list.do?curriculaId="+curriculaId);
 				result.addObject("messageCode", "problem.commit.error");
 			}
 		return result;

@@ -113,6 +113,7 @@ public class PositionDataController extends AbstractController {
 		ModelAndView result;
 
 		this.validator.validate(data, binding);
+		
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(data, curriculaId, "md.commit.error");
@@ -125,7 +126,7 @@ public class PositionDataController extends AbstractController {
 
 				result = new ModelAndView("redirect:list.do?curriculaId=" + currentCurricula.getId());
 			} catch (final Throwable oops) {
-				result = new ModelAndView("redirect:../welcome/index.do");
+				result = new ModelAndView("redirect:list.do?curriculaId=" + curriculaId);
 				result.addObject("messageCode", "problem.commit.error");
 			}
 		return result;
@@ -188,7 +189,7 @@ public class PositionDataController extends AbstractController {
 		}
 
 		result.addObject("positionData", data);
-		result.addObject("messageError", messageError);
+		result.addObject("message", messageError);
 
 		return result;
 	}

@@ -79,7 +79,7 @@ public class PositionDataService {
 			Assert.notNull(data.getStartDate());
 
 			if (!(data.getEndDate() == null))
-				Assert.isTrue(data.getStartDate().before(data.getEndDate()));
+				Assert.isTrue(data.getStartDate().before(data.getEndDate()),"Start date must be before then end date");
 			result = this.positionDataRepository.save(data);
 
 			currentCurricula = this.curriculaService.findOne(curriculaId);

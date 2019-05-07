@@ -150,8 +150,11 @@ public class PersonalDataController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView save(@Valid final PersonalData personalData, final BindingResult binding) {
+	public ModelAndView save(final PersonalData personalData, final BindingResult binding) {
 		ModelAndView result = null;
+		
+		validator.validate(personalData, binding);
+		
 		if (binding.hasErrors()) {
 			result = new ModelAndView("curricula/edit");
 			result.addObject("personalData", personalData);
