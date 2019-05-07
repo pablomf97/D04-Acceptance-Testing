@@ -187,7 +187,7 @@ public class ApplicationController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Application application, final BindingResult binding) {
+	public ModelAndView save(final Application application, final BindingResult binding) {
 		ModelAndView result;
 		Application application2;
 		try {
@@ -195,20 +195,25 @@ public class ApplicationController extends AbstractController {
 			if (binding.hasErrors()) {
 				final Application recuperada = (this.applicationService.findOne(application.getId()));
 				final Collection<Curricula> curriculas = this.curriculaService.findCurriculasByRookieId(recuperada.getRookie().getId());
-				result = this.createEditModelAndView(application);
+				result = new ModelAndView("application/edit");
+				boolean isPrincipal = false;
+				final Actor principal = this.actorService.findByPrincipal();
+				if (principal.getId() == application2.getRookie().getId())
+					isPrincipal = true;
+				result.addObject("isPrincipal", isPrincipal);
+				result.addObject("application", application);
 				result.addObject("curriculas", curriculas);
 			} else
 				try {
 					this.applicationService.save(application2);
 					result = new ModelAndView("redirect:/application/listRookie.do");
 				} catch (final Throwable oops) {
-					result = new ModelAndView("application/edit");
-					result.addObject("application", application2);
-					result.addObject("messageCode", oops.getMessage());
+					result = new ModelAndView("redirect:../welcome/index.do");
+					result.addObject("messageCode", "position.commit.error");
 				}
 		} catch (final Throwable oops) {
-			application = this.applicationService.findOne(application.getId());
-			result = this.createEditModelAndView(application, oops.getMessage());
+			result = new ModelAndView("redirect:../welcome/index.do");
+			result.addObject("messageCode", "position.commit.error");
 		}
 		return result;
 	}

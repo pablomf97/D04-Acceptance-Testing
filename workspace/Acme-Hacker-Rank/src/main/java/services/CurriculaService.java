@@ -14,9 +14,9 @@ import repositories.CurriculaRepository;
 import domain.Actor;
 import domain.Curricula;
 import domain.EducationData;
-import domain.Rookie;
 import domain.MiscellaneousData;
 import domain.PositionData;
+import domain.Rookie;
 
 @Transactional
 @Service
@@ -210,6 +210,10 @@ public class CurriculaService {
 
 			this.curriculaRepository.delete(cv);
 		}
+	}
+
+	public void flush() {
+		this.curriculaRepository.flush();
 	}
 
 }

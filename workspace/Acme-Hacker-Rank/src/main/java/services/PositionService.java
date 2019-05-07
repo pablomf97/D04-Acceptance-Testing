@@ -155,7 +155,8 @@ public class PositionService {
 		Assert.isTrue(orig.getId() == position.getId());
 		orig.setIsCancelled(true);
 		this.positionRepository.save(orig);
-		this.applicationService.rejectedByCompany((Company) principal);
+		for (final Application app : this.applicationService.findByPosition(position))
+			app.setStatus("REJECTED");
 	}
 
 	public Collection<Position> findByOwner(final Actor actor) {

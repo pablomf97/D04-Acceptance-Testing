@@ -2008,7 +2008,7 @@
 		<property name="skillsRequired" value="Be lucky enough to work here" />
 		<property name="company" ref="company1" />
 		<property name="isDraft" value="false" />
-		<property name="isCancelled" value="true" />
+		<property name="isCancelled" value="false" />
 
 		<property name="problems">
 			<list>

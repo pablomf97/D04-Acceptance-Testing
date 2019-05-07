@@ -184,7 +184,7 @@ public class ApplicationService {
 					e.printStackTrace();
 				}
 				curriculaCopy = this.curriculaService.save(curriculaCopy);
-
+				this.curriculaService.flush();
 				application.setCopyCurricula(curriculaCopy);
 			}
 
