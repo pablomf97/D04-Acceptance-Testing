@@ -102,7 +102,7 @@ public class CurriculaController extends AbstractController {
 			Assert.notNull(curricula);
 			if (curricula.getIsCopy()) {
 				final Collection<Application> apply = this.applicationService.findApplicationByCurricula(curricula);
-				Assert.isTrue(actor.getId() == apply.iterator().next().getPosition().getCompany().getId());
+				Assert.isTrue(curricula.getRookie().getId() == actor.getId() || actor.getId() == apply.iterator().next().getPosition().getCompany().getId());
 
 			} else
 				Assert.isTrue(curricula.getRookie().getId() == actor.getId());
@@ -158,10 +158,9 @@ public class CurriculaController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Curricula curricula, final BindingResult binding) {
 		ModelAndView result = null;
-
-		final Curricula db = this.curriculaService.findOne(curricula.getId());
-
 		try {
+			final Curricula db = this.curriculaService.findOne(curricula.getId());
+
 			this.curriculaService.delete(db);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {

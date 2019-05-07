@@ -104,9 +104,10 @@
 
 		</table>
 		<security:authorize access="hasRole('ROOKIE')">
-
+		<jstl:if test="${ curricula.isCopy == false}">
 			<input type="submit" name="delete"
 				value="<spring:message code="curricula.delete"/>" />
+				</jstl:if>
 		</security:authorize>
 	</form:form>
 </security:authorize>
