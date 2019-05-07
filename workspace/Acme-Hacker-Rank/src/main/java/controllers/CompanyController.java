@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.util.Collection;
@@ -27,10 +28,11 @@ public class CompanyController extends AbstractController {
 	/* Services */
 
 	@Autowired
-	private CompanyService companyService;
+	private CompanyService	companyService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService	actorService;
+
 
 	/* Methods */
 
@@ -43,7 +45,7 @@ public class CompanyController extends AbstractController {
 	 * @return ModelAndView
 	 * **/
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam(required = false) Integer id) {
+	public ModelAndView display(@RequestParam(required = false) final Integer id) {
 		ModelAndView res;
 		Company toDisplay;
 		Boolean found = true;
@@ -53,14 +55,13 @@ public class CompanyController extends AbstractController {
 				toDisplay = (Company) this.actorService.findOne(id);
 				if (toDisplay == null)
 					found = false;
-			} else {
+			} else
 				toDisplay = (Company) this.actorService.findByPrincipal();
-			}
 
 			res = new ModelAndView("company/display");
 			res.addObject("company", toDisplay);
 			res.addObject("found", found);
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			found = false;
 			res = new ModelAndView("company/display");
 			res.addObject("found", found);
@@ -83,11 +84,14 @@ public class CompanyController extends AbstractController {
 
 		try {
 			allCompanies = this.companyService.findAll();
-
-			res = new ModelAndView("company/list");
-			res.addObject("allCompanies", allCompanies);
-			res.addObject("err", err);
-		} catch (Throwable oops) {
+			if (allCompanies.size() >= 10000)
+				res = new ModelAndView("redirect:../welcome/index.do");
+			else {
+				res = new ModelAndView("company/list");
+				res.addObject("allCompanies", allCompanies);
+				res.addObject("err", err);
+			}
+		} catch (final Throwable oops) {
 			err = true;
 			res = new ModelAndView("company/list");
 			res.addObject("err", err);
@@ -109,8 +113,7 @@ public class CompanyController extends AbstractController {
 
 		principal = (Company) this.actorService.findByPrincipal();
 
-		EditionCompanyFormObject editionCompanyFormObject = new EditionCompanyFormObject(
-				principal);
+		final EditionCompanyFormObject editionCompanyFormObject = new EditionCompanyFormObject(principal);
 
 		res = this.createEditModelAndView(editionCompanyFormObject);
 
@@ -124,41 +127,33 @@ public class CompanyController extends AbstractController {
 	 * @return ModelAndView
 	 **/
 	@RequestMapping(value = "/company/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView edit(
-			@Valid EditionCompanyFormObject editionCompanyFormObject,
-			BindingResult binding) {
+	public ModelAndView edit(@Valid final EditionCompanyFormObject editionCompanyFormObject, final BindingResult binding) {
 
 		ModelAndView res;
 
 		try {
 
-			Assert.isTrue(this.actorService.findByPrincipal().getId() == editionCompanyFormObject
-					.getId()
-					&& this.actorService.findOne(this.actorService
-							.findByPrincipal().getId()) != null);
+			Assert.isTrue(this.actorService.findByPrincipal().getId() == editionCompanyFormObject.getId() && this.actorService.findOne(this.actorService.findByPrincipal().getId()) != null);
 
 			Company company = new Company();
 			company = this.companyService.create();
 
-			company = this.companyService.reconstruct(editionCompanyFormObject,
-					binding);
+			company = this.companyService.reconstruct(editionCompanyFormObject, binding);
 
-			if (binding.hasErrors()) {
+			if (binding.hasErrors())
 				res = this.createEditModelAndView(editionCompanyFormObject);
-			} else {
+			else
 				try {
 
 					this.companyService.save(company);
 
 					res = new ModelAndView("redirect:/");
 
-				} catch (Throwable oops) {
-					res = this.createEditModelAndView(editionCompanyFormObject,
-							"company.commit.error");
+				} catch (final Throwable oops) {
+					res = this.createEditModelAndView(editionCompanyFormObject, "company.commit.error");
 
 				}
-			}
-		} catch (Throwable oops) {
+		} catch (final Throwable oops) {
 			res = new ModelAndView("redirect:/");
 		}
 		return res;
@@ -174,7 +169,7 @@ public class CompanyController extends AbstractController {
 	public ModelAndView registerNewCompany() {
 		ModelAndView res;
 
-		RegisterCompanyFormObject registerCompanyFormObject = new RegisterCompanyFormObject();
+		final RegisterCompanyFormObject registerCompanyFormObject = new RegisterCompanyFormObject();
 		registerCompanyFormObject.setTermsAndConditions(false);
 
 		res = this.createRegisterModelAndView(registerCompanyFormObject);
@@ -189,40 +184,34 @@ public class CompanyController extends AbstractController {
 	 * @return ModelAndView
 	 **/
 	@RequestMapping(value = "/company/register", method = RequestMethod.POST, params = "save")
-	public ModelAndView register(
-			@Valid RegisterCompanyFormObject registerCompanyFormObject,
-			BindingResult binding) {
+	public ModelAndView register(@Valid final RegisterCompanyFormObject registerCompanyFormObject, final BindingResult binding) {
 
 		ModelAndView res;
 
 		Company company = new Company();
 		company = this.companyService.create();
 
-		company = this.companyService.reconstruct(registerCompanyFormObject,
-				binding);
+		company = this.companyService.reconstruct(registerCompanyFormObject, binding);
 
-		if (binding.hasErrors()) {
+		if (binding.hasErrors())
 			res = this.createRegisterModelAndView(registerCompanyFormObject);
-		} else {
+		else
 			try {
 
 				this.companyService.save(company);
 
 				res = new ModelAndView("redirect:/");
 
-			} catch (Throwable oops) {
-				res = this.createRegisterModelAndView(
-						registerCompanyFormObject, "company.commit.error");
+			} catch (final Throwable oops) {
+				res = this.createRegisterModelAndView(registerCompanyFormObject, "company.commit.error");
 
 			}
-		}
 		return res;
 	}
 
 	/* Auxiliary methods */
 
-	protected ModelAndView createEditModelAndView(
-			EditionCompanyFormObject editionCompanyFormObject) {
+	protected ModelAndView createEditModelAndView(final EditionCompanyFormObject editionCompanyFormObject) {
 		ModelAndView result;
 
 		result = this.createEditModelAndView(editionCompanyFormObject, null);
@@ -230,9 +219,7 @@ public class CompanyController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(
-			EditionCompanyFormObject editionCompanyFormObject,
-			String messageCode) {
+	protected ModelAndView createEditModelAndView(final EditionCompanyFormObject editionCompanyFormObject, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("company/edit");
@@ -242,19 +229,15 @@ public class CompanyController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createRegisterModelAndView(
-			RegisterCompanyFormObject registerCompanyFormObject) {
+	protected ModelAndView createRegisterModelAndView(final RegisterCompanyFormObject registerCompanyFormObject) {
 		ModelAndView result;
 
-		result = this.createRegisterModelAndView(registerCompanyFormObject,
-				null);
+		result = this.createRegisterModelAndView(registerCompanyFormObject, null);
 
 		return result;
 	}
 
-	protected ModelAndView createRegisterModelAndView(
-			RegisterCompanyFormObject registerCompanyFormObject,
-			String messageCode) {
+	protected ModelAndView createRegisterModelAndView(final RegisterCompanyFormObject registerCompanyFormObject, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("company/register");
@@ -265,26 +248,21 @@ public class CompanyController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/company/edit", method = RequestMethod.POST, params = "deleteCompany")
-	public ModelAndView deleteCompany(
-			final EditionCompanyFormObject editionCompanyFormObject,
-			final BindingResult binding, final HttpSession session) {
+	public ModelAndView deleteCompany(final EditionCompanyFormObject editionCompanyFormObject, final BindingResult binding, final HttpSession session) {
 		ModelAndView result;
 		Company company;
 
 		company = this.companyService.findOne(editionCompanyFormObject.getId());
 
-		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(editionCompanyFormObject,
-					"administrator.commit.error");
-
-		} else
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(editionCompanyFormObject, "administrator.commit.error");
+		else
 			try {
 				this.companyService.delete(company);
 				session.invalidate();
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(editionCompanyFormObject,
-						"administrator.commit.error");
+				result = this.createEditModelAndView(editionCompanyFormObject, "administrator.commit.error");
 
 			}
 
