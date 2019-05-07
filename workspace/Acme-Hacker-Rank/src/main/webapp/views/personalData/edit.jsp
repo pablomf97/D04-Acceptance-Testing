@@ -46,12 +46,7 @@
 			url="curricula/rookie/display.do?curriculaId=${currentCurricula.id}"
 			code="personalData.cancel" />
 
-		<jstl:if test="${personalData.id != 0 }">
-			<input type="submit" name="delete"
-				value="<spring:message code="personalData.delete"/>" />
-
-		</jstl:if>
-
+		
 		
 	</form:form>
 
