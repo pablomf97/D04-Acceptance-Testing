@@ -1,6 +1,9 @@
 package services;
 
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -13,6 +16,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Actor;
+import domain.Company;
 
 
 
@@ -170,7 +174,7 @@ public class DashboardServiceTest extends AbstractTest {
 
 	@Test
 	public void avgPositionPerCompanyDriver() {
-		Object testingData[][] = { { "admin",2.33333, null },// Positive
+		Object testingData[][] = { { "admin",0.46667, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
 				{ "rookie1", 0., IllegalArgumentException.class } //non authorized actor
@@ -217,7 +221,7 @@ public class DashboardServiceTest extends AbstractTest {
 
 	@Test
 	public void stddevPositionPerCompanyDriver() {
-		Object testingData[][] = { { "admin", 1.69967, null },// Positive
+		Object testingData[][] = { { "admin", 1.2037, null },// Positive
 				{ "admin", 5., IllegalArgumentException.class },//non expected
 
 				{ "rookie1", 0., IllegalArgumentException.class } //non authorized actor
@@ -1310,7 +1314,7 @@ public class DashboardServiceTest extends AbstractTest {
 	
 	@Test 
 	public void statsScoreCompaniesDriver() {
-		Object testingData[][] = { { "admin", 1.0,0.2,0.6333333333333333,0.3299831645537222, null },// Positive
+		Object testingData[][] = { { "admin", 1.0,0.2,0.9266666666666666,0.20805982045769647, null },// Positive
 				{ "admin", 1.8,1.9,1.9,1.8, IllegalArgumentException.class },//non expected
 
 				{ "rookie1",1.8,1.9,1.9,1.8, IllegalArgumentException.class } //non authorized actor
@@ -1354,26 +1358,363 @@ public class DashboardServiceTest extends AbstractTest {
 
 	}
 	
+
+
+	//The companies with the highest audit score.
 	
-	//	
-	//	 The companies with the highest audit score.
+	@Test
+	public void CompaniesHighestScoresDriver() {
+		Object testingData[][] = { { "admin", "Disney", null},
+				{ "admin", "PEPE", IllegalArgumentException.class },//non expected
+
+				{ "rookie1", "Disney", IllegalArgumentException.class } //non authorized actor
+
+		};
+
+		for (int i = 0; i < testingData.length; i++) {
+			CompaniesHighestScoresTemplate((String) testingData[i][0],
+					(String) testingData[i][1], (Class<?>) testingData[i][2]);
+		}
+	}
+
+	protected void CompaniesHighestScoresTemplate(String username,String min,
+			Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+
+		try {
+			authenticate(username);
+
+			this.CompaniesHighestScoresTest(min);
+
+			unauthenticate();
+
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		super.checkExceptions(expected, caught);
+	}
+
+	public void CompaniesHighestScoresTest(String min) {
+		final Actor principal = this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal,
+				"ADMIN"));
+		List<Company> res =(List<Company>) this.companyService.CompaniesHighestScores();
+		Assert.isTrue(res.get(0).getCommercialName().equals(min));
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//	 The average salary offered by the positions that have the highest average
 	//	 audit score.
+	
+	@Test
+	public void avgSalaryPerPositionHighestScoreAuditsDriver() {
+		Object testingData[][] = { 
+				{ "admin",16.5 , null},//positive
+				{ "admin", 5., IllegalArgumentException.class },//non expected
+
+				{ "rookie1", 0., IllegalArgumentException.class } //non authorized actor
+
+		};
+
+		for (int i = 0; i < testingData.length; i++) {
+			avgSalaryPerPositionHighestScoreAuditsTemplate((String) testingData[i][0],
+					(Double) testingData[i][1], (Class<?>) testingData[i][2]);
+		}
+	}
+
+	protected void avgSalaryPerPositionHighestScoreAuditsTemplate(String username,Double min,
+			Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+
+		try {
+			authenticate(username);
+
+			this.avgSalaryPerPositionHighestScoreAuditsTest(min);
+
+			unauthenticate();
+
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		super.checkExceptions(expected, caught);
+	}
+
+	public void avgSalaryPerPositionHighestScoreAuditsTest(Double min) {
+		final Actor principal = this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal,
+				"ADMIN"));
+		Double res =this.positionService.avgSalaryPerPositionHighestScoreAudits();
+		Assert.isTrue(res.doubleValue()==min);
+
+	}
+	
 
 
 	//	The minimum, the maximum, the average, and the standard deviation of the
 	//	number of items per provider.
+	
+	
+	
+	@Test 
+	public void statsItemsPerProviderDriver() {
+		Object testingData[][] = { { "admin", 2.,0.,1.0,0.63246, null },// Positive
+				{ "admin", 1.8,1.9,1.9,1.8, IllegalArgumentException.class },//non expected
+
+				{ "rookie1",1.8,1.9,1.9,1.8, IllegalArgumentException.class } //non authorized actor
+
+		};
+
+		for (int i = 0; i < testingData.length; i++) {
+			statsItemsPerProviderTemplate((String) testingData[i][0],
+					(Double) testingData[i][1],(Double) testingData[i][2],
+					(Double) testingData[i][3],(Double) testingData[i][4], (Class<?>) testingData[i][5]);
+		}
+	}
+
+	protected void statsItemsPerProviderTemplate(String username,Double max,
+			Double min, Double avg, Double stddev, Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+
+		try {
+			authenticate(username);
+
+			this.statsItemsPerProviderTest(max,min,avg,stddev);
+
+			unauthenticate();
+
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		super.checkExceptions(expected, caught);
+	}
+
+	public void statsItemsPerProviderTest(Double max, Double min, Double avg, Double stddev) {
+		final Actor principal = this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal,
+				"ADMIN"));
+		Double [] res=this.providerService.statsItemsPerProvider();
+		Assert.isTrue(res[0].doubleValue()==max&&res[1].doubleValue()==min&&res[2].doubleValue()==avg&&res[3].doubleValue()==stddev);
+
+
+	}
 
 	//  The top-5 providers in terms of total number of items provided.
+	
+	@Test
+	public void top5ProvidersWithItemsDriver() {
+		Object testingData[][] = { { "admin", "Francisco,Pablo,Carlos,Pepe,Paco", null},
+				{ "admin", "PEPE", IllegalArgumentException.class },//non expected
 
+				{ "rookie1", "Disney", IllegalArgumentException.class } //non authorized actor
+
+		};
+
+		for (int i = 0; i < testingData.length; i++) {
+			top5ProvidersWithItemsTemplate((String) testingData[i][0],
+					(String) testingData[i][1], (Class<?>) testingData[i][2]);
+		}
+	}
+
+	protected void top5ProvidersWithItemsTemplate(String username,String min,
+			Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+
+		try {
+			authenticate(username);
+
+			this.top5ProvidersWithItemsTest(min);
+
+			unauthenticate();
+
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		super.checkExceptions(expected, caught);
+	}
+
+	public void top5ProvidersWithItemsTest(String min) {
+		final Actor principal = this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal,
+				"ADMIN"));
+		List<String> res =(List<String>) this.providerService.top5ProvidersWithItems();
+		String comp=res.get(0)+","+res.get(1)+","+res.get(2)+","+res.get(3)+","+res.get(4);
+		Assert.isTrue(comp.equalsIgnoreCase(min));
+
+	}
+	
+	
 
 	//	The average, the minimum, the maximum, and the standard deviation of the
 	//	number of sponsorships per provider.
+	
+	
+	@Test 
+	public void statsSponsorshipsPerProviderDriver() {
+		Object testingData[][] = { { "admin", 1.0,0.0,0.2,0.4, null },// Positive
+				{ "admin", 1.8,1.9,1.9,1.8, IllegalArgumentException.class },//non expected
+
+				{ "rookie1",1.8,1.9,1.9,1.8, IllegalArgumentException.class } //non authorized actor
+
+		};
+
+		for (int i = 0; i < testingData.length; i++) {
+			statsSponsorshipsPerProviderTemplate((String) testingData[i][0],
+					(Double) testingData[i][1],(Double) testingData[i][2],
+					(Double) testingData[i][3],(Double) testingData[i][4], (Class<?>) testingData[i][5]);
+		}
+	}
+
+	protected void statsSponsorshipsPerProviderTemplate(String username,Double max,
+			Double min, Double avg, Double stddev, Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+
+		try {
+			authenticate(username);
+
+			this.statsSponsorshipsPerProviderTest(max,min,avg,stddev);
+
+			unauthenticate();
+
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		super.checkExceptions(expected, caught);
+	}
+
+	public void statsSponsorshipsPerProviderTest(Double max, Double min, Double avg, Double stddev) {
+		final Actor principal = this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal,
+				"ADMIN"));
+		Double [] res=this.providerService.statsSponsorshipsPerProvider();
+		Assert.isTrue(res[0].doubleValue()==max&&res[1].doubleValue()==min&&res[2].doubleValue()==avg&&res[3].doubleValue()==stddev);
+
+
+	}
+	
+	
 
 	//	The average, the minimum, the maximum, and the standard deviation of the
 	//	number of sponsorships per position.
+	
+	@Test 
+	public void statsSponsorshipsPerPositionDriver() {
+		Object testingData[][] = { { "admin", 1.0,0.0,0.1429,0.3499, null },// Positive
+				{ "admin", 1.8,1.9,1.9,1.8, IllegalArgumentException.class },//non expected
 
+				{ "rookie1",1.8,1.9,1.9,1.8, IllegalArgumentException.class } //non authorized actor
+
+		};
+
+		for (int i = 0; i < testingData.length; i++) {
+			statsSponsorshipsPerPositionTemplate((String) testingData[i][0],
+					(Double) testingData[i][1],(Double) testingData[i][2],
+					(Double) testingData[i][3],(Double) testingData[i][4], (Class<?>) testingData[i][5]);
+		}
+	}
+
+	protected void statsSponsorshipsPerPositionTemplate(String username,Double max,
+			Double min, Double avg, Double stddev, Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+
+		try {
+			authenticate(username);
+
+			this.statsSponsorshipsPerPositionTest(max,min,avg,stddev);
+
+			unauthenticate();
+
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		super.checkExceptions(expected, caught);
+	}
+
+	public void statsSponsorshipsPerPositionTest(Double max, Double min, Double avg, Double stddev) {
+		final Actor principal = this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal,
+				"ADMIN"));
+		Double [] res=this.positionService.statsSponsorshipsPerPosition();
+		Assert.isTrue(res[0].doubleValue()==max&&res[1].doubleValue()==min&&res[2].doubleValue()==avg&&res[3].doubleValue()==stddev);
+
+
+	}
+	
+	
+	
 	//	The providers who have a number of sponsorships that is at least 10% above
 	//	the average number of sponsorships per provider.
+	
+	
+	@Test
+	public void Percentage10AVGSponsorshipPerProviderDriver() {
+		Object testingData[][] = { 
+				{ "admin","Francisco" , null},//positive
+				{ "admin", "PEPE", IllegalArgumentException.class },//non expected
 
+				{ "rookie1", "Francisco", IllegalArgumentException.class } //non authorized actor
+
+		};
+
+		for (int i = 0; i < testingData.length; i++) {
+			Percentage10AVGSponsorshipPerProviderTemplate((String) testingData[i][0],
+					(String) testingData[i][1], (Class<?>) testingData[i][2]);
+		}
+	}
+
+	protected void Percentage10AVGSponsorshipPerProviderTemplate(String username,String min,
+			Class<?> expected) {
+		Class<?> caught;
+
+		caught = null;
+
+		try {
+			authenticate(username);
+
+			this.Percentage10AVGSponsorshipPerProviderTest(min);
+
+			unauthenticate();
+
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		super.checkExceptions(expected, caught);
+	}
+
+	public void Percentage10AVGSponsorshipPerProviderTest(String min) {
+		final Actor principal = this.actorService.findByPrincipal();
+		Assert.isTrue(this.actorService.checkAuthority(principal,
+				"ADMIN"));
+		Collection<String> col=this.providerService.Percentage10AVGSponsorshipPerProvider();
+		Assert.isTrue(col.contains(min));
+
+	}
+	
+	
 }
