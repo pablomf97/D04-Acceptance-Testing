@@ -73,7 +73,7 @@
 
 	<jstl:if test="${not empty positions}">
 		<display:table name="positions" id="row"
-			requestURI="finder/rookie/list.do" pagesize="10" class="displaytag">
+			requestURI="${requestURI}" pagesize="10" class="displaytag">
 
 			<!-- Attributes-->
 
@@ -127,7 +127,7 @@
 
 			<!-- Attributes-->
 
-			<display:column titleKey="position.title" sortable="true">
+			<display:column titleKey="position.title" sortable="true"  >
 				<jstl:out value="${row.title}" />
 			</display:column>
 			<display:column titleKey="position.deadline" sortable="true">
