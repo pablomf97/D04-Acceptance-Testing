@@ -25,7 +25,7 @@ public class ProviderServiceTest extends AbstractTest{
 	 * Total coverage of all tests
 	 * 
 	 * 
-	 * Coverage of the total project (%):
+	 * Coverage of the total project (%): 
 	 * 
 	 * 
 	 * Coverage of the total project (lines of codes):
@@ -35,10 +35,10 @@ public class ProviderServiceTest extends AbstractTest{
 	 * Total coverage by exclusively executing this test class
 	 * 
 	 * 
-	 * Coverage of the total project (%):
+	 * Coverage of the total project (%): 8.9
 	 * 
 	 * 
-	 * Coverage of the total project (lines of codes):
+	 * Coverage of the total project (lines of codes): 3181
 	 */
 
 	// System under test ---------------------------------------

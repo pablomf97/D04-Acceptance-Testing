@@ -43,10 +43,10 @@ public class AuditServiceTest extends AbstractTest{
 	 * Total coverage by exclusively executing this test class
 	 * 
 	 * 
-	 * Coverage of the total project (%):
+	 * Coverage of the total project (%):2.5
 	 * 
 	 * 
-	 * Coverage of the total project (lines of codes):
+	 * Coverage of the total project (lines of codes): 1000
 	 */
 
 	/*
@@ -176,6 +176,7 @@ public class AuditServiceTest extends AbstractTest{
 	 * ####################### TEST DELETE  AUDIT #######################
 	 */
 	
+	@Test
 	public void driverDeleteAudit(){
 		Object testingData[][] = {
 				{"auditor1","audit2",null},
