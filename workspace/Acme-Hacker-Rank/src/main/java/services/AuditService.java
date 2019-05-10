@@ -44,7 +44,7 @@ public class AuditService {
 
 		principal = this.actorService.findByPrincipal();
 		Assert.isTrue(this.actorService.checkAuthority(principal, "AUDITOR"), "not.allowed");
-
+		
 		result = new Audit();
 		result.setAuditor((Auditor) principal);
 		result.setIsDraft(true);
@@ -78,19 +78,21 @@ public class AuditService {
 		Audit result = this.create(audit.getPosition());
 
 		Assert.isTrue(this.actorService.checkAuthority(principal, "AUDITOR"), "not.allowed");
-		Assert.isTrue(audit.getAuditor().equals(principal), "not.allowed");
+		Assert.isTrue(audit.getAuditor().equals(principal));
 		if (audit.getId() == 0) {
 			result = audit;
 			final Date moment = new Date();
 			result.setMoment(moment);
 		} else {
 			result = this.findOne(audit.getId());
-			Assert.isTrue(result.getIsDraft());
+			Assert.isTrue(audit.getIsDraft());
 			result.setIsDraft(audit.getIsDraft());
 			result.setScore(audit.getScore());
 			result.setText(audit.getText());
 		}
 		Assert.notNull(result);
+		
+		
 		result = this.auditRepository.save(result);
 
 		return result;
@@ -98,6 +100,7 @@ public class AuditService {
 
 	public void delete(final Audit audit) {
 		Actor principal;
+		Assert.isTrue(audit.getIsDraft(), "Only can delete in draft mode");
 		Assert.notNull(audit);
 		Assert.isTrue(audit.getId() != 0, "wrong.id");
 		principal = this.actorService.findByPrincipal();
@@ -151,5 +154,9 @@ public class AuditService {
 
 		this.auditRepository.deleteInBatch(cols);
 
+	}
+	
+	public void flush(){
+		this.auditRepository.flush();
 	}
 }
