@@ -42,10 +42,10 @@ public class DashboardServiceTest extends AbstractTest {
 	 * Total coverage by exclusively executing this test class
 	 * 
 	 * 
-	 * Coverage of the total project (%):15,8%
+	 * Coverage of the total project (%):14,2%
 	 * 
 	 * 
-	 * Coverage of the total project (lines of codes):3835
+	 * Coverage of the total project (lines of codes):5575
 	 */
 
 
@@ -1470,7 +1470,7 @@ public class DashboardServiceTest extends AbstractTest {
 	
 	@Test 
 	public void statsItemsPerProviderDriver() {
-		Object testingData[][] = { { "admin", 2.,0.,1.0,0.63246, null },// Positive
+		Object testingData[][] = { { "admin", 20.,0.,4.16667,7.10438, null },// Positive
 				{ "admin", 1.8,1.9,1.9,1.8, IllegalArgumentException.class },//non expected
 
 				{ "rookie1",1.8,1.9,1.9,1.8, IllegalArgumentException.class } //non authorized actor
@@ -1518,7 +1518,7 @@ public class DashboardServiceTest extends AbstractTest {
 	
 	@Test
 	public void top5ProvidersWithItemsDriver() {
-		Object testingData[][] = { { "admin", "Francisco,Pablo,Carlos,Pepe,Paco", null},
+		Object testingData[][] = { { "admin", "Alberto,Francisco,Pablo,Carlos,Pepe", null},
 				{ "admin", "PEPE", IllegalArgumentException.class },//non expected
 
 				{ "rookie1", "Disney", IllegalArgumentException.class } //non authorized actor
@@ -1569,7 +1569,7 @@ public class DashboardServiceTest extends AbstractTest {
 	
 	@Test 
 	public void statsSponsorshipsPerProviderDriver() {
-		Object testingData[][] = { { "admin", 1.0,0.0,0.2,0.4, null },// Positive
+		Object testingData[][] = { { "admin", 0.0,0.0,0.0,0.0, null },// Positive
 				{ "admin", 1.8,1.9,1.9,1.8, IllegalArgumentException.class },//non expected
 
 				{ "rookie1",1.8,1.9,1.9,1.8, IllegalArgumentException.class } //non authorized actor
@@ -1620,7 +1620,7 @@ public class DashboardServiceTest extends AbstractTest {
 	
 	@Test 
 	public void statsSponsorshipsPerPositionDriver() {
-		Object testingData[][] = { { "admin", 1.0,0.0,0.1429,0.3499, null },// Positive
+		Object testingData[][] = { { "admin", 0.0,0.0,0.0,0.0, null },// Positive
 				{ "admin", 1.8,1.9,1.9,1.8, IllegalArgumentException.class },//non expected
 
 				{ "rookie1",1.8,1.9,1.9,1.8, IllegalArgumentException.class } //non authorized actor
@@ -1673,7 +1673,7 @@ public class DashboardServiceTest extends AbstractTest {
 	@Test
 	public void Percentage10AVGSponsorshipPerProviderDriver() {
 		Object testingData[][] = { 
-				{ "admin","Francisco" , null},//positive
+				{ "admin","[]" , null},//positive
 				{ "admin", "PEPE", IllegalArgumentException.class },//non expected
 
 				{ "rookie1", "Francisco", IllegalArgumentException.class } //non authorized actor
@@ -1711,7 +1711,7 @@ public class DashboardServiceTest extends AbstractTest {
 		Assert.isTrue(this.actorService.checkAuthority(principal,
 				"ADMIN"));
 		Collection<String> col=this.providerService.Percentage10AVGSponsorshipPerProvider();
-		Assert.isTrue(col.contains(min));
+		Assert.isTrue(col.toString().equalsIgnoreCase(min));
 
 	}
 	

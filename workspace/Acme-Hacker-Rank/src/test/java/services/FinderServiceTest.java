@@ -62,13 +62,13 @@ public class FinderServiceTest extends AbstractTest{
 	@Test
 	public void searchDriver(){
 		Object testingData[][]={
-				{"rookie1",3,"position",null,null,null,null},//positive
+				{"rookie1",5,"position",null,null,null,null},//positive
 				{"rookie1",0,"rwer",null,null,null,null},//positive
-				{null,3,"position",null,null,null,IllegalArgumentException.class},//negative: non authorize
-				{"admin",3,"position",null,null,null,ClassCastException.class},//negative: non authorize 
-				{"rookie1",1,null,null,100.0,null,null},//positive
-				{"rookie2",3,null,null,null,null,null},//positive
-				{"rookie1",3,null,null,null,new GregorianCalendar(2050, Calendar.JANUARY, 1)
+				{null,5,"position",null,null,null,IllegalArgumentException.class},//negative: non authorize
+				{"admin",5,"position",null,null,null,ClassCastException.class},//negative: non authorize 
+				{"rookie1",2,null,null,100.0,null,null},//positive
+				{"rookie2",5,null,null,null,null,null},//positive
+				{"rookie1",5,null,null,null,new GregorianCalendar(2050, Calendar.JANUARY, 1)
 				.getTime(),null}//positive
 			
 				
@@ -133,7 +133,7 @@ public class FinderServiceTest extends AbstractTest{
 					(Date) testingData[i][1], (Class<?>) testingData[i][2]);
 		}
 		
-	}
+	} 
 
 
 	private void deleteCacheFinderTemplate(String username, Date date,
