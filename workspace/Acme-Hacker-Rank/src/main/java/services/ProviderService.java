@@ -115,14 +115,14 @@ public class ProviderService {
 
 			/* Managing email */
 			String email = provider.getEmail();
-			Assert.isTrue(
+		/*	Assert.isTrue(
 					this.actorService.checkEmail(email, provider
 							.getUserAccount().getAuthorities().iterator()
 							.next().toString()), "actor.email.error");
 
 			/* Managing photo */
-			Assert.isTrue(ResourceUtils.isUrl(provider.getPhoto()),
-					"actor.photo.error");
+		/*	Assert.isTrue(ResourceUtils.isUrl(provider.getPhoto()),
+					"actor.photo.error");*/
 		} else {
 			principal = this.actorService.findByPrincipal();
 
@@ -145,14 +145,14 @@ public class ProviderService {
 
 			/* Managing email */
 			String email = provider.getEmail();
-			Assert.isTrue(
+			/*Assert.isTrue(
 					this.actorService.checkEmail(email, provider
 							.getUserAccount().getAuthorities().iterator()
 							.next().toString()), "actor.email.error");
 
 			/* Managing photo */
-			Assert.isTrue(ResourceUtils.isUrl(provider.getPhoto()),
-					"actor.photo.error");
+		/*	Assert.isTrue(ResourceUtils.isUrl(provider.getPhoto()),
+					"actor.photo.error");*/
 		}
 
 		res = this.providerRepository.save(provider);
@@ -241,7 +241,7 @@ public class ProviderService {
 			}
 		}
 
-		if (form.getEmail() != null) {
+		/*if (form.getEmail() != null) {
 			try {
 				Assert.isTrue(this.actorService.checkEmail(form.getEmail(),
 						"COMPANY"), "actor.email.error");
@@ -249,7 +249,7 @@ public class ProviderService {
 				binding.rejectValue("email", "email.error");
 			}
 		}
-
+*/
 		return res;
 	}
 
@@ -369,15 +369,14 @@ public class ProviderService {
 			}
 		}
 
-		if (form.getEmail() != null) {
+		/*if (form.getEmail() != null) {
 			try {
 				Assert.isTrue(this.actorService.checkEmail(form.getEmail(),
 						"COMPANY"), "actor.email.error");
 			} catch (Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-		}
-
+		}*/
 		return res;
 	}
 

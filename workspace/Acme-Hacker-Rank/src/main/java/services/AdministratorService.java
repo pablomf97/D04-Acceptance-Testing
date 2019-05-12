@@ -134,15 +134,15 @@ public class AdministratorService {
 				}
 
 			/* Managing email */
-			String email = administrator.getEmail();
+			/*	String email = administrator.getEmail();
 			Assert.isTrue(
 					this.actorService.checkEmail(email, administrator
 							.getUserAccount().getAuthorities().iterator()
 							.next().toString()), "actor.email.error");
 
 			/* Managing photo */
-			Assert.isTrue(ResourceUtils.isUrl(administrator.getPhoto()),
-					"actor.photo.error");
+		/*	Assert.isTrue(ResourceUtils.isUrl(administrator.getPhoto()),
+					"actor.photo.error");*/
 		} else {
 
 			Assert.isTrue(principal.getId() == administrator.getId(),
@@ -163,15 +163,15 @@ public class AdministratorService {
 				}
 
 			/* Managing email */
-			String email = administrator.getEmail();
+			/*String email = administrator.getEmail();
 			Assert.isTrue(
 					this.actorService.checkEmail(email, administrator
 							.getUserAccount().getAuthorities().iterator()
 							.next().toString()), "actor.email.error");
 
 			/* Managing photo */
-			Assert.isTrue(ResourceUtils.isUrl(administrator.getPhoto()),
-					"actor.photo.error");
+		/*	Assert.isTrue(ResourceUtils.isUrl(administrator.getPhoto()),
+					"actor.photo.error");*/
 		}
 
 		res = this.administratorRepository.save(administrator);
@@ -275,15 +275,15 @@ public class AdministratorService {
 				}
 		}
 
-		if (form.getEmail() != null) {
+		/*if (form.getEmail() != null) {
 			try {
-				Assert.isTrue(
+				/*Assert.isTrue(
 						this.actorService.checkEmail(form.getEmail(), "ADMIN"),
-						"actor.email.error");
-			} catch (Throwable oops) {
+						"actor.email.error");*/
+			/*} catch (Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-		}
+		}*/
 
 		return res;
 	}
@@ -399,15 +399,15 @@ public class AdministratorService {
 				}
 		}
 
-		if (form.getEmail() != null) {
+	/*	if (form.getEmail() != null) {
 			try {
-				Assert.isTrue(
+				/*Assert.isTrue(
 						this.actorService.checkEmail(form.getEmail(), "ADMIN"),
-						"actor.email.error");
-			} catch (Throwable oops) {
+						"actor.email.error");*/
+			/*} catch (Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-		}
+		}*/
 
 		return res;
 	}

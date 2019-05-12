@@ -122,15 +122,15 @@ public class CompanyService {
 			}
 
 			/* Managing email */
-			String email = company.getEmail();
+			/*String email = company.getEmail();
 			Assert.isTrue(
 					this.actorService.checkEmail(email, company
 							.getUserAccount().getAuthorities().iterator()
 							.next().toString()), "actor.email.error");
 
 			/* Managing photo */
-			Assert.isTrue(ResourceUtils.isUrl(company.getPhoto()),
-					"actor.photo.error");
+			/*Assert.isTrue(ResourceUtils.isUrl(company.getPhoto()),
+					"actor.photo.error");*/
 		} else {
 			principal = this.actorService.findByPrincipal();
 
@@ -151,14 +151,14 @@ public class CompanyService {
 
 			/* Managing email */
 			String email = company.getEmail();
-			Assert.isTrue(
+		/*	Assert.isTrue(
 					this.actorService.checkEmail(email, company
 							.getUserAccount().getAuthorities().iterator()
 							.next().toString()), "actor.email.error");
 
 			/* Managing photo */
-			Assert.isTrue(ResourceUtils.isUrl(company.getPhoto()),
-					"actor.photo.error");
+			/*Assert.isTrue(ResourceUtils.isUrl(company.getPhoto()),
+					"actor.photo.error");*/
 		}
 
 		res = this.companyRepository.save(company);
@@ -247,14 +247,14 @@ public class CompanyService {
 			}
 		}
 
-		if (form.getEmail() != null) {
+		/*if (form.getEmail() != null) {
 			try {
 				Assert.isTrue(this.actorService.checkEmail(form.getEmail(),
 						"COMPANY"), "actor.email.error");
 			} catch (Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-		}
+		}*/
 
 		return res;
 	}
@@ -375,14 +375,14 @@ public class CompanyService {
 			}
 		}
 
-		if (form.getEmail() != null) {
+	/*	if (form.getEmail() != null) {
 			try {
 				Assert.isTrue(this.actorService.checkEmail(form.getEmail(),
 						"COMPANY"), "actor.email.error");
 			} catch (Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-		}
+		}*/
 
 		return res;
 	}

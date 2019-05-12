@@ -122,10 +122,10 @@ public class RookieService {
 
 			/* Managing email */
 			final String email = rookie.getEmail();
-			Assert.isTrue(this.actorService.checkEmail(email, rookie.getUserAccount().getAuthorities().iterator().next().toString()), "actor.email.error");
+		//	Assert.isTrue(this.actorService.checkEmail(email, rookie.getUserAccount().getAuthorities().iterator().next().toString()), "actor.email.error");
 
 			/* Managing photo */
-			Assert.isTrue(ResourceUtils.isUrl(rookie.getPhoto()), "actor.photo.error");
+		/*	Assert.isTrue(ResourceUtils.isUrl(rookie.getPhoto()), "actor.photo.error");*/
 
 		} else {
 			principal = (Rookie) this.actorService.findByPrincipal();
@@ -133,7 +133,7 @@ public class RookieService {
 
 			/* Managing email */
 			final String email = rookie.getEmail();
-			Assert.isTrue(this.actorService.checkEmail(email, rookie.getUserAccount().getAuthorities().iterator().next().toString()), "actor.email.error");
+		//	Assert.isTrue(this.actorService.checkEmail(email, rookie.getUserAccount().getAuthorities().iterator().next().toString()), "actor.email.error");
 
 			/* Managing phone number */
 			final char[] phoneArray = rookie.getPhoneNumber().toCharArray();
@@ -226,13 +226,13 @@ public class RookieService {
 				}
 		}
 
-		if (form.getEmail() != null)
+		/*if (form.getEmail() != null)
 			try {
 				Assert.isTrue(this.actorService.checkEmail(form.getEmail(), "ROOKIE"), "actor.email.error");
 			} catch (final Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-
+*/
 		return res;
 	}
 
@@ -333,13 +333,13 @@ public class RookieService {
 				}
 		}
 
-		if (form.getEmail() != null)
+		/*if (form.getEmail() != null)
 			try {
 				Assert.isTrue(this.actorService.checkEmail(form.getEmail(), "ROOKIE"), "actor.email.error");
 			} catch (final Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-
+*/
 		return res;
 	}
 
