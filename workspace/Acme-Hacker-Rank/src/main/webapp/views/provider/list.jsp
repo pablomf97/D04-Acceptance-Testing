@@ -27,13 +27,13 @@
 				</button>
 			</display:column>
 
-			<display:column titleKey="actor.commercialName" property="providerMake" />
+			<display:column sortable="true" titleKey="actor.commercialName" property="providerMake" />
 
 			<display:column titleKey="actor.email" property="email" />
 
 			<display:column titleKey="actor.phone" property="phoneNumber" />
 
-			<display:column titleKey="actor.address" property="address" />
+			<display:column sortable="true" titleKey="actor.address" property="address" />
 
 		</display:table>
 	</jstl:when>

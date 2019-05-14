@@ -61,7 +61,7 @@
 </style>
 
 <spring:message code="phone.confirmation" var="confirmTelephone" />
-<security:authorize access="isAnonymous()">
+<security:authorize access="hasRole('ADMIN')">
 	<form:form modelAttribute="registerFormObject"
 		action="auditor/auditor/register.do"
 		onsubmit="javascript: return checkPhone('${confirmTelephone}');">

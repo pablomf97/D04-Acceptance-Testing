@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 
 import repositories.AuditorRepository;
@@ -130,7 +129,7 @@ public class AuditorService {
 			Assert.isTrue(principal.getId() == auditor.getId(), "no.permission");
 
 			/* Managing email */
-			String email = auditor.getEmail();
+//			String email = auditor.getEmail();
 			/*Assert.isTrue(
 					this.actorService.checkEmail(email, auditor
 							.getUserAccount().getAuthorities().iterator()
