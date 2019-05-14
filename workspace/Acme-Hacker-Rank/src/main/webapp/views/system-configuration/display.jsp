@@ -54,6 +54,11 @@
 					<td><spring:message code="system.VATTax" />:</td>
 					<td><jstl:out value="${sysConfig.VATTax}" /></td>
 				</tr>
+				
+				<tr>
+					<td><spring:message code="system.flat" />:</td>
+					<td><jstl:out value="${sysConfig.flatRate}" /></td>
+				</tr>
 			</table>
 
 			<div>

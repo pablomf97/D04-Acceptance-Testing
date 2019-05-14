@@ -66,6 +66,7 @@ public class SystemConfigurationService {
 		aux.setMaxResults(systemConfiguration.getMaxResults());
 		aux.setBreachNotification(systemConfiguration.getBreachNotification());
 		aux.setVATTax(systemConfiguration.getVATTax());
+		aux.setFlatRate(systemConfiguration.getFlatRate());
 
 		result = this.systemConfigurationRepository.save(aux);
 
@@ -124,6 +125,7 @@ public class SystemConfigurationService {
 		res.setTimeResultsCached(systemConfiguration.getTimeResultsCached());
 		res.setMaxResults(systemConfiguration.getMaxResults());
 		res.setVATTax(systemConfiguration.getVATTax());
+		res.setFlatRate(systemConfiguration.getFlatRate());
 		res.setAlreadyRebranded(systemConfiguration.getAlreadyRebranded());
 
 		Assert.isTrue(this.actorService.checkAuthority(
@@ -174,6 +176,12 @@ public class SystemConfigurationService {
 			binding.rejectValue("VATTax", "vat.error");
 		}
 
+		try {
+			Assert.isTrue(res.getFlatRate() > 0 && res.getFlatRate() < 5);
+		} catch (Throwable oops) {
+			binding.rejectValue("flatRate", "flat.error");
+		}
+
 		this.validator.validate(res, binding);
 
 		return res;
@@ -188,16 +196,17 @@ public class SystemConfigurationService {
 		return res;
 
 	}
-	public void runOnlyOnceProcess(){
-		SystemConfiguration res= this.findMySystemConfiguration();
-		
-		Assert.isTrue(res.getAlreadyRebranded()==false,"commit.error");
-		Assert.isTrue(res!=null);
-		
+
+	public void runOnlyOnceProcess() {
+		SystemConfiguration res = this.findMySystemConfiguration();
+
+		Assert.isTrue(res.getAlreadyRebranded() == false, "commit.error");
+		Assert.isTrue(res != null);
+
 		res.setAlreadyRebranded(true);
-		
+
 		this.systemConfigurationRepository.save(res);
-		
+
 	}
-	
+
 }

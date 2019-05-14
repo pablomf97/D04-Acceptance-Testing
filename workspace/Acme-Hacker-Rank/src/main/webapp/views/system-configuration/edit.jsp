@@ -42,7 +42,12 @@
 		<br>
 
 		<acme:textbox code="system.VATTax" path="VATTax" />
-		<form:errors path="VATTax" cssClass="error"/>
+		<form:errors path="VATTax" cssClass="error" />
+		<br>
+		<br>
+
+		<acme:textbox code="system.flat" path="flatRate" />
+		<form:errors path="flatRate" cssClass="error" />
 		<br>
 		<br>
 

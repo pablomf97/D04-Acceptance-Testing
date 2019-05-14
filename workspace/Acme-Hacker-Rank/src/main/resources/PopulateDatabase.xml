@@ -2297,6 +2297,7 @@
 		<property name="timeResultsCached" value="1" />
 		<property name="maxResults" value="10" />
 		<property name="VATTax" value="0.21" />
+		<property name="flatRate" value="2.50" />
 		<property name="alreadyRebranded" value="false" />
 
 	</bean>
