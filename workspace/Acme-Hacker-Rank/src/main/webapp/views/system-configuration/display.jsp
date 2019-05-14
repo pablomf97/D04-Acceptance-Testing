@@ -17,7 +17,11 @@
 			</p>
 		</jstl:when>
 		<jstl:otherwise>
-
+		
+		<jstl:if test="${AlreadyRebranded==false}">
+			<div><a href="sysconfig/administrator/rebrand.do"><spring:message code="anuncio" /></a></div>
+			
+			</jstl:if>
 			<table class="displayStyle">
 
 				<tr>

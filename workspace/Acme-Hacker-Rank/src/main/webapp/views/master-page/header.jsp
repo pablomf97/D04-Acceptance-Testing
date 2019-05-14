@@ -273,4 +273,8 @@
 			</strong>
 		</h2>
 	</jstl:if>
+	<jstl:if test="${AlreadyRebranded==true }">
+	
+	<spring:message code="rebrand" />
+	</jstl:if>
 </security:authorize>

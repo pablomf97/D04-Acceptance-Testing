@@ -139,4 +139,28 @@ public class SystemConfigurationController extends AbstractController {
 			}
 		return res;
 	}
+	
+	@RequestMapping(value = "/rebrand", method = RequestMethod.GET)
+	public ModelAndView  rebrand() {
+		ModelAndView res;
+		Actor principal;
+		
+	
+
+		try {
+			principal = this.actorService.findByPrincipal();
+			Assert.isTrue(this.actorService.checkAuthority(principal, "ADMIN"));
+			
+			this.systemConfigurationService.runOnlyOnceProcess();
+		
+			res = new ModelAndView("redirect:display.do");
+		//	res.addObject("AlreadyRebranded", this.systemConfigurationService.findMySystemConfiguration().getAlreadyRebranded());
+			
+		} catch (final Throwable oopsie) {
+			res = new ModelAndView("redirect:/welcome/index.do");
+		}
+		return res;
+		
+	}
+
 }

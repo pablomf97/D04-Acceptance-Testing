@@ -188,4 +188,16 @@ public class SystemConfigurationService {
 		return res;
 
 	}
+	public void runOnlyOnceProcess(){
+		SystemConfiguration res= this.findMySystemConfiguration();
+		
+		Assert.isTrue(res.getAlreadyRebranded()==false,"commit.error");
+		Assert.isTrue(res!=null);
+		
+		res.setAlreadyRebranded(true);
+		
+		this.systemConfigurationRepository.save(res);
+		
+	}
+	
 }
