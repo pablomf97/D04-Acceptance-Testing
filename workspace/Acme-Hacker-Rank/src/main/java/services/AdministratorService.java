@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 
 import repositories.AdministratorRepository;
@@ -18,6 +17,7 @@ import security.Authority;
 import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
+import domain.Company;
 import domain.CreditCard;
 import forms.EditionFormObject;
 import forms.RegisterFormObject;
@@ -44,6 +44,9 @@ public class AdministratorService {
 
 	@Autowired
 	private UtilityService utilityService;
+
+	@Autowired
+	private CompanyService companyService;
 
 	/* Simple CRUD methods */
 
@@ -141,7 +144,7 @@ public class AdministratorService {
 							.next().toString()), "actor.email.error");
 
 			/* Managing photo */
-		/*	Assert.isTrue(ResourceUtils.isUrl(administrator.getPhoto()),
+			/*	Assert.isTrue(ResourceUtils.isUrl(administrator.getPhoto()),
 					"actor.photo.error");*/
 		} else {
 
@@ -170,7 +173,7 @@ public class AdministratorService {
 							.next().toString()), "actor.email.error");
 
 			/* Managing photo */
-		/*	Assert.isTrue(ResourceUtils.isUrl(administrator.getPhoto()),
+			/*	Assert.isTrue(ResourceUtils.isUrl(administrator.getPhoto()),
 					"actor.photo.error");*/
 		}
 
@@ -280,7 +283,7 @@ public class AdministratorService {
 				/*Assert.isTrue(
 						this.actorService.checkEmail(form.getEmail(), "ADMIN"),
 						"actor.email.error");*/
-			/*} catch (Throwable oops) {
+		/*} catch (Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
 		}*/
@@ -336,7 +339,7 @@ public class AdministratorService {
 		Md5PasswordEncoder encoder;
 		encoder = new Md5PasswordEncoder();
 		userAccount
-				.setPassword(encoder.encodePassword(form.getPassword(), null));
+		.setPassword(encoder.encodePassword(form.getPassword(), null));
 
 		res.setUserAccount(userAccount);
 
@@ -399,12 +402,12 @@ public class AdministratorService {
 				}
 		}
 
-	/*	if (form.getEmail() != null) {
+		/*	if (form.getEmail() != null) {
 			try {
 				/*Assert.isTrue(
 						this.actorService.checkEmail(form.getEmail(), "ADMIN"),
 						"actor.email.error");*/
-			/*} catch (Throwable oops) {
+		/*} catch (Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
 		}*/
@@ -415,7 +418,7 @@ public class AdministratorService {
 	public Administrator findByUsername(final String username) {
 		return this.administratorRepository.findByUsername(username);
 	}
-	
+
 	public Long count() {
 		final Long res = this.administratorRepository.count();
 		return res;
@@ -423,5 +426,40 @@ public class AdministratorService {
 
 	public void flush() {
 		this.administratorRepository.flush();
+	}
+
+	public void computeScore(){
+		Collection<Company> allCompanies;
+		Actor principal;
+		Collection<Integer> scoresAuditedPerCompany;
+		
+		
+		double result;
+		principal = this.actorService.findByPrincipal();
+
+		Assert.isTrue(this.actorService.checkAuthority(principal, "ADMIN"));
+
+		allCompanies = this.companyService.findAll();
+
+		for(Company c : allCompanies){
+			scoresAuditedPerCompany  = this.companyService.getScoresAuditedByCompany(c.getId());
+			Integer sum = 0;
+			double avg;
+			if(scoresAuditedPerCompany.size() > 0){
+
+				for(Integer i : scoresAuditedPerCompany){
+					sum = sum + i;
+
+				}
+				avg = sum/scoresAuditedPerCompany.size();
+
+				result = avg/10;
+
+				c.setScore(result);
+			}else{
+				c.setScore(null);
+			}
+
+		}
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -22,7 +23,8 @@ import domain.Rookie;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class EducationDataServiceTest  extends AbstractTest{
-
+	
+	
 	
 	@Autowired
 	private ActorService actorService;

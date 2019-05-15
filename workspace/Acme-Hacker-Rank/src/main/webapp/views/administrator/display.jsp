@@ -65,8 +65,10 @@
 
 		</fieldset>
 		<br />
-
-
+		
+	
+		
+			
 	</jstl:when>
 	<jstl:otherwise>
 		<p class="error">

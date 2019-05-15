@@ -73,7 +73,7 @@
 			onclick="redirect: location.href = 'educationData/rookie/edit.do?dataId=${data.id}&curriculaId=${curriculaId}';" />
 	</security:authorize>
 
-	<input type="button" name="back"
-		value="<spring:message code="educationData.cancel" />"
-		onclick="window.history.back()" />
+	<acme:cancel
+			url="educationData/rookie/list.do?curriculaId=${curriculaId}"
+			code="educationData.cancel" />
 </security:authorize>

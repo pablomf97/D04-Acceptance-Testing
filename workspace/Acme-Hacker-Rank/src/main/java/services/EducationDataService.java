@@ -62,7 +62,8 @@ public class EducationDataService {
 		//Checking creating a data in a own curricula
 
 		if (data.getId() != 0) {
-			currentCurricula = this.curriculaService.getCurriculaByEducationData(data.getId());
+			
+			currentCurricula = this.curriculaService.findOne(curriculaId);
 
 			Assert.isTrue(currentCurricula.getEducationData().contains(data));
 			Assert.isTrue(principalCurriculas.contains(currentCurricula));
@@ -86,10 +87,15 @@ public class EducationDataService {
 				Assert.isTrue(data.getStartDate().before(data.getEndDate()));
 			}
 
-			result = this.educationDataRepository.save(data);
+			
 
 			currentCurricula = this.curriculaService.findOne(curriculaId);
+			
+			Assert.isTrue(principalCurriculas.contains(currentCurricula));
+			Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
 
+			result = this.educationDataRepository.save(data);
+			
 			currentCurricula.getEducationData().add(data);
 		}
 
@@ -115,7 +121,10 @@ public class EducationDataService {
 		Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
 		Assert.isTrue(principalCurriculas.contains(currentCurricula));
 		Assert.isTrue(currentCurricula.getEducationData().contains(db));
-
+		
+		Assert.notNull(data.getDegree());
+		Assert.notNull(data.getInstitution());
+		
 		currentCurricula.getEducationData().remove(db);
 
 		this.educationDataRepository.delete(db);

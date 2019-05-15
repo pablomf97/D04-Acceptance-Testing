@@ -58,11 +58,12 @@ public class PositionDataService {
 
 		if (data.getId() != 0) {
 
-			currentCurricula = this.curriculaService.getCurriculaByPositionData(data.getId());
-
+			currentCurricula = this.curriculaService.findOne(curriculaId);
+			
+			Assert.isTrue(currentCurricula.getPositionData().contains(data));
 			Assert.isTrue(principalCurriculas.contains(currentCurricula));
 			Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
-			Assert.isTrue(currentCurricula.getPositionData().contains(data));
+			
 
 			dataDB = this.positionDataRepository.findOne(data.getId());
 
@@ -80,10 +81,15 @@ public class PositionDataService {
 
 			if (!(data.getEndDate() == null))
 				Assert.isTrue(data.getStartDate().before(data.getEndDate()),"Start date must be before then end date");
-			result = this.positionDataRepository.save(data);
+			
 
 			currentCurricula = this.curriculaService.findOne(curriculaId);
+			
+			Assert.isTrue(principalCurriculas.contains(currentCurricula));
+			Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
 
+			result = this.positionDataRepository.save(data);
+			
 			currentCurricula.getPositionData().add(data);
 		}
 

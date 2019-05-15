@@ -56,7 +56,7 @@ public class PersonalDataService {
 		principalCurriculas = this.curriculaService.getCurriculasByRookie(principal.getId());
 
 		if (data.getId() != 0) {
-			currentCurricula = this.curriculaService.getCurriculaByPersonalData(data.getId());
+			currentCurricula = this.curriculaService.findOne(curriculaId);
 
 			Assert.isTrue(currentCurricula.getPersonalData().getId() == data.getId());
 			Assert.isTrue(principalCurriculas.contains(currentCurricula));
@@ -78,10 +78,15 @@ public class PersonalDataService {
 			Assert.notNull(data.getFullName());
 			Assert.notNull(data.getStatement());
 
-			result = this.personalDataRepository.save(data);
+			
 
 			currentCurricula = this.curriculaService.findOne(curriculaId);
-
+			
+			Assert.isTrue(principalCurriculas.contains(currentCurricula));
+			Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
+			
+			result = this.personalDataRepository.save(data);
+			
 			currentCurricula.setPersonalData(data);
 		}
 

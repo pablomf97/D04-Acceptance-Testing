@@ -159,8 +159,9 @@ public class EducationDataController extends AbstractController {
 			final EducationData data = this.educationDataService.create();
 			result = this.createEditModelAndView(data, curriculaId);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:../welcome/index.do");
-			result.addObject("messageCode", "problem.commit.error");
+			final EducationData data = this.educationDataService.create();
+			result = this.createEditModelAndView(data, curriculaId, "md.commit.error");
+			
 		}
 
 		return result;
@@ -190,7 +191,7 @@ public class EducationDataController extends AbstractController {
 		}
 
 		result.addObject("educationData", data);
-		result.addObject("messageError", messageError);
+		result.addObject("message", messageError);
 
 		return result;
 	}

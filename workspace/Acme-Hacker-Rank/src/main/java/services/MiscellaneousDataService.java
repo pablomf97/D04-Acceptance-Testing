@@ -58,10 +58,12 @@ public class MiscellaneousDataService {
 
 		//Checking creating a data in a own curricula
 		if (data.getId() != 0) {
-			currentCurricula = this.curriculaService.getCurriculaByMiscellaneousData(data.getId());
+			currentCurricula = this.curriculaService.findOne(curriculaId);
+			
+			Assert.isTrue(currentCurricula.getMiscellaneousData().contains(data));
 			Assert.isTrue(principalCurriculas.contains(currentCurricula));
 			Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
-			Assert.isTrue(currentCurricula.getMiscellaneousData().contains(data));
+			
 
 			dataDB = this.miscellaneousDataRepository.findOne(data.getId());
 
@@ -73,9 +75,15 @@ public class MiscellaneousDataService {
 		} else {
 			Assert.notNull(data.getText(), "md.commit.error");
 			Assert.notNull(data.getAttachements());
+			
+			currentCurricula = this.curriculaService.findOne(curriculaId);
+			
+			Assert.isTrue(principalCurriculas.contains(currentCurricula));
+			Assert.isTrue(currentCurricula.getRookie().getId() == principal.getId());
+			
 
 			result = this.miscellaneousDataRepository.save(data);
-			currentCurricula = this.curriculaService.findOne(curriculaId);
+			
 			currentCurricula.getMiscellaneousData().add(data);
 		}
 

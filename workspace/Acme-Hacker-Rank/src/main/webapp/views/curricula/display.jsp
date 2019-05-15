@@ -109,5 +109,9 @@
 				value="<spring:message code="curricula.delete"/>" />
 				</jstl:if>
 		</security:authorize>
+		<acme:cancel
+			url="curricula/rookie/list.do"
+			code="curricula.cancel" />
+		
 	</form:form>
 </security:authorize>

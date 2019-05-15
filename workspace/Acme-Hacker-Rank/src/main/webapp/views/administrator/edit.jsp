@@ -245,12 +245,16 @@
 		<!-- Buttons -->
 		<input type="submit" name="save"
 			value="<spring:message code="form.save" />" />
-
+		
+		<input type="submit" name="compute"
+			value="<spring:message code="admin.compute" />" />
+			
 		<jstl:if test="${count > 1}">
 			<input type="submit" name="deleteAdmin"
 				value="<spring:message code="actor.delete"/>"
 				onclick="return confirm('<spring:message code="actor.confirm.delete"/>')" />
 		</jstl:if>
+		
 
 		<button type="button" onclick="javascript: relativeRedir('/')">
 			<spring:message code="form.cancel" />

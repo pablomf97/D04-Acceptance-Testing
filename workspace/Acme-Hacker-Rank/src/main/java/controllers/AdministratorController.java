@@ -268,4 +268,18 @@ public class AdministratorController extends AbstractController {
 			}
 		return result;
 	}
+	
+	@RequestMapping(value="/administrator/edit", method = RequestMethod.POST, params="compute")
+	public ModelAndView computeScore(){
+		ModelAndView result;
+		
+		try{
+			this.administratorService.computeScore();
+			result = new ModelAndView("redirect:/welcome/index.do");
+			
+		}catch(Throwable oops){
+			result = null;
+		}
+		return result;
+	}
 }

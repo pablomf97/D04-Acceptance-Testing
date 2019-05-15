@@ -53,13 +53,13 @@ public class CompanyService {
 
 	@Autowired
 	private PositionService positionService;
-	
+
 	@Autowired
 	private AuditService auditService;
-	
+
 	@Autowired
 	private SponsorshipService sponsorshipService;
-	
+
 	@Autowired
 	private ApplicationService applicationService;
 
@@ -151,7 +151,7 @@ public class CompanyService {
 
 			/* Managing email */
 			String email = company.getEmail();
-		/*	Assert.isTrue(
+			/*	Assert.isTrue(
 					this.actorService.checkEmail(email, company
 							.getUserAccount().getAuthorities().iterator()
 							.next().toString()), "actor.email.error");
@@ -307,7 +307,7 @@ public class CompanyService {
 		Md5PasswordEncoder encoder;
 		encoder = new Md5PasswordEncoder();
 		userAccount
-				.setPassword(encoder.encodePassword(form.getPassword(), null));
+		.setPassword(encoder.encodePassword(form.getPassword(), null));
 
 		res.setUserAccount(userAccount);
 
@@ -375,7 +375,7 @@ public class CompanyService {
 			}
 		}
 
-	/*	if (form.getEmail() != null) {
+		/*	if (form.getEmail() != null) {
 			try {
 				Assert.isTrue(this.actorService.checkEmail(form.getEmail(),
 						"COMPANY"), "actor.email.error");
@@ -401,24 +401,31 @@ public class CompanyService {
 		principal = this.actorService.findByPrincipal();
 
 		Assert.isTrue(principal.getId() == company.getId(), "no.permission");
-		
+
 		this.auditService.deleteAuditsPerCompany(company);
-		
+
 		this.positionService.DeletePositionPerCompany(company);
 
 		this.problemService.DeleteProblemPerCompany(company);
 
 		this.companyRepository.delete(company);
-		
-		
+
+
 	}
 	public Double[] statsScoreCompanies(){
-		
+
 		return this.companyRepository.statsScoreCompanies();
-		
+
 	}
 	public Collection<Company> CompaniesHighestScores(){
 		return this.companyRepository.CompaniesHighestScores();
+	}
+
+	public Collection<Integer> getScoresAuditedByCompany(int companyId){
+
+		Collection<Integer> result = this.companyRepository.getScoresAuditedByCompany(companyId);
+
+		return result;
 	}
 
 }

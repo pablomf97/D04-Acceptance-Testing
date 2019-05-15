@@ -21,4 +21,7 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 	Collection<Company> CompaniesHighestScores();
 	
 	
+	@Query("select a.score from Audit a where a.position.company.id = ?1")
+	Collection<Integer> getScoresAuditedByCompany(int companyId);
+	
 }
