@@ -78,7 +78,7 @@
 		<security:intercept-url pattern="/provider/provider/register.do"
 			access="isAnonymous()" />
 		<security:intercept-url pattern="/auditor/auditor/register.do"
-			access="isAnonymous()" />
+			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/auditor/auditor/edit.do"
 			access="hasRole('AUDITOR')" />
 

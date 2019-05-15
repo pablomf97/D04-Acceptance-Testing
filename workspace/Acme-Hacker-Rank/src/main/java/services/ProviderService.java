@@ -306,7 +306,7 @@ public class ProviderService {
 		Md5PasswordEncoder encoder;
 		encoder = new Md5PasswordEncoder();
 		userAccount
-				.setPassword(encoder.encodePassword(form.getPassword(), null));
+		.setPassword(encoder.encodePassword(form.getPassword(), null));
 
 		res.setUserAccount(userAccount);
 
@@ -373,6 +373,16 @@ public class ProviderService {
 				}
 			}
 		}
+
+		/* Username */
+		if (form.getUsername() != null)
+			try {
+				Assert.isTrue(
+						this.actorService.existsUsername(form.getUsername()),
+						"username.error");
+			} catch (final Throwable oops) {
+				binding.rejectValue("username", "username.error");
+			}
 
 		if (form.getEmail() != null) {
 			try {

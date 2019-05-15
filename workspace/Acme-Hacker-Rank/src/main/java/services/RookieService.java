@@ -305,7 +305,7 @@ public class RookieService {
 		Md5PasswordEncoder encoder;
 		encoder = new Md5PasswordEncoder();
 		userAccount
-				.setPassword(encoder.encodePassword(form.getPassword(), null));
+		.setPassword(encoder.encodePassword(form.getPassword(), null));
 
 		res.setUserAccount(userAccount);
 
@@ -326,6 +326,16 @@ public class RookieService {
 						"pass.confirm.error");
 			} catch (final Throwable oops) {
 				binding.rejectValue("password", "pass.confirm.error");
+			}
+
+		/* Username */
+		if (form.getUsername() != null)
+			try {
+				Assert.isTrue(
+						this.actorService.existsUsername(form.getUsername()),
+						"username.error");
+			} catch (final Throwable oops) {
+				binding.rejectValue("username", "username.error");
 			}
 
 		/* Terms&Conditions */

@@ -32,7 +32,7 @@ public class AdministratorService {
 	private AdministratorRepository administratorRepository;
 
 	/* Services */
-	
+
 	@Autowired
 	private CompanyService companyService;
 
@@ -350,16 +350,6 @@ public class AdministratorService {
 
 		res.setUserAccount(userAccount);
 
-		/* Username */
-		if (form.getUsername() != null)
-			try {
-				Assert.isTrue(
-						this.actorService.existsUsername(form.getUsername()),
-						"username.error");
-			} catch (final Throwable oops) {
-				binding.rejectValue("username", "username.error");
-			}
-
 		/* VAT */
 		if (form.getVAT() != null)
 			try {
@@ -429,6 +419,16 @@ public class AdministratorService {
 				binding.rejectValue("email", "email.error");
 			}
 		}
+
+		/* Username */
+		if (form.getUsername() != null)
+			try {
+				Assert.isTrue(
+						this.actorService.existsUsername(form.getUsername()),
+						"username.error");
+			} catch (final Throwable oops) {
+				binding.rejectValue("username", "username.error");
+			}
 
 		return res;
 	}
