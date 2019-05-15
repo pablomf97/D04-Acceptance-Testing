@@ -30,7 +30,7 @@
 		<security:authorize access="hasRole('ADMIN')">
 			<!-- Register admin -->
 			<li><a class="fNiv"><spring:message
-						code="master.page.singup" /></a>
+						code="master.page.register" /></a>
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="administrator/administrator/register.do"><spring:message
@@ -52,8 +52,6 @@
 								code="master.page.register.company" /></a></li>
 					<li><a href="rookie/rookie/register.do"><spring:message
 								code="master.page.register.rookie" /></a></li>
-					<li><a href="auditor/auditor/register.do"><spring:message
-								code="master.page.register.auditor" /></a></li>
 					<li><a href="provider/provider/register.do"><spring:message
 								code="master.page.register.provider" /></a></li>
 				</ul></li>

@@ -44,7 +44,7 @@ public class AuditorService {
 
 	@Autowired
 	private UtilityService utilityService;
-	
+
 	@Autowired
 	private AuditService auditService;
 
@@ -115,25 +115,29 @@ public class AuditorService {
 			}
 
 			/* Managing email */
-		/*	String email = auditor.getEmail();
-			Assert.isTrue(
-					this.actorService.checkEmail(email, auditor
-							.getUserAccount().getAuthorities().iterator()
-							.next().toString()), "actor.email.error");*/
+			/*
+			 * String email = auditor.getEmail(); Assert.isTrue(
+			 * this.actorService.checkEmail(email, auditor
+			 * .getUserAccount().getAuthorities().iterator()
+			 * .next().toString()), "actor.email.error");
+			 */
 
 			/* Managing photo */
-		/*	Assert.isTrue(ResourceUtils.isUrl(auditor.getPhoto()),
-					"actor.photo.error");*/
+			/*
+			 * Assert.isTrue(ResourceUtils.isUrl(auditor.getPhoto()),
+			 * "actor.photo.error");
+			 */
 		} else {
 			principal = (Auditor) this.actorService.findByPrincipal();
 			Assert.isTrue(principal.getId() == auditor.getId(), "no.permission");
 
 			/* Managing email */
-//			String email = auditor.getEmail();
-			/*Assert.isTrue(
-					this.actorService.checkEmail(email, auditor
-							.getUserAccount().getAuthorities().iterator()
-							.next().toString()), "actor.email.error");*/
+			// String email = auditor.getEmail();
+			/*
+			 * Assert.isTrue( this.actorService.checkEmail(email, auditor
+			 * .getUserAccount().getAuthorities().iterator()
+			 * .next().toString()), "actor.email.error");
+			 */
 
 			/* Managing phone number */
 			char[] phoneArray = auditor.getPhoneNumber().toCharArray();
@@ -231,7 +235,7 @@ public class AuditorService {
 			}
 		}
 
-		/*if (form.getEmail() != null) {
+		if (form.getEmail() != null) {
 			try {
 				Assert.isTrue(this.actorService.checkEmail(form.getEmail(),
 						"AUDITOR"), "actor.email.error");
@@ -239,7 +243,7 @@ public class AuditorService {
 				binding.rejectValue("email", "email.error");
 			}
 		}
-*/
+
 		return res;
 	}
 
@@ -357,7 +361,7 @@ public class AuditorService {
 			}
 		}
 
-		/*if (form.getEmail() != null) {
+		if (form.getEmail() != null) {
 			try {
 				Assert.isTrue(this.actorService.checkEmail(form.getEmail(),
 						"AUDITOR"), "actor.email.error");
@@ -365,7 +369,7 @@ public class AuditorService {
 				binding.rejectValue("email", "email.error");
 			}
 		}
-*/
+
 		return res;
 	}
 
@@ -386,7 +390,8 @@ public class AuditorService {
 		principal = this.actorService.findByPrincipal();
 
 		Assert.isTrue(principal.getId() == auditor.getId(), "no.permission");
-		Collection <Audit> cols=this.auditService.auditsPerAuditor(auditor.getId());
+		Collection<Audit> cols = this.auditService.auditsPerAuditor(auditor
+				.getId());
 		this.auditService.deleteAuditsPerAuditor(cols);
 		this.auditorRepository.delete(auditor);
 	}

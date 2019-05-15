@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.ArrayList;
@@ -31,31 +30,30 @@ public class RookieService {
 	/* Working repository */
 
 	@Autowired
-	private RookieRepository			rookieRepository;
+	private RookieRepository rookieRepository;
 
 	/* Services */
 
 	@Autowired
-	private SystemConfigurationService	systemConfigurationService;
+	private SystemConfigurationService systemConfigurationService;
 
 	@Autowired
-	private ActorService				actorService;
+	private ActorService actorService;
 
 	@Autowired
-	private CreditCardService			creditCardService;
+	private CreditCardService creditCardService;
 
 	@Autowired
-	private UtilityService				utilityService;
+	private UtilityService utilityService;
 
 	@Autowired
-	private FinderService				finderService;
+	private FinderService finderService;
 
 	@Autowired
-	private CurriculaService			curriculaService;
+	private CurriculaService curriculaService;
 
 	@Autowired
-	private ApplicationService			applicationService;
-
+	private ApplicationService applicationService;
 
 	/* Simple CRUD methods */
 
@@ -114,18 +112,25 @@ public class RookieService {
 
 			/* Managing phone number */
 			final char[] phoneArray = rookie.getPhoneNumber().toCharArray();
-			if ((!rookie.getPhoneNumber().equals(null) && !rookie.getPhoneNumber().equals("")))
+			if ((!rookie.getPhoneNumber().equals(null) && !rookie
+					.getPhoneNumber().equals("")))
 				if (phoneArray[0] != '+' && Character.isDigit(phoneArray[0])) {
-					final String cc = this.systemConfigurationService.findMySystemConfiguration().getCountryCode();
+					final String cc = this.systemConfigurationService
+							.findMySystemConfiguration().getCountryCode();
 					rookie.setPhoneNumber(cc + " " + rookie.getPhoneNumber());
 				}
 
 			/* Managing email */
 			final String email = rookie.getEmail();
-		//	Assert.isTrue(this.actorService.checkEmail(email, rookie.getUserAccount().getAuthorities().iterator().next().toString()), "actor.email.error");
+			// Assert.isTrue(this.actorService.checkEmail(email,
+			// rookie.getUserAccount().getAuthorities().iterator().next().toString()),
+			// "actor.email.error");
 
 			/* Managing photo */
-		/*	Assert.isTrue(ResourceUtils.isUrl(rookie.getPhoto()), "actor.photo.error");*/
+			/*
+			 * Assert.isTrue(ResourceUtils.isUrl(rookie.getPhoto()),
+			 * "actor.photo.error");
+			 */
 
 		} else {
 			principal = (Rookie) this.actorService.findByPrincipal();
@@ -133,13 +138,17 @@ public class RookieService {
 
 			/* Managing email */
 			final String email = rookie.getEmail();
-		//	Assert.isTrue(this.actorService.checkEmail(email, rookie.getUserAccount().getAuthorities().iterator().next().toString()), "actor.email.error");
+			// Assert.isTrue(this.actorService.checkEmail(email,
+			// rookie.getUserAccount().getAuthorities().iterator().next().toString()),
+			// "actor.email.error");
 
 			/* Managing phone number */
 			final char[] phoneArray = rookie.getPhoneNumber().toCharArray();
-			if ((!rookie.getPhoneNumber().equals(null) && !rookie.getPhoneNumber().equals("")))
+			if ((!rookie.getPhoneNumber().equals(null) && !rookie
+					.getPhoneNumber().equals("")))
 				if (phoneArray[0] != '+' && Character.isDigit(phoneArray[0])) {
-					final String cc = this.systemConfigurationService.findMySystemConfiguration().getCountryCode();
+					final String cc = this.systemConfigurationService
+							.findMySystemConfiguration().getCountryCode();
 					rookie.setPhoneNumber(cc + " " + rookie.getPhoneNumber());
 				}
 
@@ -153,6 +162,7 @@ public class RookieService {
 
 		return res;
 	}
+
 	public void saveFinder(final Rookie hack, final Finder f) {
 		hack.setFinder(f);
 		this.rookieRepository.save(hack);
@@ -168,7 +178,8 @@ public class RookieService {
 	 * 
 	 * @return Rookie
 	 */
-	public Rookie reconstruct(final EditionFormObject form, final BindingResult binding) {
+	public Rookie reconstruct(final EditionFormObject form,
+			final BindingResult binding) {
 
 		final Rookie res = this.create();
 
@@ -197,7 +208,8 @@ public class RookieService {
 		/* VAT */
 		if (form.getVAT() != null)
 			try {
-				Assert.isTrue(this.utilityService.checkVAT(form.getVAT()), "VAT.error");
+				Assert.isTrue(this.utilityService.checkVAT(form.getVAT()),
+						"VAT.error");
 			} catch (final Throwable oops) {
 				binding.rejectValue("VAT", "VAT.error");
 			}
@@ -205,34 +217,44 @@ public class RookieService {
 		/* Credit card */
 		if (form.getNumber() != null)
 			try {
-				Assert.isTrue(this.creditCardService.checkCreditCardNumber(creditCard.getNumber()), "card.number.error");
+				Assert.isTrue(this.creditCardService
+						.checkCreditCardNumber(creditCard.getNumber()),
+						"card.number.error");
 			} catch (final Throwable oops) {
 				binding.rejectValue("number", "number.error");
 			}
 
-		if (creditCard.getExpirationMonth() != null && creditCard.getExpirationYear() != null) {
+		if (creditCard.getExpirationMonth() != null
+				&& creditCard.getExpirationYear() != null) {
 
 			try {
-				Assert.isTrue(!this.creditCardService.checkIfExpired(creditCard.getExpirationMonth(), creditCard.getExpirationYear()), "card.date.error");
+				Assert.isTrue(
+						!this.creditCardService.checkIfExpired(
+								creditCard.getExpirationMonth(),
+								creditCard.getExpirationYear()),
+						"card.date.error");
 			} catch (final Throwable oops) {
 				binding.rejectValue("expirationMonth", "card.date.error");
 			}
 
 			if (form.getCVV() != null)
 				try {
-					Assert.isTrue(form.getCVV() < 999 && form.getCVV() > 100, "CVV.error");
+					Assert.isTrue(form.getCVV() < 999 && form.getCVV() > 100,
+							"CVV.error");
 				} catch (final Throwable oops) {
 					binding.rejectValue("CVV", "CVV.error");
 				}
 		}
 
-		/*if (form.getEmail() != null)
+		if (form.getEmail() != null)
 			try {
-				Assert.isTrue(this.actorService.checkEmail(form.getEmail(), "ROOKIE"), "actor.email.error");
+				Assert.isTrue(
+						this.actorService.checkEmail(form.getEmail(), "ROOKIE"),
+						"actor.email.error");
 			} catch (final Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-*/
+
 		return res;
 	}
 
@@ -243,7 +265,8 @@ public class RookieService {
 	 * 
 	 * @return Rookie
 	 */
-	public Rookie reconstruct(final RegisterFormObject form, final BindingResult binding) {
+	public Rookie reconstruct(final RegisterFormObject form,
+			final BindingResult binding) {
 
 		/* Creating rookie */
 		final Rookie res = this.create();
@@ -281,14 +304,16 @@ public class RookieService {
 
 		Md5PasswordEncoder encoder;
 		encoder = new Md5PasswordEncoder();
-		userAccount.setPassword(encoder.encodePassword(form.getPassword(), null));
+		userAccount
+				.setPassword(encoder.encodePassword(form.getPassword(), null));
 
 		res.setUserAccount(userAccount);
 
 		/* VAT */
 		if (form.getVAT() != null)
 			try {
-				Assert.isTrue(this.utilityService.checkVAT(form.getVAT()), "VAT.error");
+				Assert.isTrue(this.utilityService.checkVAT(form.getVAT()),
+						"VAT.error");
 			} catch (final Throwable oops) {
 				binding.rejectValue("VAT", "VAT.error");
 			}
@@ -296,7 +321,9 @@ public class RookieService {
 		/* Password confirmation */
 		if (form.getPassword() != null)
 			try {
-				Assert.isTrue(form.getPassword().equals(form.getPassConfirmation()), "pass.confirm.error");
+				Assert.isTrue(
+						form.getPassword().equals(form.getPassConfirmation()),
+						"pass.confirm.error");
 			} catch (final Throwable oops) {
 				binding.rejectValue("password", "pass.confirm.error");
 			}
@@ -312,34 +339,44 @@ public class RookieService {
 		/* Credit card */
 		if (form.getNumber() != null)
 			try {
-				Assert.isTrue(this.creditCardService.checkCreditCardNumber(creditCard.getNumber()), "card.number.error");
+				Assert.isTrue(this.creditCardService
+						.checkCreditCardNumber(creditCard.getNumber()),
+						"card.number.error");
 			} catch (final Throwable oops) {
 				binding.rejectValue("number", "number.error");
 			}
 
-		if (creditCard.getExpirationMonth() != null && creditCard.getExpirationYear() != null) {
+		if (creditCard.getExpirationMonth() != null
+				&& creditCard.getExpirationYear() != null) {
 
 			try {
-				Assert.isTrue(!this.creditCardService.checkIfExpired(creditCard.getExpirationMonth(), creditCard.getExpirationYear()), "card.date.error");
+				Assert.isTrue(
+						!this.creditCardService.checkIfExpired(
+								creditCard.getExpirationMonth(),
+								creditCard.getExpirationYear()),
+						"card.date.error");
 			} catch (final Throwable oops) {
 				binding.rejectValue("expirationMonth", "card.date.error");
 			}
 
 			if (form.getCVV() != null)
 				try {
-					Assert.isTrue(form.getCVV() < 999 && form.getCVV() > 100, "CVV.error");
+					Assert.isTrue(form.getCVV() < 999 && form.getCVV() > 100,
+							"CVV.error");
 				} catch (final Throwable oops) {
 					binding.rejectValue("CVV", "CVV.error");
 				}
 		}
 
-		/*if (form.getEmail() != null)
+		if (form.getEmail() != null)
 			try {
-				Assert.isTrue(this.actorService.checkEmail(form.getEmail(), "ROOKIE"), "actor.email.error");
+				Assert.isTrue(
+						this.actorService.checkEmail(form.getEmail(), "ROOKIE"),
+						"actor.email.error");
 			} catch (final Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-*/
+
 		return res;
 	}
 
