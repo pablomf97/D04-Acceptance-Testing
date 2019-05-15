@@ -128,6 +128,21 @@ public class ItemService {
 		return res;
 	}
 	
+	public Boolean checkIfUrl(final String attachments) {
+		Boolean res = true;
+		if (attachments != null && !attachments.isEmpty()) {
+			final String[] slice = attachments.split(",");
+			for (final String p : slice) {
+				if (p.trim() != "" && res) {
+					if(!ResourceUtils.isUrl(p)) {
+						res = false;
+					}
+				}
+			}
+		}
+		return res;
+	}
+	
 	public Item reconstruct(final Item item,
 			 BindingResult binding) {
 		Item result;
@@ -139,6 +154,18 @@ public class ItemService {
 		} else {
 			result = this.findOne(item.getId());
 			Assert.isTrue(result.getProvider().equals((Provider) principal));
+		}
+		
+		try {
+			Assert.isTrue(this.checkIfUrl(item.getLinks()),"links.not.url");
+		} catch (final Exception e) {
+			binding.rejectValue("links", "links.not.url");
+		}
+
+		try {
+			Assert.isTrue(this.checkIfUrl(item.getPictures()), "pictures.not.url");
+		} catch (final Exception e) {
+			binding.rejectValue("pictures", "pictures.not.url");
 		}
 		result.setName(item.getName());
 		result.setDescription(item.getDescription());

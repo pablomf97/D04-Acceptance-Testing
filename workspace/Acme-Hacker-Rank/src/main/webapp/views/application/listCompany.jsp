@@ -12,7 +12,7 @@
 
 	<jstl:choose>
 		<jstl:when test="${permission}">
-			<display:table class="displaytag" name="applications"
+			<display:table class="displaytag" name="applications" pagesize="5"
 				requestURI="application/listCompany.do" id="app">
 
 				<display:column titleKey="application.applicationMoment"

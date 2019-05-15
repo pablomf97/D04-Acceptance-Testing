@@ -2,6 +2,7 @@
 package services;
 
 import java.security.SecureRandom;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -51,7 +52,9 @@ public class PositionService {
 
 	@Autowired
 	private SponsorshipService	sponsorshipService;
-
+	
+	@Autowired
+	private CreditCardService creditCardService;
 
 	public Position create(final Actor actor) {
 		Actor principal;
@@ -364,7 +367,19 @@ public class PositionService {
 	public String randomBanner(final Collection<Sponsorship> sponsorships) {
 		String result;
 		final SecureRandom rnd = new SecureRandom();
-		final List<Sponsorship> listSponsoships = new ArrayList<>(sponsorships);
+		List<Sponsorship> listSponsoships = new ArrayList<>(sponsorships);
+		List<Sponsorship> listAux = new ArrayList<>(listSponsoships);
+		
+		for(Sponsorship s: listAux) {
+			try {
+				if(this.creditCardService.checkIfExpired(s.getCreditCard().getExpirationMonth(), s.getCreditCard().getExpirationYear())) {
+					  listSponsoships.remove(s);
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 		Integer a = (rnd.nextInt() % 10);
 		while (a < 0 || a > (sponsorships.size() - 1))
