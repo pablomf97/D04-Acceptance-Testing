@@ -42,7 +42,7 @@ public class AuditController {
 	public ModelAndView listAllByPosition(@RequestParam final int Id) {
 		ModelAndView result;
 		try {
-			final Collection<Audit> audits = this.auditService.findAllByPosition(Id);
+			final Collection<Audit> audits = this.auditService.findAllByPositionFinal(Id);
 			result = new ModelAndView("audit/list");
 			result.addObject("requestURI", "/audit/list.do");
 			result.addObject("audits", audits);
@@ -175,8 +175,6 @@ public class AuditController {
 					b = false;
 			}
 			Assert.isTrue(b);
-			if (actor != null && (audit.getAuditor() != ((Auditor) actor)) && (audit.getIsDraft() == true))
-				Assert.isTrue(false);
 			result.addObject(audit);
 		} catch (final Throwable opps) {
 			result = new ModelAndView("redirect:list.do");

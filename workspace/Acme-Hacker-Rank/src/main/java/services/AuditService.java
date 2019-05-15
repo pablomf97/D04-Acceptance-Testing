@@ -44,7 +44,7 @@ public class AuditService {
 
 		principal = this.actorService.findByPrincipal();
 		Assert.isTrue(this.actorService.checkAuthority(principal, "AUDITOR"), "not.allowed");
-		
+
 		result = new Audit();
 		result.setAuditor((Auditor) principal);
 		result.setIsDraft(true);
@@ -63,7 +63,10 @@ public class AuditService {
 		Assert.notNull(id);
 		return this.auditRepository.auditsPerPosition(id);
 	}
-
+	public Collection<Audit> findAllByPositionFinal(final Integer id) {
+		Assert.notNull(id);
+		return this.auditRepository.auditsPerPositionFinal(id);
+	}
 	public Audit findOne(final int auditId) {
 		Audit result;
 
@@ -91,8 +94,7 @@ public class AuditService {
 			result.setText(audit.getText());
 		}
 		Assert.notNull(result);
-		
-		
+
 		result = this.auditRepository.save(result);
 
 		return result;
@@ -155,8 +157,8 @@ public class AuditService {
 		this.auditRepository.deleteInBatch(cols);
 
 	}
-	
-	public void flush(){
+
+	public void flush() {
 		this.auditRepository.flush();
 	}
 }

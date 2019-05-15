@@ -23,8 +23,13 @@
 	</display:column>
 
 	<jstl:if test="${name == row.auditor.userAccount.username }">
-		<display:column titleKey="audit.isDraft" sortable="true">
-			<jstl:out value="${row.isDraft }"></jstl:out>
+		<display:column titleKey="audit.status" sortable="true">
+			<jstl:if test="${row.isDraft == true }">
+				<spring:message code="audit.isDraft" />
+			</jstl:if>
+			<jstl:if test="${row.isDraft == false}">
+				<spring:message code="audit.final" />
+			</jstl:if>
 		</display:column>
 	</jstl:if>
 

@@ -247,13 +247,14 @@
 </div>
 
 <div style="float: right;">
-	<a href="?language=es"><img style="width: 20px; height: 15px"
-		src="http://www.ahb.es/m/100150RES.jpg" alt="ES"></a> <span>|</span>
 
-	<a href="?language=en"><img style="width: 20px; height: 15px;"
-		src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png"
-		alt="EN"></a>
-</div>
+	<a href="?language=en"><img style="width: 20px; height: 15px"
+		src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png" alt="EN"></a> <span>|</span>
+
+	<a href="?language=es"><img style="width: 20px; height: 15px;"
+		src="http://www.ahb.es/m/100150RES.jpg"
+		alt="ES"></a>
+
 
 <security:authorize access="isAuthenticated()">
 	<jstl:if
