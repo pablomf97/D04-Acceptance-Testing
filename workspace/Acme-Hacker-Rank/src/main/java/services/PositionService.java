@@ -30,31 +30,35 @@ import domain.Sponsorship;
 public class PositionService {
 
 	@Autowired
-	private PositionRepository	positionRepository;
+	private PositionRepository			positionRepository;
 
 	@Autowired
-	private ProblemService		problemService;
+	private ProblemService				problemService;
 
 	@Autowired
-	private ApplicationService	applicationService;
+	private ApplicationService			applicationService;
 
 	@Autowired
-	private CurriculaService	curriculaService;
+	private CurriculaService			curriculaService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService				actorService;
 
 	@Autowired
-	private Validator			validator;
+	private Validator					validator;
 
 	@Autowired
-	private AuditService		auditService;
+	private AuditService				auditService;
 
 	@Autowired
 	private SponsorshipService	sponsorshipService;
 	
 	@Autowired
 	private CreditCardService creditCardService;
+
+	@Autowired
+	private SystemConfigurationService	sysConfigService;
+
 
 	public Position create(final Actor actor) {
 		Actor principal;
@@ -384,7 +388,8 @@ public class PositionService {
 		Integer a = (rnd.nextInt() % 10);
 		while (a < 0 || a > (sponsorships.size() - 1))
 			a = (rnd.nextInt() % 10);
-
+		final Double tax = this.sysConfigService.findMySystemConfiguration().getVATTax();
+		//Method to collect the tax
 		result = listSponsoships.get(a).getBanner();
 
 		return result;

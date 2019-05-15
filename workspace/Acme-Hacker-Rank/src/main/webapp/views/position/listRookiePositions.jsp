@@ -104,5 +104,14 @@
 			</a>
 		</jstl:if>
 	</display:column>
+	<security:authorize access="isAuthenticated()">
+
+		<display:column titleKey="position.audit.list" sortable="true">
+
+			<a href="audit/listAll.do?Id=${row.id}"><spring:message
+					code="position.audit.list" /></a>
+
+		</display:column>
+	</security:authorize>
 
 </display:table>

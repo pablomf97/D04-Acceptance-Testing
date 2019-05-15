@@ -116,6 +116,16 @@
 		</strong></td>
 		<td>${status}</td>
 	</tr>
+	<security:authorize access="isAuthenticated()">
+
+		<tr>
+			<td><strong> <spring:message code="position.audit.list" />
+					:
+			</strong></td>
+			<td><a href="audit/listAll.do?Id=${position.id}"><spring:message
+						code="position.audit.list" /></a></td>
+		</tr>
+	</security:authorize>
 
 	<jstl:if test="${name == position.company.userAccount.username}">
 		<jstl:forEach items="${position.problems}" var="pro">
@@ -164,4 +174,6 @@
 		</jstl:if>
 	</button>
 </jstl:if>
+
+
 <br />

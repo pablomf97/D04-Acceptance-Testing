@@ -14,9 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.AuditorService;
-import domain.Administrator;
 import domain.Auditor;
-import domain.Rookie;
 import forms.EditionFormObject;
 import forms.RegisterFormObject;
 
@@ -110,7 +108,8 @@ public class AuditorController extends AbstractController {
 			Auditor auditor = new Auditor();
 			auditor = this.auditorService.create();
 
-			auditor = this.auditorService.reconstruct(editionFormObject, binding);
+			auditor = this.auditorService.reconstruct(editionFormObject,
+					binding);
 
 			if (binding.hasErrors()) {
 				res = this.createEditModelAndView(editionFormObject);
@@ -143,10 +142,16 @@ public class AuditorController extends AbstractController {
 	public ModelAndView registerNewAuditor() {
 		ModelAndView res;
 
-		RegisterFormObject registerFormObject = new RegisterFormObject();
-		registerFormObject.setTermsAndConditions(false);
+		try {
+			Assert.isTrue(this.actorService.checkAuthority(
+					this.actorService.findByPrincipal(), "ADMIN"));
+			RegisterFormObject registerFormObject = new RegisterFormObject();
+			registerFormObject.setTermsAndConditions(false);
 
-		res = this.createRegisterModelAndView(registerFormObject);
+			res = this.createRegisterModelAndView(registerFormObject);
+		} catch (Throwable oops) {
+			res = new ModelAndView("redirect:/");
+		}
 
 		return res;
 	}
@@ -228,9 +233,9 @@ public class AuditorController extends AbstractController {
 		return result;
 	}
 
-
 	@RequestMapping(value = "/auditor/edit", method = RequestMethod.POST, params = "deleteAuditor")
-	public ModelAndView deleteAuditor(final EditionFormObject editionFormObject,
+	public ModelAndView deleteAuditor(
+			final EditionFormObject editionFormObject,
 			final BindingResult binding, final HttpSession session) {
 		ModelAndView result;
 		Auditor auditor;

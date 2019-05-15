@@ -28,6 +28,7 @@ public class SystemConfiguration extends DomainEntity {
 	private Integer maxResults;
 	private Map<String, String> breachNotification;
 	private Double VATTax;
+	private Double flatRate;
 	private Boolean alreadyRebranded;
 
 	/* Getters&Setters */
@@ -107,6 +108,16 @@ public class SystemConfiguration extends DomainEntity {
 
 	public void setVATTax(Double vATTax) {
 		VATTax = vATTax;
+	}
+	
+	@Digits(integer = 3, fraction = 2)
+	@Range(min = 0, max = 5)
+	public Double getFlatRate() {
+		return flatRate;
+	}
+
+	public void setFlatRate(Double flatRate) {
+		this.flatRate = flatRate;
 	}
 
 	public Boolean getAlreadyRebranded() {

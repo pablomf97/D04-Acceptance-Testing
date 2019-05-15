@@ -11,17 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 
 import repositories.CompanyRepository;
 import security.Authority;
 import security.UserAccount;
 import domain.Actor;
-import domain.Application;
 import domain.Company;
 import domain.CreditCard;
-import domain.Position;
 import forms.EditionCompanyFormObject;
 import forms.RegisterCompanyFormObject;
 
@@ -53,13 +50,13 @@ public class CompanyService {
 
 	@Autowired
 	private PositionService positionService;
-	
+
 	@Autowired
 	private AuditService auditService;
-	
+
 	@Autowired
 	private SponsorshipService sponsorshipService;
-	
+
 	@Autowired
 	private ApplicationService applicationService;
 
@@ -122,15 +119,18 @@ public class CompanyService {
 			}
 
 			/* Managing email */
-			/*String email = company.getEmail();
-			Assert.isTrue(
-					this.actorService.checkEmail(email, company
-							.getUserAccount().getAuthorities().iterator()
-							.next().toString()), "actor.email.error");
-
-			/* Managing photo */
-			/*Assert.isTrue(ResourceUtils.isUrl(company.getPhoto()),
-					"actor.photo.error");*/
+			/*
+			 * String email = company.getEmail(); Assert.isTrue(
+			 * this.actorService.checkEmail(email, company
+			 * .getUserAccount().getAuthorities().iterator()
+			 * .next().toString()), "actor.email.error");
+			 * 
+			 * /* Managing photo
+			 */
+			/*
+			 * Assert.isTrue(ResourceUtils.isUrl(company.getPhoto()),
+			 * "actor.photo.error");
+			 */
 		} else {
 			principal = this.actorService.findByPrincipal();
 
@@ -150,15 +150,15 @@ public class CompanyService {
 			}
 
 			/* Managing email */
-			String email = company.getEmail();
-		/*	Assert.isTrue(
-					this.actorService.checkEmail(email, company
-							.getUserAccount().getAuthorities().iterator()
-							.next().toString()), "actor.email.error");
+			// String email = company.getEmail();
+			// Assert.isTrue(
+			// this.actorService.checkEmail(email, company
+			// .getUserAccount().getAuthorities().iterator()
+			// .next().toString()), "actor.email.error");
 
 			/* Managing photo */
-			/*Assert.isTrue(ResourceUtils.isUrl(company.getPhoto()),
-					"actor.photo.error");*/
+			// Assert.isTrue(ResourceUtils.isUrl(company.getPhoto()),
+			// "actor.photo.error");
 		}
 
 		res = this.companyRepository.save(company);
@@ -247,14 +247,14 @@ public class CompanyService {
 			}
 		}
 
-		/*if (form.getEmail() != null) {
+		if (form.getEmail() != null) {
 			try {
 				Assert.isTrue(this.actorService.checkEmail(form.getEmail(),
 						"COMPANY"), "actor.email.error");
 			} catch (Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-		}*/
+		}
 
 		return res;
 	}
@@ -375,14 +375,14 @@ public class CompanyService {
 			}
 		}
 
-	/*	if (form.getEmail() != null) {
+		if (form.getEmail() != null) {
 			try {
 				Assert.isTrue(this.actorService.checkEmail(form.getEmail(),
 						"COMPANY"), "actor.email.error");
 			} catch (Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-		}*/
+		}
 
 		return res;
 	}
@@ -401,23 +401,24 @@ public class CompanyService {
 		principal = this.actorService.findByPrincipal();
 
 		Assert.isTrue(principal.getId() == company.getId(), "no.permission");
-		
+
 		this.auditService.deleteAuditsPerCompany(company);
-		
+
 		this.positionService.DeletePositionPerCompany(company);
 
 		this.problemService.DeleteProblemPerCompany(company);
 
 		this.companyRepository.delete(company);
-		
-		
+
 	}
-	public Double[] statsScoreCompanies(){
-		
+
+	public Double[] statsScoreCompanies() {
+
 		return this.companyRepository.statsScoreCompanies();
-		
+
 	}
-	public Collection<Company> CompaniesHighestScores(){
+
+	public Collection<Company> CompaniesHighestScores() {
 		return this.companyRepository.CompaniesHighestScores();
 	}
 
