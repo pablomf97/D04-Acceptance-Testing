@@ -53,7 +53,7 @@
 
 </table>
 
-<jstl:if test="${name == position.auditor.userAccount.username }">
+<jstl:if test="${name == audit.auditor.userAccount.username }">
 
 	<button
 		onClick="window.location.href='audit/delete.do?Id=${audit.id}'">
