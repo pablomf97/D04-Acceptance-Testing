@@ -29,9 +29,15 @@
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		<security:authorize access="hasRole('ADMIN')">
 			<!-- Register admin -->
-			<li><a class="fNiv"
-				href="administrator/administrator/register.do"><spring:message
-						code="master.page.register.admin" /></a></li>
+			<li><a class="fNiv"><spring:message
+						code="master.page.singup" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="administrator/administrator/register.do"><spring:message
+								code="master.page.register.admin" /></a></li>
+					<li><a href="auditor/auditor/register.do"><spring:message
+								code="master.page.register.auditor" /></a></li>
+				</ul></li>
 
 		</security:authorize>
 
@@ -96,29 +102,27 @@
 				</ul></li>
 		</security:authorize>
 		<security:authorize access="hasRole('AUDITOR')">
-			<li><a class="fNiv"><spring:message
-						code="master.page.audit" /></a>
+			<li><a class="fNiv"><spring:message code="master.page.audit" /></a>
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="audit/list.do"><spring:message
 								code="master.page.audit.list" /></a></li>
 				</ul></li>
 		</security:authorize>
-		
+
 		<security:authorize access="!hasRole('PROVIDER')">
-					
-					<li><a href="item/listAll.do"><spring:message
-								code="master.page.items" /></a></li>
+
+			<li><a href="item/listAll.do"><spring:message
+						code="master.page.items" /></a></li>
 
 		</security:authorize>
 
 		<security:authorize access="hasRole('PROVIDER')">
 
 			<li><a class="fNiv" href="sponsorship/list.do"><spring:message
-					code="master.page.sponsorship" /></a></li>
-					
-			<li><a class="fNiv"><spring:message
-						code="master.page.items" /></a>
+						code="master.page.sponsorship" /></a></li>
+
+			<li><a class="fNiv"><spring:message code="master.page.items" /></a>
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="item/list.do"><spring:message
@@ -133,10 +137,10 @@
 
 		<li><a class="fNiv" href="company/list.do"><spring:message
 					code="master.page.company.list" /></a></li>
-	
+
 		<li><a class="fNiv" href="provider/list.do"><spring:message
 					code="master.page.provider.list" /></a></li>
-					
+
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
@@ -245,13 +249,14 @@
 </div>
 
 <div style="float: right;">
+
 	<a href="?language=en"><img style="width: 20px; height: 15px"
 		src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/1280px-Flag_of_the_United_Kingdom.svg.png" alt="EN"></a> <span>|</span>
 
 	<a href="?language=es"><img style="width: 20px; height: 15px;"
 		src="http://www.ahb.es/m/100150RES.jpg"
 		alt="ES"></a>
-</div>
+
 
 <security:authorize access="isAuthenticated()">
 	<jstl:if
@@ -272,5 +277,9 @@
 				</jstl:out>
 			</strong>
 		</h2>
+	</jstl:if>
+	<jstl:if test="${AlreadyRebranded==true }">
+
+		<spring:message code="rebrand" />
 	</jstl:if>
 </security:authorize>

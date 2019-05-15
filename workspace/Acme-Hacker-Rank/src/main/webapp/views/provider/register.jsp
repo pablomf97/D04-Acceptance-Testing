@@ -266,7 +266,7 @@
 				<strong><form:label path="expirationMonth">
 						<spring:message code="card.expirationMonth" />
 					</form:label></strong>
-				<form:input path="expirationMonth" />
+				<form:input placeholder="MM" path="expirationMonth" />
 			</div>
 
 			<br>
@@ -280,12 +280,13 @@
 				<strong><form:label path="expirationYear">
 						<spring:message code="card.expirationYear" />
 					</form:label></strong>
-				<form:input path="expirationYear" />
+				<form:input placeholder="YY" path="expirationYear" />
 			</div>
 
 			<br />
 
 			<div>
+				<spring:message var="cvvmessage" code="cvv.message" />
 				<form:errors path="CVV" cssClass="error">
 					<p class="error">
 						<spring:message code="CVV.error" />
@@ -294,8 +295,10 @@
 				<strong><form:label path="CVV">
 						<spring:message code="card.CVV" />
 					</form:label></strong>
-				<form:input path="CVV" />
+				<form:input style="width:245px;" placeholder="${cvvmessage}"
+					path="CVV" />
 			</div>
+			<br />
 			<br />
 		</fieldset>
 		<br />

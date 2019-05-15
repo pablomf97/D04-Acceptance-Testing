@@ -17,13 +17,18 @@
 			</p>
 		</jstl:when>
 		<jstl:otherwise>
-
+		
+		<jstl:if test="${AlreadyRebranded==false}">
+			<div><a href="sysconfig/administrator/rebrand.do"><spring:message code="anuncio" /></a></div>
+			
+			</jstl:if>
 			<table class="displayStyle">
 
 				<tr>
 					<td><spring:message code="system.name" />:</td>
 					<td><jstl:out value="${sysConfig.systemName}" /></td>
 				</tr>
+				
 				<tr>
 					<td><spring:message code="system.bannerURL" />:</td>
 					<td><a href="${sysConfig.banner}"><jstl:out
@@ -43,6 +48,16 @@
 				<tr>
 					<td><spring:message code="system.countrycode" />:</td>
 					<td><jstl:out value="${sysConfig.countryCode}" /></td>
+				</tr>
+				
+				<tr>
+					<td><spring:message code="system.VATTax" />:</td>
+					<td><jstl:out value="${sysConfig.VATTax}" /></td>
+				</tr>
+				
+				<tr>
+					<td><spring:message code="system.flat" />:</td>
+					<td><jstl:out value="${sysConfig.flatRate}" /></td>
 				</tr>
 			</table>
 

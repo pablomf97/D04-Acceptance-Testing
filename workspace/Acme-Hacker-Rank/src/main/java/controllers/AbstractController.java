@@ -45,6 +45,13 @@ public class AbstractController {
 
 		return res;
 	}
+	
+	@ModelAttribute("AlreadyRebranded")
+	public Boolean getAlreadyRebranded(final Model model) {
+		final Boolean res = this.systemConfigurationService.findMySystemConfiguration().getAlreadyRebranded();
+
+		return res;
+	}
 
 	// Panic handler ----------------------------------------------------------
 
