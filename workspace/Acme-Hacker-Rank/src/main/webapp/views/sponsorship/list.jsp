@@ -15,7 +15,7 @@
 		<jstl:when test="${permission}">
 			<h1><spring:message	code="sponsorship.title.list" /></h1>
 			<display:table class="displaytag" name="sponsorships"  pagesize="5" 
-				requestURI="sponsorships/list.do" id="sponsorship">
+				requestURI="sponsorship/list.do" id="sponsorship">
 
 				<display:column titleKey="sponsorship.banner">
 					<jstl:out value="${sponsorship.banner}" />

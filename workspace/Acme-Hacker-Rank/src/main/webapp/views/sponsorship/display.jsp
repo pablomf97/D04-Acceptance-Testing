@@ -32,8 +32,9 @@
 		<tr>
 			<td><strong> <spring:message code="sponsorship.banner" /> :
 			</strong></td>
-			<td><jstl:out value="${sponsorship.banner}">
-				</jstl:out></td>
+			<td><br><img style="width: 150px; height: 150px" src="${sponsorship.banner}"
+			alt="Banner"/></td>
+			
 		</tr>
 
 	</table>

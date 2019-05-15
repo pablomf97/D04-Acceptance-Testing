@@ -1,5 +1,6 @@
 package services;
 
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,17 +37,29 @@ public class SponsorshipService {
 	private PositionService positionService;
 	
 	@Autowired
+	private CreditCardService creditCardService;
+	
+	@Autowired
 	private Validator validator;
 	
 	
 	public Sponsorship create() {
 		Actor principal;
 		Sponsorship result;
+		boolean expired;
 
 		principal = this.actorService.findByPrincipal();
 		Assert.isTrue(this.actorService.checkAuthority(principal, "PROVIDER"),
 				"not.allowed");
-
+		
+		try {
+			expired = this.creditCardService.checkIfExpired(principal.getCreditCard().getExpirationMonth(), principal.getCreditCard().getExpirationYear());
+			Assert.isTrue(!expired);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		result = new Sponsorship();
 		result.setCreditCard(principal.getCreditCard());
 		result.setProvider((Provider) principal);
@@ -142,10 +155,11 @@ public class SponsorshipService {
 	
 	public Sponsorship reconstruct(final Sponsorship sponsorship,
 			final BindingResult binding) {
-		Sponsorship result;
+		Sponsorship result = null, aux = null;
+		
+		result = this.create();
 		
 		if (sponsorship.getId() == 0) {
-			result = this.create();
 			
 			try {
 				Assert.isTrue(!sponsorship.getTarget().isEmpty(),
@@ -157,10 +171,14 @@ public class SponsorshipService {
 			result.setTarget(sponsorship.getTarget());
 
 		} else {
-			result = this.findOne(sponsorship.getId());
+			aux = this.findOne(sponsorship.getId());
+			result.setCreditCard(aux.getCreditCard());
+			result.setProvider(aux.getProvider());
+			result.setTarget(aux.getTarget());
 		}
 		
 		result.setBanner(sponsorship.getBanner());
+
 
 		this.validator.validate(result, binding);
 		

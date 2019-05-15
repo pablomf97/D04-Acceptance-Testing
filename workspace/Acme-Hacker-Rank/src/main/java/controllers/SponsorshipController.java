@@ -130,13 +130,14 @@ public class SponsorshipController extends AbstractController {
 				result.addObject("isPrincipal", true);
 			} else {
 				try {
-
+					aux.setId(sponsorship.getId());
+					aux.setVersion(sponsorship.getVersion());
 					this.sponsorshipService.save(aux);
 					result = new ModelAndView(
 							"redirect:list.do");
 				} catch (final Throwable oops) {
 					result = new ModelAndView("sponsorship/edit");
-					result.addObject("sponsorship", aux);
+					result.addObject("sponsorship", sponsorship);
 					result.addObject("messageCode", oops.getMessage());
 				}
 			}

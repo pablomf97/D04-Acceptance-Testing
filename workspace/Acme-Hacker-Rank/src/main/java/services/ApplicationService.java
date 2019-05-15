@@ -104,6 +104,8 @@ public class ApplicationService {
 		Assert.notNull(application.getPosition());
 		Assert.notNull(application.getRookie());
 		Assert.notNull(application.getApplicationMoment());
+		Assert.isTrue(!application.getPosition().getIsCancelled());
+		Assert.isTrue(!application.getPosition().getIsDraft());
 
 		if (this.actorService.checkAuthority(principal, "ROOKIE")) {
 

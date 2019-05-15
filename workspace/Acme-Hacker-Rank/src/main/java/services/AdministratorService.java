@@ -32,6 +32,9 @@ public class AdministratorService {
 	private AdministratorRepository administratorRepository;
 
 	/* Services */
+	
+	@Autowired
+	private CompanyService companyService;
 
 	@Autowired
 	private SystemConfigurationService systemConfigurationService;
@@ -44,9 +47,6 @@ public class AdministratorService {
 
 	@Autowired
 	private UtilityService utilityService;
-
-	@Autowired
-	private CompanyService companyService;
 
 	/* Simple CRUD methods */
 
@@ -137,15 +137,18 @@ public class AdministratorService {
 				}
 
 			/* Managing email */
-			/*	String email = administrator.getEmail();
-			Assert.isTrue(
-					this.actorService.checkEmail(email, administrator
-							.getUserAccount().getAuthorities().iterator()
-							.next().toString()), "actor.email.error");
-
-			/* Managing photo */
-			/*	Assert.isTrue(ResourceUtils.isUrl(administrator.getPhoto()),
-					"actor.photo.error");*/
+			/*
+			 * String email = administrator.getEmail(); Assert.isTrue(
+			 * this.actorService.checkEmail(email, administrator
+			 * .getUserAccount().getAuthorities().iterator()
+			 * .next().toString()), "actor.email.error");
+			 * 
+			 * /* Managing photo
+			 */
+			/*
+			 * Assert.isTrue(ResourceUtils.isUrl(administrator.getPhoto()),
+			 * "actor.photo.error");
+			 */
 		} else {
 
 			Assert.isTrue(principal.getId() == administrator.getId(),
@@ -166,15 +169,18 @@ public class AdministratorService {
 				}
 
 			/* Managing email */
-			/*String email = administrator.getEmail();
-			Assert.isTrue(
-					this.actorService.checkEmail(email, administrator
-							.getUserAccount().getAuthorities().iterator()
-							.next().toString()), "actor.email.error");
-
-			/* Managing photo */
-			/*	Assert.isTrue(ResourceUtils.isUrl(administrator.getPhoto()),
-					"actor.photo.error");*/
+			/*
+			 * String email = administrator.getEmail(); Assert.isTrue(
+			 * this.actorService.checkEmail(email, administrator
+			 * .getUserAccount().getAuthorities().iterator()
+			 * .next().toString()), "actor.email.error");
+			 * 
+			 * /* Managing photo
+			 */
+			/*
+			 * Assert.isTrue(ResourceUtils.isUrl(administrator.getPhoto()),
+			 * "actor.photo.error");
+			 */
 		}
 
 		res = this.administratorRepository.save(administrator);
@@ -278,15 +284,16 @@ public class AdministratorService {
 				}
 		}
 
-		/*if (form.getEmail() != null) {
+		if (form.getEmail() != null) {
 			try {
-				/*Assert.isTrue(
+				Assert.isTrue(
 						this.actorService.checkEmail(form.getEmail(), "ADMIN"),
-						"actor.email.error");*/
-		/*} catch (Throwable oops) {
+						"actor.email.error");
+
+			} catch (Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-		}*/
+		}
 
 		return res;
 	}
@@ -342,6 +349,16 @@ public class AdministratorService {
 		.setPassword(encoder.encodePassword(form.getPassword(), null));
 
 		res.setUserAccount(userAccount);
+
+		/* Username */
+		if (form.getUsername() != null)
+			try {
+				Assert.isTrue(
+						this.actorService.existsUsername(form.getUsername()),
+						"username.error");
+			} catch (final Throwable oops) {
+				binding.rejectValue("username", "username.error");
+			}
 
 		/* VAT */
 		if (form.getVAT() != null)
@@ -402,15 +419,16 @@ public class AdministratorService {
 				}
 		}
 
-		/*	if (form.getEmail() != null) {
+		if (form.getEmail() != null) {
 			try {
-				/*Assert.isTrue(
+				Assert.isTrue(
 						this.actorService.checkEmail(form.getEmail(), "ADMIN"),
-						"actor.email.error");*/
-		/*} catch (Throwable oops) {
+						"actor.email.error");
+
+			} catch (Throwable oops) {
 				binding.rejectValue("email", "email.error");
 			}
-		}*/
+		}
 
 		return res;
 	}
@@ -432,8 +450,8 @@ public class AdministratorService {
 		Collection<Company> allCompanies;
 		Actor principal;
 		Collection<Integer> scoresAuditedPerCompany;
-		
-		
+
+
 		double result;
 		principal = this.actorService.findByPrincipal();
 

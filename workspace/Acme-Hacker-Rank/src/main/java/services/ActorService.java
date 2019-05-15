@@ -115,4 +115,8 @@ public class ActorService {
 			result = matcher.matches() ? true : false;
 		return result;
 	}
+
+	public Boolean existsUsername(String username) {
+		return !(this.actorRepository.existsUsername(username) != null);
+	}
 }
