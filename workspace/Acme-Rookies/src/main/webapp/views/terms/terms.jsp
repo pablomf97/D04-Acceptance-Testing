@@ -96,7 +96,7 @@
   
   <body>
 
-<p>Estos T&eacute;rminos y Condiciones Est&aacute;ndar del Sitio Web escritos en esta pagina web gestionaran su uso de nuestro sitio web, Acme Rookies accesible en https://www.Acme-Rookies-Rank.com.</p>
+<p>Estos T&eacute;rminos y Condiciones Est&aacute;ndar del Sitio Web escritos en esta pagina web gestionaran su uso de nuestro sitio web, Acme Rookies accesible en https://www.Acme-Rookies.com.</p>
 
 <p>Estos Terminos se aplicaran en su totalidad y afectar&aacute;n al uso que usted haga de este sitio web. Al utilizar este sitio web, usted acepta todos los terminos y condiciones aqu&iacute; escritos. Usted no debe usar este sitio web si no est&aacute; de acuerdo con alguno de estos Terminos y Condiciones Estandar del sitio web. Nuestros Terminos y Condiciones han sido generados en la Plantilla de T&eacute;rminos y Condiciones y en la Plantilla de Politica de Privacidad.</p>
 

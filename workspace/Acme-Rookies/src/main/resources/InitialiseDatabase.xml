@@ -29,14 +29,14 @@
 	<!-- SYSTEM CONFIGURATION -->
 
 	<bean id="sysConf" class="domain.SystemConfiguration">
-		<property name="systemName" value="Acme Rookie Rank" />
+		<property name="systemName" value="Acme Rookie" />
 		<property name="welcomeMessage">
 			<util:map id="utilmap0" map-class="java.util.HashMap"
 				key-type="java.lang.String" value-type="java.lang.String">
 				<entry key="Español"
-					value="“¡Bien-venidos a Acme Rookie Rank!¡Somos el mercado de trabajo favorito de los profesionales de las TICs!" />
+					value="“¡Bien-venidos a Acme Rookie!¡Somos el mercado de trabajo favorito de los profesionales de las TICs!" />
 				<entry key="English"
-					value="Welcome to Acme rookie Rank! We're IT rookie’s favourite job marketplace!" />
+					value="Welcome to Acme Rookie! We're IT rookie’s favourite job marketplace!" />
 			</util:map>
 		</property>
 		<property name="breachNotification">

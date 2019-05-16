@@ -20,5 +20,5 @@
 								code="terms" /></a></div>
 								
 <b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" />
-	Acme-Rookie Co., Inc.
+	Acme-Rookies Co., Inc.
 </b>
