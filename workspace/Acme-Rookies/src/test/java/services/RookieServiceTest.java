@@ -35,10 +35,10 @@ public class RookieServiceTest extends AbstractTest {
 	 * Total coverage by exclusively executing this test class
 	 * 
 	 * 
-	 * Coverage of the total project (%):
+	 * Coverage of the total project (%):7.9	
 	 * 
 	 * 
-	 * Coverage of the total project (lines of codes):
+	 * Coverage of the total project (lines of codes):3134
 	 */
 
 	// System under test ---------------------------------------
@@ -65,7 +65,7 @@ public class RookieServiceTest extends AbstractTest {
 				{ "rookieT", null, "rookieT", "rookieT", "ES12345678",
 						"https://www.foto.com", "rookieT@rookieT.rookieT",
 						"666666666", "c/ rookieT", "rookieT", "VISA",
-						"4111111111111111", 02, 22, 123, null },
+						"4111111111111111", 02, 22, 123, NullPointerException.class},
 				{ "rookieT", "rookieT", "rookieT", "rookieT", null,
 						"https://www.foto.com", "rookieT@rookieT.rookieT",
 						"666666666", "c/ rookieT", "rookieT", "VISA",
@@ -74,7 +74,7 @@ public class RookieServiceTest extends AbstractTest {
 				{ "rookieT", "rookieT", "rookieT", "rookieT", "ES12345678",
 						null, "rookieT@rookieT.rookieT", "666666666",
 						"c/ rookieT", "rookieT", "VISA", "4111111111111111",
-						02, 22, 123, IllegalArgumentException.class },
+						02, 22, 123, NullPointerException.class },
 				{ "rookieT", "rookieT", "rookieT", "rookieT", "ES12345678",
 						"https://www.foto.com", null, "666666666",
 						"c/ rookieT", "rookieT", "VISA", "4111111111111111",
@@ -82,7 +82,7 @@ public class RookieServiceTest extends AbstractTest {
 				{ "rookieT", "rookieT", "rookieT", "rookieT", "ES12345678",
 						"https://www.foto.com", "rookieT@rookieT.rookieT",
 						"666666666", "c/ rookieT", null, null, null, null,
-						null, null, ValidationException.class } };
+						null, null, NullPointerException.class } };
 
 		for (int i = 0; i < testingData.length; i++) {
 			template((String) testingData[i][0], (String) testingData[i][1],

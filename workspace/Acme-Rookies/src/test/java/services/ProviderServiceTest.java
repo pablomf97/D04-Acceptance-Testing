@@ -65,7 +65,7 @@ public class ProviderServiceTest extends AbstractTest{
 				{ "providerT", null, "providerT", "providerT", "ES12345678",
 						"https://www.foto.com", "providerT@providerT.providerT",
 						"666666666", "c/ providerT", "providerT", "providerT",
-						"VISA", "4111111111111111", 02, 22, 123, null },
+						"VISA", "4111111111111111", 02, 22, 123, NullPointerException.class },
 				{ "providerT", "providerT", "providerT", "providerT", null,
 						"https://www.foto.com", "providerT@providerT.providerT",
 						"666666666", "c/ providerT", "providerT", "providerT",
@@ -75,7 +75,7 @@ public class ProviderServiceTest extends AbstractTest{
 						null, "providerT@providerT.providerT", "666666666",
 						"c/ providerT", "providerT", "providerT", "VISA",
 						"4111111111111111", 02, 22, 123,
-						IllegalArgumentException.class },
+						NullPointerException.class },
 				{ "providerT", "providerT", "providerT", "providerT", "ES12345678",
 						"https://www.foto.com", null, "666666666",
 						"c/ providerT", "providerT", "providerT", "VISA",
@@ -84,7 +84,7 @@ public class ProviderServiceTest extends AbstractTest{
 				{ "providerT", "providerT", "providerT", "providerT", "ES12345678",
 						"https://www.foto.com", "providerT@providerT.providerT",
 						"666666666", "c/ providerT", "providerT", null, null,
-						null, null, null, null, ValidationException.class } };
+						null, null, null, null, NullPointerException.class } };
 
 		for (int i = 0; i < testingData.length; i++) {
 			template((String) testingData[i][0], (String) testingData[i][1],
@@ -180,7 +180,7 @@ public class ProviderServiceTest extends AbstractTest{
 						"provider1@provider1.provider1", "666666666",
 						"c/ provider1", "provider1", "provider1", "VISA",
 						"4111111111111111", 02, 22, 123,
-						IllegalArgumentException.class },
+						null},
 				{ "provider1", "provider1", "provider1", "ES12345678",
 						"https://www.foto.com", null, "666666666",
 						"c/ provider1", "provider1", "provider1", "VISA",
@@ -188,7 +188,7 @@ public class ProviderServiceTest extends AbstractTest{
 						NullPointerException.class },
 				{ "provider1", "provider1", "provider1", "ES12345678",
 						"https://www.foto.com", "provider1@provider1.provider1",
-						"666666666", "c/ admin", "provider1", null, null, null,
+						"666666666", "c/admin", "provider1", null, null, null,
 						null, null, null, ValidationException.class } };
 
 		for (int i = 0; i < editionTestingData.length; i++) {

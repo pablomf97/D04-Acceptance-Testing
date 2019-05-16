@@ -2,6 +2,7 @@ package services;
 
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
+import javax.validation.constraints.Null;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,10 +36,10 @@ public class CompanyServiceTest extends AbstractTest {
 	 * Total coverage by exclusively executing this test class
 	 * 
 	 * 
-	 * Coverage of the total project (%):
+	 * Coverage of the total project (%): 8.0
 	 * 
 	 * 
-	 * Coverage of the total project (lines of codes):
+	 * Coverage of the total project (lines of codes):3193
 	 */
 
 	// System under test ---------------------------------------
@@ -65,7 +66,7 @@ public class CompanyServiceTest extends AbstractTest {
 				{ "companyT", null, "companyT", "companyT", "ES12345678",
 						"https://www.foto.com", "companyT@companyT.companyT",
 						"666666666", "c/ companyT", "companyT", "companyT",
-						"VISA", "4111111111111111", 02, 22, 123, null },
+						"VISA", "4111111111111111", 02, 22, 123, NullPointerException.class },
 				{ "companyT", "companyT", "companyT", "companyT", null,
 						"https://www.foto.com", "companyT@companyT.companyT",
 						"666666666", "c/ companyT", "companyT", "companyT",
@@ -75,7 +76,8 @@ public class CompanyServiceTest extends AbstractTest {
 						null, "companyT@companyT.companyT", "666666666",
 						"c/ companyT", "companyT", "companyT", "VISA",
 						"4111111111111111", 02, 22, 123,
-						IllegalArgumentException.class },
+						NullPointerException.class },
+						
 				{ "companyT", "companyT", "companyT", "companyT", "ES12345678",
 						"https://www.foto.com", null, "666666666",
 						"c/ companyT", "companyT", "companyT", "VISA",
@@ -84,7 +86,7 @@ public class CompanyServiceTest extends AbstractTest {
 				{ "companyT", "companyT", "companyT", "companyT", "ES12345678",
 						"https://www.foto.com", "companyT@companyT.companyT",
 						"666666666", "c/ companyT", "companyT", null, null,
-						null, null, null, null, ValidationException.class } };
+						null, null, null, null, NullPointerException.class } };
 
 		for (int i = 0; i < testingData.length; i++) {
 			template((String) testingData[i][0], (String) testingData[i][1],
@@ -180,16 +182,16 @@ public class CompanyServiceTest extends AbstractTest {
 						"company1@company1.company1", "666666666",
 						"c/ company1", "company1", "company1", "VISA",
 						"4111111111111111", 02, 22, 123,
-						IllegalArgumentException.class },
+						null},
 				{ "company1", "company1", "company1", "ES12345678",
 						"https://www.foto.com", null, "666666666",
 						"c/ company1", "company1", "company1", "VISA",
 						"4111111111111111", 02, 22, 123,
-						NullPointerException.class },
+						NullPointerException.class},
 				{ "company1", "company1", "company1", "ES12345678",
 						"https://www.foto.com", "company1@company1.company1",
 						"666666666", "c/ admin", "company1", null, null, null,
-						null, null, null, ValidationException.class } };
+						null, null, null, ValidationException.class} };
 
 		for (int i = 0; i < editionTestingData.length; i++) {
 			templateEdit((String) editionTestingData[i][0],
