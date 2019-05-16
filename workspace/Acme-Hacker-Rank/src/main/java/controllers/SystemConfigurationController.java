@@ -1,5 +1,8 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,18 +118,24 @@ public class SystemConfigurationController extends AbstractController {
 			@RequestParam("nameES") final String nameES,
 			@RequestParam("nameEN") final String nameEN,
 			@RequestParam("nEs") final String nEs,
-			@RequestParam("nEn") final String nEn, final BindingResult binding) {
+			@RequestParam("nEn") final String nEn, BindingResult binding) {
 		ModelAndView res;
+		Collection<String> errMessages = new ArrayList<>();
+		SystemConfiguration sysConfig;
+		Map<SystemConfiguration, Collection<String>> wA = new HashMap<>();
 
-		systemConfiguration = this.systemConfigurationService.reconstruct(
-				systemConfiguration, nameES, nameEN, nEs, nEn, binding);
+		wA = this.systemConfigurationService.reconstructWA(systemConfiguration,
+				nameES, nameEN, nEs, nEn, binding);
+
+		sysConfig = wA.keySet().iterator().next();
+		errMessages = wA.get(sysConfig);
 
 		if (binding.hasErrors()) {
 			res = new ModelAndView("sysConfig/edit");
 
-			res.addObject("sysConfig", systemConfiguration);
-			res.addObject("binding", binding);
-			// res = this.createEditModelAndView(systemConfiguration);
+			res.addObject("sysConfig",
+					this.systemConfigurationService.findMySystemConfiguration());
+			res.addObject("errMessages", errMessages);
 		} else
 			try {
 

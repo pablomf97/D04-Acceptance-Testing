@@ -16,10 +16,10 @@
 		modelAttribute="sysConfig" methodParam="post">
 
 		<form:hidden path="id" />
+		<form:hidden path="version" />
 		<form:hidden path="alreadyRebranded" />
 
-		<acme:textbox code="system.name" path="systemName"
-			readonly="${sysConfig.alreadyRebranded}" />
+		<acme:textbox code="system.name" path="systemName" />
 		<br>
 		<br>
 
@@ -99,6 +99,15 @@
 			url="sysconfig/administrator/display.do" />
 		<br />
 		<br />
+
+		<jstl:if test="${not empty errMessages}">
+			<jstl:forEach items="${errMessages}" var="err">
+				<div class="error">
+					<spring:message code="${err}" />
+					<br />
+				</div>
+			</jstl:forEach>
+		</jstl:if>
 	</form:form>
 
 </security:authorize>
