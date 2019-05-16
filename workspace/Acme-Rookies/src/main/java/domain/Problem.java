@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -34,6 +35,7 @@ public class Problem extends DomainEntity {
 	}
 
 	@NotBlank
+	@Length(max=510)
 	public String getStatement() {
 		return statement;
 	}
@@ -42,6 +44,7 @@ public class Problem extends DomainEntity {
 		this.statement = statement;
 	}
 
+	@Length(max=510)
 	public String getOptionalHint() {
 		return optionalHint;
 	}
@@ -51,6 +54,7 @@ public class Problem extends DomainEntity {
 	}
 
 	@NotBlank
+	@Length(max=255)
 	public String getAttachments() {
 		return attachments;
 	}

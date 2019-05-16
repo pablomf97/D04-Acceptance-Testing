@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -55,6 +56,7 @@ public class Position extends DomainEntity {
 	}
 
 	@NotBlank
+	@Length(max=510)
 	public String getDescription() {
 		return this.description;
 	}
@@ -84,6 +86,7 @@ public class Position extends DomainEntity {
 	}
 
 	@NotBlank
+	@Length(max=510)
 	public String getTechnologiesRequired() {
 		return this.technologiesRequired;
 	}
@@ -111,6 +114,7 @@ public class Position extends DomainEntity {
 	}
 
 	@NotBlank
+	@Length(max=510)
 	public String getSkillsRequired() {
 		return this.skillsRequired;
 	}
