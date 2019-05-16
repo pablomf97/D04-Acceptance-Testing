@@ -15,6 +15,9 @@
 		<form:hidden path="id" />
 		<form:hidden path="isDraft" />
 		<form:hidden path="isCancelled" />
+		<jstl:out value="${empty position.problems }">
+			<form:hidden path="problems" />
+		</jstl:out>
 
 		<form:label path="title">
 			<spring:message code="position.title" />:*</form:label>

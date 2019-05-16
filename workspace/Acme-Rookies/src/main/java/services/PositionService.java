@@ -51,10 +51,10 @@ public class PositionService {
 	private AuditService				auditService;
 
 	@Autowired
-	private SponsorshipService	sponsorshipService;
-	
+	private SponsorshipService			sponsorshipService;
+
 	@Autowired
-	private CreditCardService creditCardService;
+	private CreditCardService			creditCardService;
 
 	@Autowired
 	private SystemConfigurationService	sysConfigService;
@@ -181,8 +181,8 @@ public class PositionService {
 	public Position reconstruct(final Position position, final BindingResult binding) {
 		final Actor principal = this.actorService.findByPrincipal();
 		final Position result = this.create(principal);
-		if (position.getProblems().contains(null))
-			position.getProblems().remove(null);
+		//		if (position.getProblems().contains(null) && !position.getProblems().isEmpty())
+		//			position.getProblems().remove(null);
 
 		if (position.getId() == 0) {
 			result.setIsCancelled(false);
@@ -197,10 +197,11 @@ public class PositionService {
 			if (position.getProblems() != null)
 				result.setProblems(position.getProblems());
 		}
-		result.setDeadline(position.getDeadline());
+
 		result.setDescription(position.getDescription());
 		result.setIsDraft(position.getIsDraft());
 		result.setProfileRequired(position.getProfileRequired());
+		result.setDeadline(position.getDeadline());
 
 		result.setSalary(position.getSalary());
 		result.setSkillsRequired(position.getSkillsRequired());
@@ -371,19 +372,17 @@ public class PositionService {
 	public String randomBanner(final Collection<Sponsorship> sponsorships) {
 		String result;
 		final SecureRandom rnd = new SecureRandom();
-		List<Sponsorship> listSponsoships = new ArrayList<>(sponsorships);
-		List<Sponsorship> listAux = new ArrayList<>(listSponsoships);
-		
-		for(Sponsorship s: listAux) {
+		final List<Sponsorship> listSponsoships = new ArrayList<>(sponsorships);
+		final List<Sponsorship> listAux = new ArrayList<>(listSponsoships);
+
+		for (final Sponsorship s : listAux)
 			try {
-				if(this.creditCardService.checkIfExpired(s.getCreditCard().getExpirationMonth(), s.getCreditCard().getExpirationYear())) {
-					  listSponsoships.remove(s);
-				}
-			} catch (ParseException e) {
+				if (this.creditCardService.checkIfExpired(s.getCreditCard().getExpirationMonth(), s.getCreditCard().getExpirationYear()))
+					listSponsoships.remove(s);
+			} catch (final ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
 
 		Integer a = (rnd.nextInt() % 10);
 		while (a < 0 || a > (sponsorships.size() - 1))
