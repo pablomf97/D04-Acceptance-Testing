@@ -9,8 +9,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
-<security:authorize access="!hasRole('PROVIDER')">
-
 	<jstl:choose>
 		<jstl:when test="${permission}">
 			<h1><spring:message	code="item.title.list" /></h1>
@@ -45,4 +43,3 @@
 			</p>
 		</jstl:otherwise>
 	</jstl:choose>
-</security:authorize>
