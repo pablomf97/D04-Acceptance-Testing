@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- * InitialiseDatabase.xml * * Copyright (C) 2019 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from http://www.tdg-seville.info/License.html -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+
+
+
+	<bean id="administrator1" class="domain.Administrator">
+		<property name="name" value="José" />
+		<property name="surname" value="Gamiz Redondo" />
+		<property name="VAT" value="ES12345678" />
+		<property name="photo"
+			value="https://ih1.redbubble.net/image.376305132.3400/flat,550x550,075,f.u1.jpg" />
+		<property name="email" value="josgamred@mail.com" />
+		<property name="phoneNumber" value="+34611987654" />
+		<property name="address" value="C/ Atlántica sex, 1 (Málaga)" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAdmin1" />
+	</bean>
+
+	<!-- SYSTEM CONFIGURATION -->
+
+	<bean id="sysConf" class="domain.SystemConfiguration">
+		<property name="systemName" value="Acme Rookie" />
+		<property name="welcomeMessage">
+			<util:map id="utilmap0" map-class="java.util.HashMap"
+				key-type="java.lang.String" value-type="java.lang.String">
+				<entry key="Español"
+					value="“¡Bien-venidos a Acme Rookie!¡Somos el mercado de trabajo favorito de los profesionales de las TICs!" />
+				<entry key="English"
+					value="Welcome to Acme Rookie! We're IT rookie’s favourite job marketplace!" />
+			</util:map>
+		</property>
+		<property name="breachNotification">
+			<util:map id="utilmap10" map-class="java.util.HashMap"
+				key-type="java.lang.String" value-type="java.lang.String">
+				<entry key="Español" value="" />
+				<entry key="English" value="" />
+			</util:map>
+		</property>
+		<property name="banner" value="https://i.imgur.com/7b8lu4b.png" />
+		<property name="countryCode" value="+034" />
+		<property name="timeResultsCached" value="1" />
+		<property name="maxResults" value="10" />
+	</bean>
+	<!-- CREDIT CARD -->
+
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holder" value="José Gamiz Redondo" />
+		<property name="make" value="VISA" />
+		<property name="number" value="1111222233334444" />
+		<property name="expirationMonth" value="07" />
+		<property name="expirationYear" value="22" />
+		<property name="CVV" value="123" />
+	</bean>
+	<!-- User accounts -->
+
+	<bean id="userAdmin1" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+</beans>
