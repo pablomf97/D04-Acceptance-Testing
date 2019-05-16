@@ -4,6 +4,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
@@ -19,6 +20,7 @@ public class Company extends Actor {
 	// Getters and setters
 
 	@NotBlank
+	@Length(max=255)
 	public String getCommercialName() {
 		return commercialName;
 	}

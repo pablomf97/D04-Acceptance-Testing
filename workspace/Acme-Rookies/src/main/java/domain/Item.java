@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -42,6 +43,7 @@ public class Item extends DomainEntity {
 	}
 
 	@NotBlank
+	@Length(max=510)
 	public String getLinks() {
 		return links;
 	}
@@ -50,6 +52,7 @@ public class Item extends DomainEntity {
 		this.links = links;
 	}
 
+	@Length(max=510)
 	public String getPictures() {
 		return pictures;
 	}

@@ -10,6 +10,7 @@ import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
@@ -87,6 +88,7 @@ public class Actor extends DomainEntity {
 		this.phoneNumber = phoneNumber;
 	}
 
+	@Length(max=255)
 	public String getAddress() {
 		return address;
 	}

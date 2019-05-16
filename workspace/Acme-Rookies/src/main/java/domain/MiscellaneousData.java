@@ -4,6 +4,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
@@ -19,6 +20,7 @@ public class MiscellaneousData extends DomainEntity implements Cloneable {
 	// Getters and setters
 
 	@NotBlank
+	@Length(max=510)
 	public String getText() {
 		return text;
 	}
@@ -28,6 +30,7 @@ public class MiscellaneousData extends DomainEntity implements Cloneable {
 	}
 
 	@URL
+	@Length(max=510)
 	public String getAttachements() {
 		return attachements;
 	}

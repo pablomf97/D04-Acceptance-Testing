@@ -11,6 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -28,6 +29,7 @@ public class Finder extends DomainEntity {
 
 	// Getters and setters
 
+	@Length(max=255)
 	public String getKeyWord() {
 		return keyWord;
 	}
