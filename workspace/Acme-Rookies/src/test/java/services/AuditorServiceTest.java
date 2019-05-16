@@ -65,7 +65,7 @@ public class AuditorServiceTest extends AbstractTest{
 				{ "auditorT", null, "auditorT", "auditorT", "ES12345678",
 						"https://www.foto.com", "auditorT@auditorT.auditorT",
 						"666666666", "c/ auditorT", "auditorT", "VISA",
-						"4111111111111111", 02, 22, 123, null },
+						"4111111111111111", 02, 22, 123, NullPointerException.class },
 				{ "auditorT", "auditorT", "auditorT", "auditorT", null,
 						"https://www.foto.com", "auditorT@auditorT.auditorT",
 						"666666666", "c/ auditorT", "auditorT", "VISA",
@@ -74,7 +74,7 @@ public class AuditorServiceTest extends AbstractTest{
 				{ "auditorT", "auditorT", "auditorT", "auditorT", "ES12345678",
 						null, "auditorT@auditorT.auditorT", "666666666",
 						"c/ auditorT", "auditorT", "VISA", "4111111111111111",
-						02, 22, 123, IllegalArgumentException.class },
+						02, 22, 123, NullPointerException.class },
 				{ "auditorT", "auditorT", "auditorT", "auditorT", "ES12345678",
 						"https://www.foto.com", null, "666666666",
 						"c/ auditorT", "auditorT", "VISA", "4111111111111111",
@@ -82,7 +82,7 @@ public class AuditorServiceTest extends AbstractTest{
 				{ "auditorT", "auditorT", "auditorT", "auditorT", "ES12345678",
 						"https://www.foto.com", "auditorT@auditorT.auditorT",
 						"666666666", "c/ auditorT", null, null, null, null,
-						null, null, ValidationException.class } };
+						null, null, NullPointerException.class } };
 
 		for (int i = 0; i < testingData.length; i++) {
 			template((String) testingData[i][0], (String) testingData[i][1],

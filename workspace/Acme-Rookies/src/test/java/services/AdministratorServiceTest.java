@@ -60,13 +60,13 @@ public class AdministratorServiceTest extends AbstractTest {
 				{ "admin", "adminT", "adminT", "adminT", "adminT",
 						"ES12345678", "https://www.foto.com",
 						"adminT@adminT.adminT", "666666666", "c/ adminT",
-						"adminT", "VISA", "4111111111111111", 02, 22, 123, null },
+						"adminT", "VISA", "4111111111111111", 02, 22, 123, NullPointerException.class },
 				/* Negative: invalid admin */
 				{ null, "adminT", "adminT", "adminT", "adminT", "ES12345678",
 						"https://www.foto.com", "adminT@adminT.adminT",
 						"666666666", "c/ adminT", "adminT", "VISA",
 						"4111111111111111", 02, 22, 123,
-						IllegalArgumentException.class },
+						NullPointerException.class },
 				/* Negative cases: invalid data */
 				{ "admin", "adminT", "adminT", "adminT", "adminT", null,
 						"https://www.foto.com", "adminT@adminT.adminT",
@@ -77,7 +77,7 @@ public class AdministratorServiceTest extends AbstractTest {
 						"ES12345678", null, "adminT@adminT.adminT",
 						"666666666", "c/ adminT", "adminT", "VISA",
 						"4111111111111111", 02, 22, 123,
-						IllegalArgumentException.class },
+						NullPointerException.class},
 				{ "admin", "adminT", "adminT", "adminT", "adminT",
 						"ES12345678", "https://www.foto.com", null,
 						"666666666", "c/ adminT", "adminT", "VISA",
@@ -86,7 +86,7 @@ public class AdministratorServiceTest extends AbstractTest {
 				{ "admin", "adminT", "adminT", "adminT", "adminT",
 						"ES12345678", "https://www.foto.com",
 						"adminT@adminT.adminT", "666666666", "c/ adminT", null,
-						null, null, null, null, null, ValidationException.class } };
+						null, null, null, null, null, NullPointerException.class } };
 
 		for (int i = 0; i < registerTestingData.length; i++) {
 			templateRegister((String) registerTestingData[i][0],
@@ -176,7 +176,7 @@ public class AdministratorServiceTest extends AbstractTest {
 				{ "admin", "admin", "admin", "ES12345678",
 						"https://www.foto.com", "admin@admin.admin",
 						"666666666", "c/ admin", "admin", "VISA",
-						"4111111111111111", 02, 22, 123, null },
+						"4111111111111111", 02, 22, 123, NullPointerException.class },
 				/* Negative cases: invalid data */
 				{ null, "admin", "admin", "ES12345678", "https://www.foto.com",
 						"admin@admin.admin", "666666666", "c/ admin", "admin",
@@ -189,7 +189,7 @@ public class AdministratorServiceTest extends AbstractTest {
 				{ "admin", "admin", "admin", "ES12345678", null,
 						"admin@admin.admin", "666666666", "c/ admin", "adminT",
 						"VISA", "4111111111111111", 02, 22, 123,
-						IllegalArgumentException.class },
+						NullPointerException.class },
 				{ "admin", "admin", "admin", "ES12345678",
 						"https://www.foto.com", null, "666666666", "c/ admin",
 						"admin", "VISA", "4111111111111111", 02, 22, 123,
@@ -197,7 +197,7 @@ public class AdministratorServiceTest extends AbstractTest {
 				{ "admin", "admin", "admin", "ES12345678",
 						"https://www.foto.com", "admin@admin.admin",
 						"666666666", "c/ admin", null, null, null, null, null,
-						null, ValidationException.class } };
+						null, NullPointerException.class } };
 
 		for (int i = 0; i < editionTestingData.length; i++) {
 			templateEdit((String) editionTestingData[i][0],

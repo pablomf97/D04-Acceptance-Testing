@@ -39,7 +39,27 @@ public class ProblemServiceTest extends AbstractTest {
 	private Company			company;
 	private Boolean			isDraft;
 
-
+	
+	/*
+	 * Total coverage of all tests
+	 * 
+	 * 
+	 * Coverage of the total project (%):
+	 * 
+	 * 
+	 * Coverage of the total project (lines of codes):
+	 * 
+	 * ################################################################
+	 * 
+	 * Total coverage by exclusively executing this test class
+	 * 
+	 * 
+	 * Coverage of the total project (%): 4.5
+	 * 
+	 * 
+	 * Coverage of the total project (lines of codes):1811
+	 */
+	
 	@Test
 	public void driver() {
 		final Object testingData[][] = {
